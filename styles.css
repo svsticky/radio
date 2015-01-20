@@ -14,6 +14,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
+  padding:0;
 }
 
 
@@ -32,5 +34,31 @@ body {
 }
 #newsfeed {
   order: 99;
-  background-color: red;
+  background-color: yellow;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+#newsfeed > ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.newsitem {
+  padding: 0;
+  margin: 0;
+}
+.logo {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+li {
+  height: 50px;
+}
+
+img {
+  height: 50px;
 }
