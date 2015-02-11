@@ -1,0 +1,102 @@
+body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+}
+.radio {
+  position: relative;
+  padding: 0;
+  height: 720px;
+  width: 1280px;
+  display: flex;
+  overflow: hidden;
+  background-color: black;
+  z-index: -2;
+}
+
+.calendar {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: white;
+  text-shadow: 2px 2px black;
+}
+.right {
+  flex: 1;
+}
+.event {
+  padding: 15px;
+}
+
+.event h1 {
+  margin: 0;
+}
+.event.selected {
+  box-shadow: inset 26px 0px 53px -15px rgba(252,231,0,1);
+}
+.posters {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  list-style: none;
+  width: 509px;
+}
+.poster {
+  left: 0;
+  right: 0;
+  width: 509px;
+  height: 720px;
+  background-color: blue;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.poster > img {
+  height: 720px;
+  width: 509px;
+}
+.poster.selected {
+  opacity:1;
+}
+
+.sticky {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100px;
+  padding: 10px;
+}
+.background {
+  z-index: -1;
+  opacity:0;
+  position: absolute;
+  margin: 0;
+  list-style: none;
+  top: -100px;
+  bottom: -100px;
+  left: -100px;
+  right: -100px;
+  overflow: hidden;
+  -webkit-filter: blur(10px);
+  transition: opacity 3s ease-in-out;
+}
+.background.selected {
+  opacity:1;
+}
+.background img {
+  width: 100%;
+  opacity: 0.7;
+  transition: opacity 3s ease-in-out;
+}
+.background.selected img {
+  opacity:0.7;
+}

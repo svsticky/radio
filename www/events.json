@@ -1,0 +1,30 @@
+[
+  {
+    "name":"Excursie DOMunder",
+    "date": "2015-2-9",
+    "startTime":"16:00",
+    "endTime":"19:00",
+    "poster": "slides/anonymit.png"
+  },
+  {
+    "name":"Gala",
+    "date": "2015-2-12",
+    "startTime":"22:30",
+    "endTime":"02:30",
+    "poster": "slides/pimp.png"
+  },
+  {
+    "name":"Excursie DOMunder",
+    "date": "2015-2-9",
+    "startTime":"16:00",
+    "endTime":"19:00",
+    "poster": "slides/anonymit.png"
+  },
+  {
+    "name":"Gala",
+    "date": "2015-2-12",
+    "startTime":"22:30",
+    "endTime":"02:30",
+    "poster": "slides/pimp.png"
+  }
+]
