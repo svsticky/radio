@@ -12,7 +12,7 @@
     "date": "2015-2-19",
     "startTime":"15:00",
     "endTime":"17:00",
-    "poster": "poster/quad.jpg"
+    "poster": "posters/quad.jpg"
   },
   {
     "name":"Broertjes en Zusjes Borrel",
@@ -23,8 +23,8 @@
   },
   {
     "name":"Batavierenrace",
-    "date":"2015-04-24"
-    "startTime":"17:00"
-    "poster":"poster/batavieren.jpg"
+    "date":"2015-04-24",
+    "startTime":"17:00",
+    "poster":"posters/batavieren.jpg"
   }
 ]
