@@ -103,11 +103,13 @@ body {
   background: #102A35;
 }
 .posters {
+  width: 70.71vh;
   position: relative;
   list-style: none;
   flex: 1;
 }
 .poster {
+  width: 70.71vh;
   position: absolute;
   right: 0;
   left: 0;
@@ -117,6 +119,7 @@ body {
   transition: opacity 1s ease-in-out;
 }
 .poster > img {
+  width: 70.71vh;
   height: 100%;
 }
 .poster.selected {
