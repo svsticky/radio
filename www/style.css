@@ -84,10 +84,23 @@ body {
 /* Event list
  */
 .event {
-  padding: 15px;
+  padding: 1rem;
+  font-weight: 400;
+  font-size: 1.3rem;
+  font-family: "Open Sans";
+}
+.event h1 {
+  font-family: "Roboto Slab";
+  padding: 1rem 0;
+  font-weight: 700;
+  font-size: 2rem;
+}
+.event p {
+  padding: 1rem 0;
 }
 .event.selected {
-  box-shadow: inset 26px 0px 53px -15px rgba(252,231,0,1);
+  box-shadow: inset #222 0px 0px 15px;
+  background: #102A35;
 }
 .posters {
   position: relative;
