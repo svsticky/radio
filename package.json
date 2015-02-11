@@ -1,32 +1,34 @@
 {
-  "name": "react-hot-boilerplate",
-  "version": "1.0.0",
-  "description": "Boilerplate for ReactJS project with hot code reloading",
+  "name": "sticky-radio",
+  "version": "0.0.8",
+  "description": "Ad and poster display for Study Association Sticky",
   "scripts": {
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "url": "https://github.com/StickyUtrecht/radio.git"
   },
   "keywords": [
     "react",
     "reactjs",
-    "boilerplate",
-    "hot",
     "hot",
     "reload",
     "hmr",
     "live",
     "edit",
-    "webpack"
+    "advertising",
+    "marketing"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Arian van Putten <aeroboy94@gmail.com> (https://github.com/arianvp)",
+  "contributors": [
+    "Laurens Duijvesteijn <l.duijvesteijn@gmail.com> (https://github.com/duijf)"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/StickyUtrecht/radio/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "homepage": "https://radio.stickyutrecht.nl/",
   "devDependencies": {
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
