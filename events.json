@@ -5,27 +5,27 @@
     "startTime":"22:30",
     "location":"Het Vechthuis",
     "endTime":"02:30",
-    "poster": "slides/gala.png"
+    "poster": "posters/gala.png"
   },
   {
     "name":"SICK: Quadrijden met Sogeti",
     "date": "2015-2-19",
     "startTime":"15:00",
     "endTime":"17:00",
-    "poster": "slides/quad.png"
+    "poster": "poster/quad.jpg"
   },
   {
     "name":"Broertjes en Zusjes Borrel",
     "date": "2015-2-19",
     "startTime":"22:30",
     "endTime":"02:30",
-    "poster": "slides/broertjes_zusjes.png"
+    "poster": "posters/broertjes_zusjes.png"
   },
   {
     "name":"Batavierenrace",
     "date":"2015-04-24"
     "startTime":"17:00"
-    "poster":"slides/batavieren.png"
+    "poster":"poster/batavieren.png"
   }
   }
 ]
