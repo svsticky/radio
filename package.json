@@ -34,6 +34,9 @@
     "webpack-dev-server": "1.6.4"
   },
   "dependencies": {
+    "bluebird": "^2.9.8",
+    "color": "^0.7.3",
+    "color-thief": "git://github.com/lokesh/color-thief#master",
     "fynx": "^1.6.0",
     "immutable": "^3.6.2",
     "marty": "^0.8.10",
