@@ -28,13 +28,6 @@ your browser won't be neccessary.
 * [jsx-loader](https://github.com/petehunt/jsx-loader)
 * [react-hot-loader](https://github.com/gaearon/react-hot-loader)
 
-### Resources
-
-* [Demo video](http://vimeo.com/100010922)
-* [react-hot-loader on Github](https://github.com/gaearon/react-hot-loader)
-* [Integrating JSX live reload into your workflow](http://gaearon.github.io/react-hot-loader/)
-* Ping dan_abramov on Twitter or #reactjs IRC
-
 ## Contributing
 
 So you want to contribute? Awesome! You are most welcome to. We do however have our
