@@ -2,3 +2,4 @@
 ._*
 .vagrant
 bower_components/
+*.sw*

@@ -12,11 +12,12 @@ body {
   padding: 0;
 }
 .radio {
+  width: 100%;
+  height: 100%;
   position: relative;
   padding: 0;
-  height: 720px;
-  width: 1280px;
   display: flex;
+  justify-content: center;
   overflow: hidden;
   background-color: black;
   z-index: -2;
@@ -44,25 +45,23 @@ body {
   box-shadow: inset 26px 0px 53px -15px rgba(252,231,0,1);
 }
 .posters {
+  flex: 1;
   padding: 0;
   margin: 0;
   position: relative;
   list-style: none;
-  width: 509px;
 }
 .poster {
   left: 0;
   right: 0;
-  width: 509px;
-  height: 720px;
+  height: 100%;
   background-color: blue;
   position: absolute;
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
 .poster > img {
-  height: 720px;
-  width: 509px;
+  height: 100%;
 }
 .poster.selected {
   opacity:1;
