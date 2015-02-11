@@ -44,12 +44,7 @@ over the process greatly.
 ### Branching strategy
 
 The history of this project includes a lot of unnecessary merge commits, which aren't
-that pretty. Currently we have a contributing procedure that needs to be followed.
-
-Rest assured it is easy. It is based on one simple rule: **Only @martijncasteel is
-allowed to push to `master`.** And he should only do that in case of a merge conflict.
-
-This leaves us with the following workflow:
+that pretty. Currently we have a contributing procedure that needs to be followed:
 
 1. Want to work on something? Create a topic branch.
 1. Push the topic branch to GitHub when you want to show something.
