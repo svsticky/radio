@@ -60,8 +60,6 @@ body {
   left: 0;
   bottom: 0;
   right: 0;
-  margin: 0;
-  padding: 0;
 }
 .radio {
   width: 100%;
@@ -77,8 +75,6 @@ body {
 
 .calendar {
   flex: 1;
-  margin: 0;
-  padding: 0;
   list-style: none;
   color: white;
   text-shadow: 2px 2px black;
@@ -90,16 +86,11 @@ body {
   padding: 15px;
 }
 
-.event h1 {
-  margin: 0;
-}
 .event.selected {
   box-shadow: inset 26px 0px 53px -15px rgba(252,231,0,1);
 }
 .posters {
   flex: 1;
-  padding: 0;
-  margin: 0;
   position: relative;
   list-style: none;
 }
@@ -130,7 +121,6 @@ body {
   z-index: -1;
   opacity:0;
   position: absolute;
-  margin: 0;
   list-style: none;
   top: -100px;
   bottom: -100px;
