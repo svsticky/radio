@@ -1,4 +1,3 @@
-
 const React = require('react/addons');
 const Marty = require('marty');
 
@@ -13,23 +12,53 @@ const Calendar = React.createClass({
           if (this.props.currentEvent == i) {
             classString += " selected";
           }
+          var days = new Array(
+            "Zondag",
+            "Maandag",
+            "Dinsdag",
+            "Woensdag",
+            "Donderdag",
+            "Vrijdag",
+            "Zaterdag"
+          );
+          var months = new Array(
+            "januari",
+            "februari",
+            "maart",
+            "april",
+            "mei",
+            "juni",
+            "juli",
+            "augustus",
+            "september",
+            "oktober",
+            "november",
+            "december"
+          );
+          var date = new Date(e.date);
+          var dateOutput = [
+            days[date.getDay()],
+            date.getDate(),
+            months[date.getMonth()],
+            date.getFullYear()
+          ].join(" ");
           return (
             <li className={classString}>
-              <h1>{e.name}</h1>
-              <h2>{e.date}</h2>
-              <p>{e.startTime} - {e.endTime}</p>
+              <h1 className="title">{e.name} </h1>
+              <h2 className="date">{dateOutput} { e.location ? ("@ " + e.location) : null }</h2>
+              <p className="time">{e.startTime} { e.endTime ? ('- ' + e.endTime) : null }</p>
             </li>
           );
         })}
       </ul>
-    ); 
+    );
   }
 });
 
 const Posters = React.createClass({
   render() {
     return (
-      <ul className="posters"> 
+      <ul className="posters">
         {this.props.posters.map((e,i) => {
           var classString = "poster";
           if (this.props.currentPoster == i) {
@@ -67,7 +96,7 @@ const App = React.createClass({
     }
     var posters = this.state.events.map((e)=>e.poster);
     return (
-      <section className="radio"> 
+      <section className="radio">
         {posters.map((e,i) => {
           var classString = "background";
           if (this.state.currentEvent == i) {
