@@ -99,8 +99,7 @@ body {
   padding: 1rem 0;
 }
 .event.selected {
-  box-shadow: inset #222 0px 0px 15px;
-  background: #102A35;
+  background: rgba(98, 106, 110, 0.40);
 }
 .posters {
   position: relative;
