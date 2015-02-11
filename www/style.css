@@ -1,68 +1,123 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,800italic,400,600,700,800);
+
+/* Resets
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font: inherit;
+  font-size: 100%;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
 body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+/* Layout
+ */
+body {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
 }
 .radio {
   position: relative;
-  padding: 0;
-  height: 720px;
-  width: 1280px;
+  z-index: -2;
   display: flex;
   overflow: hidden;
-  background-color: black;
-  z-index: -2;
-}
-
-.calendar {
-  flex: 1;
-  margin: 0;
   padding: 0;
-  list-style: none;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  justify-content: center;
+}
+.calendar {
   color: white;
+  list-style: none;
   text-shadow: 2px 2px black;
+  flex: 1;
 }
 .right {
   flex: 1;
 }
-.event {
-  padding: 15px;
-}
 
+/* Event list
+ */
+.event {
+  padding: 1rem;
+  font-weight: 400;
+  font-size: 1.3rem;
+  font-family: "Open Sans";
+}
 .event h1 {
-  margin: 0;
+  font-family: "Roboto Slab";
+  padding: 1rem 0;
+  font-weight: 700;
+  font-size: 2rem;
+}
+.event p {
+  padding: 1rem 0;
 }
 .event.selected {
-  box-shadow: inset 26px 0px 53px -15px rgba(252,231,0,1);
+  box-shadow: inset #222 0px 0px 15px;
+  background: #102A35;
 }
 .posters {
-  padding: 0;
-  margin: 0;
   position: relative;
   list-style: none;
-  width: 509px;
+  flex: 1;
 }
 .poster {
-  left: 0;
-  right: 0;
-  width: 509px;
-  height: 720px;
-  background-color: blue;
   position: absolute;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-color: blue;
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
 .poster > img {
-  height: 720px;
-  width: 509px;
+  height: 100%;
 }
 .poster.selected {
   opacity:1;
@@ -70,22 +125,21 @@ body {
 
 .sticky {
   position: absolute;
-  bottom: 0;
   right: 0;
-  height: 100px;
+  bottom: 0;
   padding: 10px;
+  height: 100px;
 }
 .background {
-  z-index: -1;
-  opacity:0;
   position: absolute;
-  margin: 0;
-  list-style: none;
   top: -100px;
+  right: -100px;
   bottom: -100px;
   left: -100px;
-  right: -100px;
+  z-index: -1;
   overflow: hidden;
+  list-style: none;
+  opacity:0;
   -webkit-filter: blur(10px);
   transition: opacity 3s ease-in-out;
 }

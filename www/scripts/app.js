@@ -84,7 +84,7 @@ const App = React.createClass({
 
         <Calendar currentEvent={this.state.currentEvent} events={this.state.events} />
         <Posters currentPoster={this.state.currentEvent} posters={posters} />
-        <img className="sticky" src="https://stickyutrecht.nl/wp-content/themes/sticky/assets/img/logo-sticky-donker.png" />
+        <img className="sticky" src="//stickyutrecht.nl/wp-content/uploads/logo-sticky-licht1.png" />
          <div className="right" />
       </section>
     );
