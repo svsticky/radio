@@ -19,13 +19,12 @@
     "date": "2015-2-19",
     "startTime":"22:30",
     "endTime":"02:30",
-    "poster": "posters/broertjes_zusjes.png"
+    "poster": "posters/broertjes_zusjes.jpg"
   },
   {
     "name":"Batavierenrace",
     "date":"2015-04-24"
     "startTime":"17:00"
-    "poster":"poster/batavieren.png"
-  }
+    "poster":"poster/batavieren.jpg"
   }
 ]
