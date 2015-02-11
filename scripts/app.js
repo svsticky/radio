@@ -1,4 +1,3 @@
-'use strict';
 
 const React = require('react/addons');
 const Marty = require('marty');

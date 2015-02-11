@@ -4,3 +4,4 @@
 bower_components/
 *.sw*
 node_modules
+*.un~
