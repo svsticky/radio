@@ -3,3 +3,4 @@
 .vagrant
 bower_components/
 *.sw*
+node_modules
