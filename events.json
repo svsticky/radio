@@ -1,30 +1,31 @@
 [
   {
-    "name":"Excursie DOMunder",
-    "date": "2015-2-9",
-    "startTime":"16:00",
-    "endTime":"19:00",
-    "poster": "slides/anonymit.png"
-  },
-  {
-    "name":"Gala",
+    "name":"Gala Gemaskerd Bal",
     "date": "2015-2-12",
     "startTime":"22:30",
+    "location":"Het Vechthuis",
     "endTime":"02:30",
-    "poster": "slides/pimp.png"
+    "poster": "slides/gala.png"
   },
   {
-    "name":"Excursie DOMunder",
-    "date": "2015-2-9",
-    "startTime":"16:00",
-    "endTime":"19:00",
-    "poster": "slides/anonymit.png"
+    "name":"SICK: Quadrijden met Sogeti",
+    "date": "2015-2-19",
+    "startTime":"15:00",
+    "endTime":"17:00",
+    "poster": "slides/quad.png"
   },
   {
-    "name":"Gala",
-    "date": "2015-2-12",
+    "name":"Broertjes en Zusjes Borrel",
+    "date": "2015-2-19",
     "startTime":"22:30",
     "endTime":"02:30",
-    "poster": "slides/pimp.png"
+    "poster": "slides/broertjes_zusjes.png"
+  },
+  {
+    "name":"Batavierenrace",
+    "date":"2015-04-24"
+    "startTime":"17:00"
+    "poster":"slides/batavieren.png"
+  }
   }
 ]
