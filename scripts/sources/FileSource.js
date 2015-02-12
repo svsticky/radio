@@ -11,7 +11,7 @@ module.exports = Marty.createStateSource({
             img.onload = () => {
               var thief = new ColorThief();
               var [ r, g, b ] = thief.getColor(img)
-              var bg = `rgb(${r}, ${g}, ${b})`
+              var bg = `rgba(${r}, ${g}, ${b}, 0.5)`
               e.bg = bg;
               e.fg = "white";
               resolve(e);

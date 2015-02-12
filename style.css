@@ -98,10 +98,6 @@ body {
 .event p {
   padding: 1rem 0;
 }
-.event.selected {
-  box-shadow: inset #222 0px 0px 15px;
-  background: #102A35;
-}
 .posters {
   width: 70.71vh;
   position: relative;
