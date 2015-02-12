@@ -1,12 +1,24 @@
 const Marty = require('marty');
 const RadioActionCreators = require('../actions/RadioActionCreators');
-
+const ColorThief = require('../utils/ColorThief');
 module.exports = Marty.createStateSource({
   type: 'http',
-  //baseUrl: 'http://localhost:3000',
   getEvents () {
-    return this.get('/events.json').then(function(res){
-      RadioActionCreators.receiveEvents(res.body);
-    }).catch(function(e){console.log(e.stack)});
+    return this.get('/events.json').then((res) => {
+        return Promise.all(res.body.map((e)=> {
+          return new Promise((resolve,reject) => {
+            var img = new Image();
+            img.onload = () => {
+              var thief = new ColorThief();
+              var [ r, g, b ] = thief.getColor(img)
+              var bg = `rgba(${r}, ${g}, ${b}, 0.5)`
+              e.bg = bg;
+              e.fg = "white";
+              resolve(e);
+            }
+            img.src = e.poster;
+          });
+        }));
+    }).then((events) => RadioActionCreators.receiveEvents(events));
   }
 });

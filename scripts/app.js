@@ -1,16 +1,23 @@
 const React = require('react/addons');
 const Marty = require('marty');
+var Promise = require('bluebird');
 
-const EventsStateMixin = require('./stores/EventsStore').EventsStateMixin;
+const EventsStoreI = require('./stores/EventsStore');
+const EventsStore = EventsStoreI.EventsStore;
+const EventsStateMixin = EventsStoreI.EventsStateMixin;
 
 const Calendar = React.createClass({
   render () {
     return (
       <ul className="calendar">
         {this.props.events.map((e,i) => {
+          console.log(e);
           var classString = "event";
+          var style = {};
           if (this.props.currentEvent == i) {
             classString += " selected";
+            style.backgroundColor = e.bg;
+            style.color = e.fg;
           }
           var days = new Array(
             "Zondag",
@@ -43,7 +50,7 @@ const Calendar = React.createClass({
             date.getFullYear()
           ].join(" ");
           return (
-            <li className={classString}>
+            <li style={style} className={classString}>
               <h1 className="title">{e.name} </h1>
               <h2 className="date">{dateOutput} { e.location ? ("@ " + e.location) : null }</h2>
               <p className="time">{e.startTime} { e.endTime ? ('- ' + e.endTime) : null }</p>
@@ -75,7 +82,6 @@ const Posters = React.createClass({
   }
 });
 
-
 const App = React.createClass({
   mixins: [EventsStateMixin],
   render () {
@@ -91,9 +97,6 @@ const App = React.createClass({
       overflow: "hidden",
       backgroundColor: "black"
     };
-    if (poster) {
-//      style.backgroundImage = "url("+poster.poster+")";
-    }
     var posters = this.state.events.map((e)=>e.poster);
     return (
       <section className="radio">
