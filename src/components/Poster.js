@@ -28,15 +28,15 @@ var styles = StyleSheet.create({
 
 export default class Poster extends React.Component {
   render() {
-    var activity = (this.props.currentActivity >= this.props.activities.length - 1) ?
-      this.props.advertisements[this.props.currentAdvertisement]
-    : this.props.activities[this.props.currentActivity];
+    var activity = this.props.activities[this.props.currentActivity];
 
-    activity = activity || {content:{poster:'yo'}};
-    return (
-      <div style={styles.posters}>
-        <img src={activity.content.poster} style={styles.poster} />
-      </div>
-    );
+    if (activity) {
+      return (
+        <div style={styles.posters}>
+          <img src={activity.content.poster} style={styles.poster} />
+        </div>
+      );
+    }
+    return <div></div>
   }
 }

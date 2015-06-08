@@ -8,8 +8,8 @@ export default class ActivitiesStore extends Store {
     this.state = {
       currentActivity: -1,
       activities: [],
-      currentAdvertisement: -1,
-      advertisements: []
+      //currentAdvertisement: -1,
+      //advertisements: []
     };
 
     // TODO: Koala now provides one monolithic action for all data. We later
@@ -31,7 +31,7 @@ export default class ActivitiesStore extends Store {
         a.start_date = new Date(a.start_date);
         a.end_date = new Date(a.end_date);
         return {type:'activity', content: a};
-      }).sort(a => a.content.start_date)
+      }).sort((a,b) => a.content.start_date - b.content.start_date)
         .map((a,i) => {a.id = i; return a;});
 
     this.setState({
@@ -42,25 +42,21 @@ export default class ActivitiesStore extends Store {
 
   // advertisements are interpolated
   handleNewAdvertisements(advertisements) {
-    console.log(advertisements);
+    /*this.setState({
+      currentActivity: 0,
+      activities: this.state.activities
+        + advertisements.map((a,i) => { return {
+          type: 'advertisement',
+          content: a,
+          id: i
+        }})
+    });*/
   }
-
   handleNext(data) {
-    if (this.state.currentActivity >= this.state.activities.length - 1) {
-      // if we're done with activities. start the commercials
-      if (this.state.currentAdvertisement >= this.state.advertisements.length - 1) {
-        this.setState({
-          currentAdvertisement: 0, currentActivity: 0
-        });
-      } else {
-        this.setState({
-          currentAdvertisement: this.state.currentAdvertisement + 1
-        });
-      }
+    if(this.state.currentActivity >= this.state.activities.length -1) {
+      this.setState({currentActivity:0});
     } else {
-      this.setState({
-        currentActivity: this.state.currentActivity + 1
-      });
+      this.setState({currentActivity: this.state.currentActivity + 1});
     }
   }
 
