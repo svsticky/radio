@@ -1,39 +1,25 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
 
-import StyleSheet from 'react-style';
-
-
-const styles = StyleSheet.create({
-  activities: {
-    padding: 0,
-    margin: 0,
-    listStyle: 'none',
-    WebkitColumns: `2 ${10 * Math.sqrt(2)}vh`
-  },
-  activity: {
-    listStyle: 'none'
-  },
-  selected: {
-    color: 'red'
-  },
-  advertisement: {
-    display: 'none'
-  }
-});
 
 export default class Activities extends React.Component {
   
   render() {
+    var cx = React.addons.classSet;
+
     return (
-      <ul style={styles.activities}>
+      <ul className='calendar'>
         { 
           this.props.activities.map(x => {
+            const classes = cx({
+              'event': true,
+              'active': this.props.currentActivity == x.id
+            });
             if (x.type === 'activity') {
               return (
-                <li styles={[styles.activity, this.props.currentActivity == x.id && styles.selected]}>
+                <li className={classes}>
                   <h1>{x.content.name}</h1>
-                  <div>{x.content.start_date}</div>
+                  <time>{x.content.start_date.toString()}</time>
                 </li>
               );
             //FIXME: Hax so that posters and activities are aligned
@@ -42,7 +28,7 @@ export default class Activities extends React.Component {
             // advertisements.
             // we just hide advertisements in the activity log 
             } else {
-              return <li style={styles.advertisement}></li>
+              return <li className='advertisement'></li>
             }
           })
         }

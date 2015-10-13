@@ -11,7 +11,6 @@ export default class KoalaActions extends Actions {
 
   // TODO: In the future make this two seperate endpoints
   async getData() {
-    console.log('data');
     try {
       this.data = (await http.get(this.endpoint)).data;
 
