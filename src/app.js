@@ -38,7 +38,7 @@ const minutes = 60 * seconds;
 const koalaActions = flux.getActions('koala');
 koalaActions.getData();
 setInterval(() => koalaActions.getData(), 5 * minutes);
-setInterval(() => koalaActions.next(), 2 * seconds);
+setInterval(() => koalaActions.next(), 5 * seconds);
 
 React.render(
   <FluxComponent flux={flux}>

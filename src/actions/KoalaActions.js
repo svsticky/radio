@@ -16,7 +16,6 @@ export default class KoalaActions extends Actions {
 
       // FIXME: This is a hax
       this.getActivities();
-      this.getAdvertisements();
     } catch (e) {
       console.error(e);
     }
@@ -24,10 +23,7 @@ export default class KoalaActions extends Actions {
 
   // for now should never be called directly
   getActivities() {
-    return this.data.filter(d => 'start_date' in d);
-  }
-  getAdvertisements() {
-    return this.data.filter(d => !'start_date' in d);
+    return this.data;
   }
 
   next () {

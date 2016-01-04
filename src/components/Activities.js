@@ -1,6 +1,7 @@
 import React from 'react';
 import FluxComponent from 'flummox/component';
 
+const moment = require('moment');
 
 export default class Activities extends React.Component {
   
@@ -19,7 +20,7 @@ export default class Activities extends React.Component {
               return (
                 <li className={classes}>
                   <h1>{x.content.name}</h1>
-                  <time>{x.content.start_date.toString()}</time>
+                  <time>{moment(x.content.start_date).format('YYYY-MM-DD')}</time>
                 </li>
               );
             //FIXME: Hax so that posters and activities are aligned
