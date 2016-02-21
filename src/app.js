@@ -10,13 +10,16 @@ window.React = React;
 // for promises etc
 require('babel/polyfill');
 
+
+const domain = 'svsticky.nl';
+const koala = `koala.${domain}`;
 class App extends React.Component {
   render() {
     return (
       <div className="app">
         <div className="cont">
           <div className="logo">
-            <img src="https://stickyutrecht.nl/wp-content/uploads/logo-sticky-licht1.png" />
+            <img src="https://svsticky.nl/wp-content/uploads/logo-sticky-licht1.png" />
           </div>
           <FluxComponent connectToStores={'activities'}>
             <Activities />
@@ -30,7 +33,7 @@ class App extends React.Component {
   }
 }
 
-var flux = new Flux();
+var flux = new Flux(koala);
 
 const seconds = 1000;
 const minutes = 60 * seconds;
