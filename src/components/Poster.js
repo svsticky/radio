@@ -9,7 +9,7 @@ import React from 'react';
 
 export default class Poster extends React.Component {
   render() {
-    var activity = this.props.activities[this.props.currentActivity];
+    const activity = this.props.activities[this.props.currentActivity];
 
     if (activity) {
       return (

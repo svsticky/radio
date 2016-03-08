@@ -10,12 +10,13 @@ export default class KoalaActions extends Actions {
     this.advertisementsEndpoint = advertisementsEndpoint;
   }
 
-  // TODO: In the future make this two seperate activitiesEndpoints
   async getData() {
     try {
-      this.data = (await http.get(this.activitiesEndpoint)).data;
+      const activities = (await http.get(this.activitiesEndpoint)).data;
+      const advertisements = (await http.get(this.advertisementsEndpoint)).data;
 
-      // FIXME: This is a hax
+      this.data = activities.concat(advertisements);
+
       this.getActivities();
     } catch (e) {
       console.error(e);
