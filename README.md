@@ -19,3 +19,5 @@ De dev server kan nu worden bezocht op [http://localhost:8080].
 ```
 $ npm build
 ```
+
+
