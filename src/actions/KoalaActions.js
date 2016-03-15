@@ -29,6 +29,6 @@ export default class KoalaActions extends Actions {
   }
 
   next () {
-    return 3;
+    return 'NEXT';
   }
 }

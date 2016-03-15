@@ -26,7 +26,7 @@ export default class ActivitiesStore extends Store {
     const sorted =
       activities.map((a) => {
         if (a.start_date) { a.start_date = new Date(a.start_date); }
-        a.end_date = new Date(a.end_date);
+        if (a.end_date) { a.end_date = new Date(a.end_date); }
         return {type: a.start_date ? 'activity' : 'advertistement', content: a};
       }).sort((a,b) => (a.content.start_date || new Date(0)) - b.content.start_date)
         .map((a,i) => {a.id = i; return a;});
