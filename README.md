@@ -1,13 +1,21 @@
 # radio
-Random afkorting voor digitaal informatie overdrager
+
+Random afkorting voor digitaal informatie overdrager. Dit is een React project
+dat activiteiten uit Koala inleest en deze weergeeft. De intentie is dat dit
+op de TV in de Sticky kamer gebeurt.
 
 
-# build and dev instructions
+# Build and dev instructions
+
 ```
-$ sudo npm install -g webpack-dev-server
 $ npm install
-$ webpack-dev-server
+$ npm start
 ```
 
+De dev server kan nu worden bezocht op [http://localhost:8080].
 
-# deployment instructions
+# Release instructions
+
+```
+$ npm build
+```
