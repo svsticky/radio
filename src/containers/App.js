@@ -3,9 +3,9 @@ import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
 import Calendar from '../components/Calendar';
 
-
-// Turns the activity's start_date from a string into a Date object,
-// and if the end_date exists, also turns that to a Date object
+/**
+ * Utility function to change dates from activities to actual Date objects
+ */
 function setDate(activity) {
   return Object.assign(
     {},
@@ -20,19 +20,30 @@ function setDate(activity) {
  */
 export default class App extends Component {
 
-  static get defaultProps() {
-    return {
-      loadInterval: 15*60*1000,
-      nextInterval: 2*1000
-    };
-  }
+  static propTypes = {
+    /**
+     * The interval in milliseconds that indicates how often to reload the
+     * activities and advertisements from koala
+     */
+    loadInterval: PropTypes.number,
+    /**
+     * The interval in milliseconds that indicates how often we switch to
+     * a next activity or advertisement
+     */
+    nextInterval: PropTypes.number,
+    /**
+     * The api root of the koala Api. an example is http://koala.svsticky.nl/api
+     * for the Sticky Utrecht Koala instance
+     */
+    apiRoot: PropTypes.string.isRequired
+  };
 
-  static get propTypes() {
-    return {
-      loadInterval: PropTypes.number,
-      nextInterval: PropTypes.number,
-      apiRoot: PropTypes.string.isRequired
-    };
+  /**
+   * Default values for properties
+   */
+  static defaultProps = {
+    loadInterval: 15*60*1000,
+    nextInterval: 5*1000
   };
 
   constructor(props) {
@@ -81,7 +92,7 @@ export default class App extends Component {
 
   nextActivity() {
     if (this.state.currentActivity === this.state.activities.length - 1) {
-    // if we're at the end of the activities, continue displaying ads
+      // if we're at the end of the activities, continue displaying ads
       this.setState({
         currentActivity: null,
         currentAd: 0
@@ -96,7 +107,6 @@ export default class App extends Component {
 
   next() {
     // if there is no data yet.  we cannot go to next activity or advertisement
-    
     if (this.state.dataReceived) {
       if (this.state.currentActivity === null) {
         this.nextAd();
@@ -106,8 +116,10 @@ export default class App extends Component {
     }
   }
 
-
   componentDidMount() {
+    // set up intervals.
+    // every this.props.loadInterval, new events are loaded from koala.
+    // every this.props.nextInterval, we switch to the next ad or activity to display
     this.dataLoader =
       setInterval(this.loadData.bind(this), this.props.loadInterval);
 
