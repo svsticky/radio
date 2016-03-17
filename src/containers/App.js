@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
-import Calendar from '../components/Calendar';
+import Activities from '../components/Activities';
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -53,7 +53,6 @@ export default class App extends Component {
     this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
 
     this.state = {
-      dataReceived: false,
       currentActivity: null,
       currentAd: null,
       activities: [],
@@ -72,47 +71,73 @@ export default class App extends Component {
       .then(activities =>
         fetch(this.adsEndpoint)
           .then(resp => resp.json())
-          .then(ads => this.setState({activities, ads, dataReceived: true})));
+          .then(ads => {
+            // make sure that we don't start scrolling activities or ads when
+            // there are no activities or ads to scroll through.
+            const currentActivity = activities.length > 0 ? 0 : null;
+            const currentAd       = currentActivity === null && ads.length > 0 ? 0 : null;
+            this.setState({activities, ads, currentActivity, currentAd});
+          }));
   }
 
-  nextAd() {
-    if (this.state.currentAd === this.state.ads.length - 1) {
-    // if we're at the end of the adroll, continue displaying activities
-      this.setState({
-        currentAd: null,
-        currentActivity: 0
-      });
+  currentPoster() {
+    if (this.state.currentActivity !== null) {
+      return this.state.activities[this.state.currentActivity].poster;
+    } else if (this.state.currentAd !== null) {
+      return this.state.ads[this.state.currentAd].poster;
     } else {
-      // else continue displaying ads
+      return 'placeholder'; // TODO funny placeholder easterergg
+    }
+  }
+
+
+  nextAd() {
+    // if there are no ads left, try switching to activities
+    if (this.state.currentAd >= this.state.ads.length - 1) {
+      // if we're at the end of the ads continue displaying activities,
+      // if there are any. otherwise continue displaying ads.
+      if (this.state.ads.length > 0) {
+        this.setState({
+          currentActivity: 0,
+          currentAd: null
+        });
+      } else {
+        this.setState({ currentAd: 0 });
+      }
+    } else {
       this.setState({
-        currentAd: this.state.currentAdd === null ?  0 : this.state.currentAd + 1
+        currentAd: this.state.currentAd + 1
       });
     }
   }
 
   nextActivity() {
-    if (this.state.currentActivity === this.state.activities.length - 1) {
-      // if we're at the end of the activities, continue displaying ads
-      this.setState({
-        currentActivity: null,
-        currentAd: 0
-      });
+    // if there are no activities left, try switching to ads
+    if (this.state.currentActivity >= this.state.activities.length - 1) {
+      // if we're at the end of the activities, continue displaying ads,
+      // if there are any. otherwise continue displaying activities
+      if (this.state.ads.length > 0) {
+        this.setState({
+          currentActivity: null,
+          currentAd: 0
+        });
+      } else {
+        this.setState({ currentActivity: 0 });
+      }
     } else {
-      // else continue displaying activities
       this.setState({
-        currentActivity: this.state.currentActivity === null ? 0 : this.state.currentActivity + 1
+        currentActivity: this.state.currentActivity + 1
       });
     }
   }
 
   next() {
     // if there is no data yet.  we cannot go to next activity or advertisement
-    if (this.state.dataReceived) {
-      if (this.state.currentActivity === null) {
-        this.nextAd();
-      } else if (this.state.currentAd === null) {
-        this.nextActivity();
-      }
+    if (this.state.currentActivity === null && this.state.ads.length > 0) {
+      this.nextAd();
+    }
+    if (this.state.currentAd === null && this.state.activities.length > 0) {
+      this.nextActivity();
     }
   }
 
@@ -137,7 +162,14 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <div className='app'>
+        <div className='cont'>
+          <div className='logo'>
+            <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
+          </div>
+          <Activities activities={this.state.activities} currentActivity={this.state.currentActivity} />
+        </div>
+        <Poster poster={this.currentPoster()} />
       </div>
     );
   }
