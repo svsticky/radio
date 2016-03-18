@@ -23,7 +23,8 @@ export default class Activity extends Component {
 
   render() {
     const props = this.props;
-    const startDate = moment(props.start_date).format('DD/MM/YY'); const endDate = props.end_date ? moment(props.end_date).format('DD/MM/YY') : null;
+    const startDate = moment(props.start_date).format('DD/MM/YY');
+    const endDate = props.end_date ? moment(props.end_date).format('DD/MM/YY') : null;
 
     let className = 'activity';
     if (props.active) {
