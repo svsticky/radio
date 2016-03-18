@@ -90,54 +90,62 @@ export default class App extends Component {
     }
   }
 
-
-  nextAd() {
-    // if there are no ads left, try switching to activities
-    if (this.state.currentAd >= this.state.ads.length - 1) {
-      // if we're at the end of the ads continue displaying activities,
-      // if there are any. otherwise continue displaying ads.
-      if (this.state.ads.length > 0) {
-        this.setState({
-          currentActivity: 0,
-          currentAd: null
-        });
-      } else {
-        this.setState({ currentAd: 0 });
-      }
-    } else {
-      this.setState({
-        currentAd: this.state.currentAd + 1
-      });
-    }
-  }
-
-  nextActivity() {
-    // if there are no activities left, try switching to ads
-    if (this.state.currentActivity >= this.state.activities.length - 1) {
-      // if we're at the end of the activities, continue displaying ads,
-      // if there are any. otherwise continue displaying activities
-      if (this.state.ads.length > 0) {
-        this.setState({
-          currentActivity: null,
-          currentAd: 0
-        });
-      } else {
-        this.setState({ currentActivity: 0 });
-      }
-    } else {
-      this.setState({
-        currentActivity: this.state.currentActivity + 1
-      });
-    }
-  }
-
   next() {
-    // if there is no data yet.  we cannot go to next activity or advertisement
-    if (this.state.currentActivity === null && this.state.ads.length > 0) {
-      this.nextAd();
+
+    // Case 1:  Both currentActivity and currentAd are null (i.e. there is no data)
+    
+    if (this.state.currentActivity === null && this.state.currentAd === null) {
+      throw 'Why is there no data?!';
+      return;
     }
-    if (this.state.currentAd === null && this.state.activities.length > 0) {
-      this.nextActivity();
+
+    // Case 2: Should never happen
+    if (this.state.currentActivity !== null && this.state.currentAd !== null) {
+      throw 'Invariant violation. Cannot display an ad and activity at the same time!';
+    }
+
+    // Case 3: We are displaying activities
+    if (this.state.currentActivity !== null) {
+      // If we're at the end of the activities
+      if (this.state.currentActivity >= this.state.activities.length - 1) {
+        // if there are any ads, switch to the first ad
+        if (this.state.ads.length > 0) {
+          this.setState({
+            currentActivity: null,
+            currentAd: 0
+          });
+        // else go back to the first activity
+        } else {
+          this.setState({
+            currentActivity: 0
+          });
+        }
+      } else {
+        this.setState({
+          currentActivity: this.state.currentActivity + 1
+        });
+      }
+    // Case 4: We are displaying ads
+    } else if (this.state.currentAd !== null) {
+      // If we're at the end of ads
+      if (this.state.currentAd >= this.state.ads.length - 1) {
+        // if there are any activities, switch to the first activity
+        if (this.state.activities.length > 0) {
+          this.setState({
+            currentAd: null,
+            currentActivity: 0
+          });
+        // else go back to the first ad
+        } else {
+          this.setState({
+            currentAd : 0
+          });
+        }
+      } else {
+        this.setState({
+          currentAd: this.state.currentAd + 1
+        });
+      }
     }
   }
 
