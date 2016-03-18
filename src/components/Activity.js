@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
+import scrollIntoView from 'scroll-into-view';
 
 export default class Activity extends Component {
   constructor(props) {
@@ -17,7 +18,10 @@ export default class Activity extends Component {
 
   ensureVisible() {
     if (this.props.active) {
-      findDOMNode(this).scrollIntoView({behavior:'smooth'});
+      scrollIntoView(findDOMNode(this), {
+        time: 200,
+        ease: v => Math.pow(v,2) - v,
+      });
     }
   }
 
