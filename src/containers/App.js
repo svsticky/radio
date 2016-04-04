@@ -16,7 +16,7 @@ function setDate(activity) {
 }
 
 /**
- * Main app entrypoint. 
+ * Main app entrypoint.
  */
 export default class App extends Component {
 
@@ -62,7 +62,7 @@ export default class App extends Component {
 
   loadData() {
     // See https://davidwalsh.name/fetch
-    
+
     // get activities
     fetch(this.activitiesEndpoint)
       // fix activity dates and sort them on start_date
@@ -76,15 +76,23 @@ export default class App extends Component {
             // there are no activities or ads to scroll through.
             const currentActivity = activities.length > 0 ? 0 : null;
             const currentAd       = currentActivity === null && ads.length > 0 ? 0 : null;
-            this.setState({activities, ads, currentActivity, currentAd});
+            this.setState({activities:activities.filter(act => act.poster), ads, currentActivity, currentAd});
           }));
   }
+
+  cull(){
+    this.activities = this.activities.filter(act => act.poster != null);
+  }
+
+
 
   currentPoster() {
     if (this.state.currentActivity !== null) {
       return this.state.activities[this.state.currentActivity].poster;
     } else if (this.state.currentAd !== null) {
       return this.state.ads[this.state.currentAd].poster;
+
+      // Feature request: Do NOT display this activity
     } else {
       return 'placeholder'; // TODO funny placeholder easterergg
     }
@@ -93,13 +101,14 @@ export default class App extends Component {
   next() {
 
     // Case 1:  Both currentActivity and currentAd are null (i.e. there is no data)
-    
+
     if (this.state.currentActivity === null && this.state.currentAd === null) {
       throw 'Why is there no data?!';
       return;
     }
 
     // Case 2: Should never happen
+    //  > Then why is there a case for it?
     if (this.state.currentActivity !== null && this.state.currentAd !== null) {
       throw 'Invariant violation. Cannot display an ad and activity at the same time!';
     }
@@ -108,7 +117,7 @@ export default class App extends Component {
     if (this.state.currentActivity !== null) {
       // If we're at the end of the activities
       if (this.state.currentActivity >= this.state.activities.length - 1) {
-        // if there are any ads, switch to the first ad
+        // if there are ads, switch to the first ad
         if (this.state.ads.length > 0) {
           this.setState({
             currentActivity: null,
@@ -125,8 +134,10 @@ export default class App extends Component {
           currentActivity: this.state.currentActivity + 1
         });
       }
+    }
+
     // Case 4: We are displaying ads
-    } else if (this.state.currentAd !== null) {
+    else if (this.state.currentAd !== null) {
       // If we're at the end of ads
       if (this.state.currentAd >= this.state.ads.length - 1) {
         // if there are any activities, switch to the first activity
@@ -182,4 +193,3 @@ export default class App extends Component {
     );
   }
 }
-
