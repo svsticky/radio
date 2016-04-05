@@ -80,12 +80,6 @@ export default class App extends Component {
           }));
   }
 
-  cull(){
-    this.activities = this.activities.filter(act => act.poster != null);
-  }
-
-
-
   currentPoster() {
     if (this.state.currentActivity !== null) {
       return this.state.activities[this.state.currentActivity].poster;

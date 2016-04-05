@@ -30,9 +30,13 @@ $ npm run build
 
 Simply copy over the dist/ folder to the sticky server to deploy. If you change the CSS or index.html you need to scp those over too.
 
+On Linux this should be done by using:
 ```
 $ scp -r dist/ index.html style.css svsticky.nl:/var/www/commit/radio.svsticky.nl
 ```
 
+When on Windows you need to use an SFTP client to connect to
+```
+sftp://commit@svsticky.nl
+```
 That's it. happy hacking.
-
