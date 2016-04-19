@@ -21,8 +21,8 @@ body {
 
 .cont {
 	float: left;
-	width: 60%;
-        height: 100vh;
+	max-width: 60%;
+  height: 100vh;
 }
 
 .logo {
