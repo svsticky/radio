@@ -38,7 +38,7 @@ body {
 	padding: 0;
 	color: #DAE1E3;
 	list-style: none;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	max-height: 70%
 }
 
