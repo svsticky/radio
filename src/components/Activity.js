@@ -34,7 +34,7 @@ export default class Activity extends Component {
   makeStartDate() {
       var sd = this.props.start_date;
       if (this.sameDay(sd) && this.props.has_start_time)
-          return moment(sd).format("HH:mm");
+          return moment(sd).format('HH:mm');
 
       if (this.props.has_start_time)
           return moment(sd).format('DD-MM HH:mm');
@@ -47,7 +47,7 @@ export default class Activity extends Component {
       if (!ed) return null;
       if (this.sameDay(ed, this.props.start_date)) {
           if (this.props.has_end_time)
-              return moment(ed).format("HH:mm");
+              return moment(ed).format('HH:mm');
           return null; // Same as start_date
       }
 
