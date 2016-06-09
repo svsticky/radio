@@ -10,6 +10,8 @@ function setDate(activity) {
   return Object.assign(
     {},
     activity,
+    { has_start_time : activity.start_date.indexOf('T') > -1 },
+    { has_end_time : activity.end_date.indexOf('T') > -1 },
     { start_date: new Date(activity.start_date) },
     activity.end_date ? { end_date : new Date(activity.end_date) } : null
   );

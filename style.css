@@ -44,7 +44,7 @@ body {
 
 .activity {
 	padding: 40px;
-	max-width: 80%;
+	max-width: 90%;
 	transition: background .5s;
 }
 .activity h1 {

@@ -25,10 +25,42 @@ export default class Activity extends Component {
     }
   }
 
+  sameDay(d, t = new Date()) {
+      return d.getDay() == t.getDay() &&
+          d.getMonth() == t.getMonth() &&
+          d.getYear() == t.getYear();
+  }
+
+  makeStartDate() {
+      var sd = this.props.start_date;
+      if (this.sameDay(sd) && this.props.has_start_time)
+          return moment(sd).format("HH:mm");
+
+      if (this.props.has_start_time)
+          return moment(sd).format('DD-MM HH:mm');
+
+      return moment(sd).format('DD-MM');
+  }
+
+  makeEndDate() {
+      var ed = this.props.end_date;
+      if (!ed) return null;
+      if (this.sameDay(ed, this.props.start_date)) {
+          if (this.props.has_end_time)
+              return moment(ed).format("HH:mm");
+          return null; // Same as start_date
+      }
+
+      if (this.props.has_end_time)
+          return moment(ed).format('DD-MM HH:mm');
+
+      return moment(ed).format('DD-MM');
+  }
+
   render() {
     const props = this.props;
-    const startDate = moment(props.start_date).format('DD/MM/YY');
-    const endDate = props.end_date ? moment(props.end_date).format('DD/MM/YY') : null;
+    const startDate = this.makeStartDate();
+    const endDate = this.makeEndDate();
 
     let className = 'activity';
     if (props.active) {
