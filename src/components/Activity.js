@@ -26,37 +26,35 @@ export default class Activity extends Component {
   }
 
   sameDay(d, t = new Date()) {
-      return (d.getDay() == t.getDay() &&
+      return d.getDay() == t.getDay() &&
           d.getMonth() == t.getMonth() &&
-          d.getYear() == t.getYear());
+          d.getYear() == t.getYear();
   }
 
   makeStartDate() {
       var sd = this.props.start_date;
-      if (this.sameDay(sd) &&
-          this.props.has_start_time)
+      if (this.sameDay(sd) && this.props.has_start_time)
           return moment(sd).format("HH:mm");
 
       if (this.props.has_start_time)
-          return moment(sd).format('DD/MM/YY HH:mm');
+          return moment(sd).format('DD-MM HH:mm');
 
-      return moment(sd).format('DD/MM/YY');
+      return moment(sd).format('DD-MM');
   }
 
   makeEndDate() {
       var ed = this.props.end_date;
       if (!ed) return null;
-      if (this.sameDay(ed, this.props.start_date))
-      {
+      if (this.sameDay(ed, this.props.start_date)) {
           if (this.props.has_end_time)
               return moment(ed).format("HH:mm");
           return null; // Same as start_date
       }
 
       if (this.props.has_end_time)
-          return moment(ed).format('DD/MM/YY HH:mm');
+          return moment(ed).format('DD-MM HH:mm');
 
-      return moment(ed).format('DD/MM/YY');
+      return moment(ed).format('DD-MM');
   }
 
   render() {
