@@ -26,7 +26,7 @@ export default class Activity extends Component {
   }
 
   sameDay(d, t = new Date()) {
-      return d.getDay() == t.getDay() &&
+      return d.getDate() == t.getDate() && // getDate returns day number in month...
           d.getMonth() == t.getMonth() &&
           d.getYear() == t.getYear();
   }
