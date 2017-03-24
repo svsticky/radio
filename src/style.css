@@ -1,59 +1,63 @@
 @import url(https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900);
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
 
-html {
-	background: #262626;
-	font-family: "Work Sans", sans-serif;
-	max-height: 100%;
-  width: 100%;
-  position: fixed; 
+
+*::-webkit-scrollbar {
+	display: none;
 }
 
+html {
+	background: #0707ec;
+	background-image: url('https://maartenberg.nl/bsod.png');
+	font-family: "Pacifico", cursive;
+	max-height: 100%;
+}
 body {
 	margin: 0;
 }
 
-.poster {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100vh;
-	max-width: 40%;
+@keyframes spin {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(359deg)
+	}
 }
 
-.activities {
+@keyframes fata {
+	0% {
+		transform: rotate(-15deg) translateX(-150px)
+	}
+	50% {
+		transform: rotate(15deg) translateX(150px)
+	}
+	100% {
+		transform: rotate(-15deg) translateX(-150px)
+	}
+}
+
+.poster {
+  display: inline;
+  float: right;
+  height: 100vh;
+  animation: fata 5s steps(300) infinite;
+}
+
+.cont {
 	float: left;
 	max-width: 60%;
-	height: calc(100vh - 210px);
-}
-
-.topbar {
-	padding-top: 20px;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+  height: 100vh;
 }
 
 .logo {
-	grid-column: 1 / 2;
+	margin-top: 50px;
+	margin-left: 90px;;
 }
-
-.logo > img {
-	width: 250px;
-  padding-left: 50px;
+.logo img {
+	max-width: 250px;
+	animation: spin 15s steps(300) infinite;
 }
-
-.clock-wrapper {
-	height: 135px;
-  grid-column: 2 / 3;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.clock {
-	color: white;
-	font-size: 80px;
-}
-
 .activities {
 	margin-left: 50px;
 	margin-top: 50px;
@@ -66,7 +70,9 @@ body {
 
 .activity {
 	padding: 40px;
+	background: black;
 	max-width: 90%;
+	transform: rotate(-45deg);
 	transition: background .5s;
 }
 .activity h1 {
@@ -80,39 +86,24 @@ body {
 	font-size: 1.4em
 }
 .activity.active {
-	background: #161616;
+	background: white;
+	transform: rotate(15deg);
 }
-
-.boardTextSection, .quoteSection {
-  display: flex;
-  position: fixed;
-  align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	width: 100%;
-	height: calc(100% - 300px);
+li.activity.active {
+	position: relative;
+	z-index: 999;
 }
-
-#boardText, #quoteText, #quotePerson {
-  color: #DAE1E3;
-  font-size: 50px;
-  margin: 0 auto;
-  width: 80%;
-  text-align: center;
+.activity h1 {
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
-
-#quoteText {
-	font-size: 70px;
-	margin: 0;
-	width: 100%;
-	font-family: 'Kalam', cursive;
-}
-
-#quotePerson {
-	margin-top: 50px;
-	font-family: 'Kalam', cursive;
-}
-
-.quoteBackground {
-	padding: 50px;
+.activity time {
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
