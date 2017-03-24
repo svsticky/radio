@@ -18,23 +18,52 @@ body {
 
 @keyframes spin {
 	0% {
-		transform: rotate(0deg)
+		transform: rotate(0deg);
+    background-color: red;
 	}
+  50% {
+    background-color: black;
+  }
 	100% {
-		transform: rotate(359deg)
+		transform: rotate(359deg);
+    background-color: red;
 	}
 }
 
 @keyframes fata {
 	0% {
-		transform: rotate(-15deg) translateX(-150px)
+		transform: rotate(-15deg) translateX(-150px);
+    opacity: 1;
 	}
 	50% {
-		transform: rotate(15deg) translateX(150px)
+		transform: rotate(15deg) translateX(150px);
+    opacity: 0;
 	}
 	100% {
-		transform: rotate(-15deg) translateX(-150px)
+		transform: rotate(-15deg) translateX(-150px);
+    opacity: 1;
 	}
+}
+
+@keyframes updown {
+  0% {
+    color: pink;
+    top: 0vh;
+  }
+  25% {
+    color: purple;
+  }
+  50% {
+    color: blue;
+    top: 75vh;
+  }
+  75% {
+    color: purple;
+  }
+  100% {
+    color: pink;
+    top: 0vh;
+  }
 }
 
 .poster {
@@ -93,6 +122,15 @@ li.activity.active {
 	position: relative;
 	z-index: 999;
 }
+
+.text h1 {
+  background-color: rgba(255, 255, 0, 0.7);
+  position: absolute;
+  right: 60vh;
+  font-size: 2.5em;
+  animation: updown 10s steps(50) infinite;
+}
+
 .activity h1 {
   background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
   background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
