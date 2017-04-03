@@ -95,6 +95,7 @@ body {
 .activity {
 	padding: 40px;
 	background: black;
+	color: white;
 	max-width: 90%;
 	transform: rotate(-45deg);
 	transition: background .5s;
@@ -111,10 +112,12 @@ body {
 }
 .activity.active {
 	background: white;
+	color: black;
 	transform: rotate(15deg);
 }
 li.activity.active {
 	position: relative;
+	color: black;
 	z-index: 999;
 }
 
@@ -126,7 +129,7 @@ li.activity.active {
   animation: updown 10s steps(50) infinite;
 }
 
-.activity h1 {
+/*.activity h1 {
   background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
   background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
   color:transparent;
@@ -139,4 +142,4 @@ li.activity.active {
   color:transparent;
   -webkit-background-clip: text;
   background-clip: text;
-}
+} */
