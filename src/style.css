@@ -19,29 +19,23 @@ body {
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);
-    background-color: red;
 	}
   50% {
-    background-color: black;
   }
 	100% {
 		transform: rotate(359deg);
-    background-color: red;
 	}
 }
 
 @keyframes fata {
 	0% {
 		transform: rotate(-15deg) translateX(-150px);
-    opacity: 1;
 	}
 	50% {
 		transform: rotate(15deg) translateX(150px);
-    opacity: 0;
 	}
 	100% {
 		transform: rotate(-15deg) translateX(-150px);
-    opacity: 1;
 	}
 }
 
@@ -81,7 +75,8 @@ body {
 
 .logo {
 	margin-top: 50px;
-	margin-left: 90px;;
+	margin-left: 90px;
+	background-color: red;
 }
 .logo img {
 	max-width: 250px;
