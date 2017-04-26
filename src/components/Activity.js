@@ -61,6 +61,10 @@ export default class Activity extends Component {
     const props = this.props;
     const startDate = this.makeStartDate();
     const endDate = this.makeEndDate();
+    var participants = '';
+
+	if (props.participant_counter != null)
+		participants = ` (${props.participant_counter})`;
 
     let className = 'activity';
     if (props.active) {
@@ -69,7 +73,7 @@ export default class Activity extends Component {
 
     return (
       <li className={className}>
-        <h1>{props.name}</h1>
+        <h1>{props.name}{participants}</h1>
         <time>{startDate}</time>
         {endDate ? <time>{endDate}</time> : null}
       </li>
