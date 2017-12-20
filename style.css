@@ -14,24 +14,45 @@ body {
 }
 
 .poster {
-  display: inline;
-  float: right;
-  height: 100vh;
+  	float: right;
+  	height: 100vh;
 }
 
 .cont {
 	float: left;
 	max-width: 60%;
-  height: 100vh;
+	height: 100vh;
+}
+
+.topbar {
+	padding-top: 20px;
+	padding-left: 50px;
+	height: 200px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .logo {
-	margin-top: 50px;
-	margin-left: 90px;;
+	grid-column: 1 / 2;
 }
-.logo img {
-	max-width: 250px;
+
+.logo > img {
+	width: 250px;
 }
+
+.clock-wrapper {
+	height: 135px;
+	grid-column: 3 / 4;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.clock {
+	color: white;
+	font-size: 80px;
+}
+
 .activities {
 	margin-left: 50px;
 	margin-top: 50px;

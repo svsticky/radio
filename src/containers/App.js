@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
 import Activities from '../components/Activities';
+import Clock from '../components/Clock';
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -179,8 +180,11 @@ export default class App extends Component {
     return (
       <div className='app'>
         <div className='cont'>
-          <div className='logo'>
-            <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
+          <div className="topbar">
+            <div className='logo'>
+              <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
+            </div>
+            <Clock/>
           </div>
           <Activities activities={this.state.activities} currentActivity={this.state.currentActivity} />
         </div>
