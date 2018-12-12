@@ -16,6 +16,7 @@ body {
 .poster {
   	float: right;
   	height: 100vh;
+	max-width: 40%;
 }
 
 .cont {
