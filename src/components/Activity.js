@@ -19,8 +19,7 @@ export default class Activity extends Component {
   ensureVisible() {
     if (this.props.active) {
       scrollIntoView(findDOMNode(this), {
-        time: 200,
-        ease: v => Math.pow(v,2) - v,
+        time: 500
       });
     }
   }
