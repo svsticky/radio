@@ -31,6 +31,7 @@ body {
 	height: 200px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	background: red;
 }
 
 .logo {
@@ -81,4 +82,10 @@ body {
 }
 .activity.active {
 	background: #161616;
+}
+.quote {
+	background-image: url("src/img/tegelTemplate.jpg");
+	width:   100vw;
+	height:   100vh;
+	background-size: 100% 100%;
 }
