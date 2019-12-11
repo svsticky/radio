@@ -48,7 +48,7 @@ export default class App extends Component {
      */
     static defaultProps = {
         loadInterval: 15 * 60 * 1000,
-        nextInterval: 8 * 1000
+        nextInterval: 1 * 1000
     };
 
     constructor(props) {
@@ -56,14 +56,15 @@ export default class App extends Component {
 
         this.activitiesEndpoint = `${this.props.apiRoot}/activities`;
         this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
-        this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6pAYrf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
+        this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6prf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
+        // this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6pAYrf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
 
         this.state = {
             currentActivity: null,
             currentAd: null,
             activities: [],
             ads: [],
-            quotes: null,
+            quotes: [['Hier je quote?', 'Quotes@svsticky.nl']],
             currentQuote: null,
             quoteParser: null,
             quoteJson: null
@@ -94,25 +95,30 @@ export default class App extends Component {
                         });
                     }));
         //get quotes
-        fetch(this.quotesEndpoint)
-            .then(resp => resp.json()).then(asJson => this.setState({
-            quoteJson: asJson.feed.entry
-        })).then(nothing => this.parseQuotes());
+        try {
+            fetch(this.quotesEndpoint)
+                .then(resp => resp.json()).then(asJson => this.setState({
+                quoteJson: asJson.feed.entry
+            })).then(nothing => this.parseQuotes());
+        } catch (e) {
 
-
+        }
     }
 
 
     parseToQuotes(rawData) {
         this.state.uniques = rawData[0].content.$t;
-        this.quotes = [['Hier je quote?', 'Quotes@svsticky.nl']];
+        let quotes = [['Hier je quote?', 'Quotes@svsticky.nl']];
         for (var i = 1; i < 2 * this.state.uniques; i += 2) {
             let quoter = rawData[i].content.$t;
             let quote = rawData[i + 1].content.$t;
             let quoteSet = [quote, quoter];
-            this.quotes.push(quoteSet);
+            quotes.push(quoteSet);
         }
-        return this.quotes;
+        this.setState({
+            quotes: quotes
+        })
+        return quotes;
     }
 
 
@@ -259,7 +265,7 @@ export default class App extends Component {
                 </div>
             );
         }
-        let quoteNumber = Math.floor(Math.random() * this.quotes.length);
+        let quoteNumber = Math.floor(Math.random() * this.state.quotes.length);
         return (
             <Tile quote={this.state.quotes[quoteNumber]}/>
         );
