@@ -3,6 +3,8 @@ import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
+// import Quotes from '../components/Quotes';
+import Tile from '../components/Tile';
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -46,7 +48,7 @@ export default class App extends Component {
      */
     static defaultProps = {
         loadInterval: 15 * 60 * 1000,
-        nextInterval: 0.001* 8 * 1000
+        nextInterval: 8 * 1000
     };
 
     constructor(props) {
@@ -54,15 +56,17 @@ export default class App extends Component {
 
         this.activitiesEndpoint = `${this.props.apiRoot}/activities`;
         this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
+        this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6pAYrf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
 
         this.state = {
             currentActivity: null,
             currentAd: null,
             activities: [],
             ads: [],
-            quotes: ['Quote 1', 'Quote 2'],
+            quotes: null,
             currentQuote: null,
-            showedQuote: false
+            quoteParser: null,
+            quoteJson: null
         };
     }
 
@@ -89,7 +93,34 @@ export default class App extends Component {
                             currentAd
                         });
                     }));
+        //get quotes
+        fetch(this.quotesEndpoint)
+            .then(resp => resp.json()).then(asJson => this.setState({
+            quoteJson: asJson.feed.entry
+        })).then(nothing => this.parseQuotes());
+
+
     }
+
+
+    parseToQuotes(rawData) {
+        this.state.uniques = rawData[0].content.$t;
+        this.quotes = [['Hier je quote?', 'Quotes@svsticky.nl']];
+        for (var i = 1; i < 2 * this.state.uniques; i += 2) {
+            let quoter = rawData[i].content.$t;
+            let quote = rawData[i + 1].content.$t;
+            let quoteSet = [quote, quoter];
+            this.quotes.push(quoteSet);
+        }
+        return this.quotes;
+    }
+
+
+    parseQuotes() {
+        let parsed = this.parseToQuotes(this.state.quoteJson);
+        this.setState({quotes: parsed});
+    }
+
 
     currentPoster() {
         if (this.state.currentActivity !== null) {
@@ -137,7 +168,7 @@ export default class App extends Component {
                     // else go to the quotes
                 } else {
                     this.setState({
-                        currentQuote: 1
+                        currentQuote: 0
                     });
                 }
             } else {
@@ -154,7 +185,8 @@ export default class App extends Component {
                 // if there are any activities, switch to the quotes
                 this.setState({
                     currentAd: null,
-                    currentQuote: 0
+                    currentQuote: -1,
+                    showedQuote: false
                 });
             } else {
                 this.setState({
@@ -165,31 +197,26 @@ export default class App extends Component {
 
         //case 5: We are displaying quotes
         else if (this.state.currentQuote !== null) {
-            if (!this.state.showedQuote || true) {
-                this.state.showedQuote = true;
-                //TODO: display quote
-            } else {
-                //if there are no activities
-                if (this.state.activities.length === 0) {
-                    //if there are no ads
-                    if (this.state.ads.length === 0) {
-                        this.setState({
-                            currentQuote: Math.floor(Math.random() * this.quotes.length)
-                        });
-                    } else {
-                        this.setState({
-                            currentAd: 0,
-                            currentQuote: null
-                        });
-                    }
-                }
-                //if we do have activities
-                else {
+            //if there are no activities
+            if (this.state.activities.length === 0) {
+                //if there are no ads
+                if (this.state.ads.length === 0) {
                     this.setState({
-                        currentActivity: 0,
+                        currentQuote: 1
+                    });
+                } else {
+                    this.setState({
+                        currentAd: 0,
                         currentQuote: null
                     });
                 }
+            }
+            //if we do have activities
+            else {
+                this.setState({
+                    currentActivity: 0,
+                    currentQuote: null,
+                });
             }
         }
     }
@@ -225,18 +252,16 @@ export default class App extends Component {
                             </div>
                             <Clock/>
                         </div>
-                        <Activities activities={this.state.activities} currentActivity={this.state.currentActivity}/>
+                        <Activities activities={this.state.activities}
+                                    currentActivity={this.state.currentActivity}/>
                     </div>
                     <Poster poster={this.currentPoster()}/>
                 </div>
             );
         }
+        let quoteNumber = Math.floor(Math.random() * this.quotes.length);
         return (
-
-                    <div className='quote'>
-                        <div className='quoteText'>Het enige nadeel aan vanavond is morgen.</div>
-                        <div className='quoteText Author'>Kees Szabo</div>
-                    </div>
+            <Tile quote={this.state.quotes[quoteNumber]}/>
         );
     }
 }

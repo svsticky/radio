@@ -96,7 +96,7 @@ body {
 	font-size: 60px;
 	position: absolute;
 	text-align: center;
-	top: 40%;
+	top: 25%;
 	width: 100%;
 	font-weight: bolder;
 	font-family: 'Merienda', cursive;
@@ -111,7 +111,8 @@ body {
 	font-size: 70px;
 	position: absolute;
 	text-align: center;
-	padding-top: 15vh;
+	padding-top: 20vh;
+	margin-top: 20vh;
 	width: 100%;
 	font-weight: bolder;
 	font-family: 'Merienda', cursive;
