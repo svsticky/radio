@@ -3,7 +3,6 @@ import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
-// import Quotes from '../components/Quotes';
 import Tile from '../components/Tile';
 
 /**
