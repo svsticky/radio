@@ -48,7 +48,7 @@ export default class App extends Component {
      */
     static defaultProps = {
         loadInterval: 15 * 60 * 1000,
-        nextInterval: 1 * 1000
+        nextInterval: 8 * 1000
     };
 
     constructor(props) {
@@ -56,8 +56,7 @@ export default class App extends Component {
 
         this.activitiesEndpoint = `${this.props.apiRoot}/activities`;
         this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
-        this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6prf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
-        // this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6pAYrf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
+        this.quotesEndpoint = 'https://spreadsheets.google.com/feeds/cells/1-M58vht6mt-6pAYrf_ZWKe7i-P1ZoIBPyC1vLiAMOYg/2/public/full?alt=json';
 
         this.state = {
             currentActivity: null,
