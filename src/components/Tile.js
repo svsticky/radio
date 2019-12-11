@@ -7,7 +7,6 @@ export default class Tile extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         let quote = this.props.quote[0];
         let quoter = this.props.quote[1];
         return (
