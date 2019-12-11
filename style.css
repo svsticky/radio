@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900);
+@import url(https://fonts.googleapis.com/css?family=Merienda);
 
 *::-webkit-scrollbar {
 	display: none;
@@ -31,7 +32,6 @@ body {
 	height: 200px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	background: red;
 }
 
 .logo {
@@ -88,4 +88,36 @@ body {
 	width:   100vw;
 	height:   100vh;
 	background-size: 100% 100%;
+
+
+}
+
+.quoteText {
+	font-size: 60px;
+	position: absolute;
+	text-align: center;
+	top: 40%;
+	width: 100%;
+	font-weight: bolder;
+	font-family: 'Merienda', cursive;
+	color: midnightblue;
+	width: 70vw;
+	margin-left: 15vw;
+	margin-right: 15vw;
+	word-wrap: break-spaces;
+}
+
+.quoteText.Author {
+	font-size: 70px;
+	position: absolute;
+	text-align: center;
+	padding-top: 15vh;
+	width: 100%;
+	font-weight: bolder;
+	font-family: 'Merienda', cursive;
+	color: midnightblue;
+	width: 70vw;
+	margin-left: 15vw;
+	margin-right: 15vw;
+	word-wrap: break-spaces;
 }

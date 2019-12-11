@@ -46,7 +46,7 @@ export default class App extends Component {
      */
     static defaultProps = {
         loadInterval: 15 * 60 * 1000,
-        nextInterval: 8 * 1000
+        nextInterval: 0.001* 8 * 1000
     };
 
     constructor(props) {
@@ -165,7 +165,7 @@ export default class App extends Component {
 
         //case 5: We are displaying quotes
         else if (this.state.currentQuote !== null) {
-            if (!this.state.showedQuote) {
+            if (!this.state.showedQuote || true) {
                 this.state.showedQuote = true;
                 //TODO: display quote
             } else {
@@ -232,13 +232,11 @@ export default class App extends Component {
             );
         }
         return (
-            <div className='app'>
-                <div className='cont'>
+
                     <div className='quote'>
-                      <p> lore ipsum</p>
+                        <div className='quoteText'>Het enige nadeel aan vanavond is morgen.</div>
+                        <div className='quoteText Author'>Kees Szabo</div>
                     </div>
-                </div>
-            </div>
         );
     }
 }
