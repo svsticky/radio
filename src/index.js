@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './containers/App';
+import Settings from '../settings';
 
-render(<App apiRoot='https://koala.svsticky.nl/api'/>, document.getElementById('root'));
+render(<App apiRoot={Settings.endpoints.root}/>, document.getElementById('root'));

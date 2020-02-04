@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
+import Settings from '../../settings';
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -45,15 +46,15 @@ export default class App extends Component {
    * Default values for properties
    */
   static defaultProps = {
-    loadInterval: 15*60*1000,
-    nextInterval: 8*1000
+    loadInterval: Settings.interval.load,
+    nextInterval: Settings.interval.next
   };
 
   constructor(props) {
     super(props);
 
-    this.activitiesEndpoint = `${this.props.apiRoot}/activities`;
-    this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
+    this.activitiesEndpoint = `${this.props.apiRoot}/${Settings.endpoints.activities}`;
+    this.adsEndpoint = `${this.props.apiRoot}/${Settings.endpoints.ads}`;
 
     this.state = {
       currentActivity: null,
@@ -182,7 +183,7 @@ export default class App extends Component {
         <div className='cont'>
           <div className="topbar">
             <div className='logo'>
-              <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
+              <img src={Settings.logo} />
             </div>
             <Clock/>
           </div>
