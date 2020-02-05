@@ -9,14 +9,16 @@ export default class Clock extends React.Component {
     }
 
     componentDidMount() {
+      console.log(this.state.date)
       this.timerID = setInterval(() => this.tick(), 1000);
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
       clearInterval(this.timerID);
     }
 
     tick() {
+      console.log(this._ismounted == true)
       this.setState({
         date: new Date()
       });
