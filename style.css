@@ -38,7 +38,8 @@ body {
 }
 
 .logo > img {
-	width: 250px;
+	width: 320px;
+	margin-left: -20px;
 }
 
 .clock-wrapper {
