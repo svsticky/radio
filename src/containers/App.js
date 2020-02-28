@@ -60,6 +60,7 @@ export default class App extends Component {
       currentAd: null,
       activities: [],
       ads: [],
+      radio: "activities"
     };
   }
 
@@ -146,7 +147,7 @@ export default class App extends Component {
         // else go back to the first ad
         } else {
           this.setState({
-            currentAd : 0
+            currentAd: 0
           });
         }
       } else {
@@ -154,6 +155,11 @@ export default class App extends Component {
           currentAd: this.state.currentAd + 1
         });
       }
+    }
+
+    // Case 5: We are displaying some text from the board
+    else if (!this.state.currentBoardText) {
+
     }
   }
 
@@ -176,19 +182,36 @@ export default class App extends Component {
     clearInterval(this.activityChanger);
   }
 
+  renderContent() {
+    switch (this.state.radio) {
+      case "activities":
+        return (
+          <div>
+            <Activities activities={this.state.activities} currentActivity={this.state.currentActivity} />
+            <Poster poster={this.currentPoster()} />
+          </div>
+        );
+      case "advertisement": /// Not used yet
+        break;
+      case "boardText":
+        break;
+      case "quotes": /// Not used yet
+        break;
+      default:
+        return;
+    }
+  }
+
   render() {
     return (
       <div className='app'>
-        <div className='cont'>
-          <div className="topbar">
-            <div className='logo'>
-              <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
-            </div>
-            <Clock/>
+        <div className="topbar">
+          <div className='logo'>
+            <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
           </div>
-          <Activities activities={this.state.activities} currentActivity={this.state.currentActivity} />
+          <Clock />
         </div>
-        <Poster poster={this.currentPoster()} />
+        {this.renderContent()}
       </div>
     );
   }

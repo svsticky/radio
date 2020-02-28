@@ -14,21 +14,22 @@ body {
 }
 
 .poster {
-  	float: right;
-  	height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
 	max-width: 40%;
 }
 
-.cont {
+.activities {
 	float: left;
 	max-width: 60%;
-	height: 100vh;
+	height: calc(100vh - 210px);
 }
 
 .topbar {
 	padding-top: 20px;
 	padding-left: 50px;
-	height: 200px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 }
@@ -43,7 +44,6 @@ body {
 
 .clock-wrapper {
 	height: 135px;
-	grid-column: 3 / 4;
 	display: flex;
 	justify-content: center;
 	align-items: center;
