@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import Poster from '../components/Poster';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
+import BoardText from '../components/BoardText';
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -46,7 +47,7 @@ export default class App extends Component {
    */
   static defaultProps = {
     loadInterval: 15*60*1000,
-    nextInterval: 8*1000
+    nextInterval: 2*1000
   };
 
   constructor(props) {
@@ -60,7 +61,7 @@ export default class App extends Component {
       currentAd: null,
       activities: [],
       ads: [],
-      radio: "activities"
+      radio: "boardText"
     };
   }
 
@@ -194,7 +195,9 @@ export default class App extends Component {
       case "advertisement": /// Not used yet
         break;
       case "boardText":
-        break;
+        return (
+          <BoardText/>
+        )
       case "quotes": /// Not used yet
         break;
       default:

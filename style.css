@@ -82,3 +82,18 @@ body {
 .activity.active {
 	background: #161616;
 }
+
+.boardTextSection {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100% - 300px);
+}
+
+#boardText {
+  color: #DAE1E3;
+  font-size: 50px;
+  margin: 0 auto;
+}
