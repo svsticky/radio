@@ -12,10 +12,10 @@ function setDate(activity) {
   return Object.assign(
     {},
     activity,
-    { has_start_time : activity.start_date.indexOf('T') > -1 },
-    { has_end_time : activity.end_date && activity.end_date.indexOf('T') > -1 },
+    { has_start_time: activity.start_date.indexOf('T') > -1 },
+    { has_end_time: activity.end_date && activity.end_date.indexOf('T') > -1 },
     { start_date: new Date(activity.start_date) },
-    activity.end_date ? { end_date : new Date(activity.end_date) } : null
+    activity.end_date ? { end_date: new Date(activity.end_date) } : null
   );
 }
 
@@ -46,8 +46,8 @@ export default class App extends Component {
    * Default values for properties
    */
   static defaultProps = {
-    loadInterval: 15*60*1000,
-    nextInterval: 2*1000
+    loadInterval: 15 * 60 * 1000,
+    nextInterval: 2 * 1000
   };
 
   constructor(props) {
@@ -57,12 +57,11 @@ export default class App extends Component {
     this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
 
     this.state = {
-      currentActivity: null,
-      currentAd: null,
+      current: "activities",
       activities: [],
       ads: [],
-      radio: "boardText"
-    };
+      index: 0
+    }
   }
 
   loadData() {
@@ -72,7 +71,7 @@ export default class App extends Component {
     fetch(this.activitiesEndpoint)
       // fix activity dates and sort them on start_date
       .then(resp => resp.json())
-      .then(activities => activities.map(setDate).sort((a,b) => a.start_date - b.start_date))
+      .then(activities => activities.map(setDate).sort((a, b) => a.start_date - b.start_date))
       .then(activities =>
         fetch(this.adsEndpoint)
           .then(resp => resp.json())
@@ -80,87 +79,60 @@ export default class App extends Component {
             // make sure that we don't start scrolling activities or ads when
             // there are no activities or ads to scroll through.
             const currentActivity = activities.length > 0 ? 0 : null;
-            const currentAd       = currentActivity === null && ads.length > 0 ? 0 : null;
-            this.setState({activities:activities.filter(act => act.poster), ads, currentActivity, currentAd});
+            const currentAd = currentActivity === null && ads.length > 0 ? 0 : null;
+            this.setState({ activities: activities.filter(act => act.poster), ads, currentActivity, currentAd });
           }));
   }
 
   currentPoster() {
-    if (this.state.currentActivity !== null) {
-      return this.state.activities[this.state.currentActivity].poster;
-    } else if (this.state.currentAd !== null) {
-      return this.state.ads[this.state.currentAd].poster;
-
-      // Feature request: Do NOT display this activity
-    } else {
-      return 'placeholder'; // TODO funny placeholder easterergg
+    if (this.state.current === "activities") {
+      let activity = this.state.activities[this.state.index];
+      return activity ? activity.poster : "";
+    } else if (this.state.current === "advertisement") {
+      return this.state.ads[this.state.index].poster;
     }
   }
 
   next() {
-
-    // Case 1:  Both currentActivity and currentAd are null (i.e. there is no data)
-
-    if (this.state.currentActivity === null && this.state.currentAd === null) {
-      throw 'Why is there no data?!';
-      return;
-    }
-
-    // Case 2: Should never happen
-    //  > Then why is there a case for it?
-    if (this.state.currentActivity !== null && this.state.currentAd !== null) {
-      throw 'Invariant violation. Cannot display an ad and activity at the same time!';
-    }
-
-    // Case 3: We are displaying activities
-    if (this.state.currentActivity !== null) {
-      // If we're at the end of the activities
-      if (this.state.currentActivity >= this.state.activities.length - 1) {
-        // if there are ads, switch to the first ad
-        if (this.state.ads.length > 0) {
+    switch (this.state.current) {
+      case "activities":
+        if (this.state.index >= this.state.activities.length - 1) {
+          console.count("done")
           this.setState({
-            currentActivity: null,
-            currentAd: 0
+            current: "advertisement",
+            index: 0
           });
-        // else go back to the first activity
         } else {
+          console.count("next")
           this.setState({
-            currentActivity: 0
+            index: this.state.index + 1
           });
         }
-      } else {
-        this.setState({
-          currentActivity: this.state.currentActivity + 1
-        });
-      }
-    }
-
-    // Case 4: We are displaying ads
-    else if (this.state.currentAd !== null) {
-      // If we're at the end of ads
-      if (this.state.currentAd >= this.state.ads.length - 1) {
-        // if there are any activities, switch to the first activity
-        if (this.state.activities.length > 0) {
+        break;
+      case "advertisement":
+        if (this.state.currentAd >= this.state.ads.length - 1) {
           this.setState({
-            currentAd: null,
-            currentActivity: 0
+            current: "boardText",
+            index: 0
           });
-        // else go back to the first ad
         } else {
           this.setState({
-            currentAd: 0
+            index: this.state.index + 1
           });
         }
-      } else {
+        break;
+      case "boardText":
         this.setState({
-          currentAd: this.state.currentAd + 1
+          current: "quotes"
         });
-      }
-    }
-
-    // Case 5: We are displaying some text from the board
-    else if (!this.state.currentBoardText) {
-
+        break;
+      case "quotes":
+        this.setState({
+          current: "activities"
+        });
+        break;
+      default:
+        return;
     }
   }
 
@@ -184,19 +156,25 @@ export default class App extends Component {
   }
 
   renderContent() {
-    switch (this.state.radio) {
+    console.log(this.state.current)
+    switch (this.state.current) {
       case "activities":
         return (
           <div>
-            <Activities activities={this.state.activities} currentActivity={this.state.currentActivity} />
+            <Activities activities={this.state.activities} currentActivity={this.state.index} />
             <Poster poster={this.currentPoster()} />
           </div>
         );
-      case "advertisement": /// Not used yet
-        break;
+      case "advertisement":
+        return (
+          <div>
+            <Activities activities={this.state.activities} />
+            <Poster poster={this.currentPoster()} />
+          </div>
+        );
       case "boardText":
         return (
-          <BoardText/>
+          <BoardText />
         )
       case "quotes": /// Not used yet
         break;

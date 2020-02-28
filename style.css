@@ -1,14 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900);
 
-*::-webkit-scrollbar {
-	display: none;
-}
-
 html {
 	background: #262626;
 	font-family: "Work Sans", sans-serif;
 	max-height: 100%;
+  width: 100%;
+  position: fixed; 
 }
+
 body {
 	margin: 0;
 }
