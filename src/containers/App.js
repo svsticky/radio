@@ -97,13 +97,11 @@ export default class App extends Component {
     switch (this.state.current) {
       case "activities":
         if (this.state.index >= this.state.activities.length - 1) {
-          console.count("done")
           this.setState({
             current: "advertisement",
             index: 0
           });
         } else {
-          console.count("next")
           this.setState({
             index: this.state.index + 1
           });
@@ -156,7 +154,6 @@ export default class App extends Component {
   }
 
   renderContent() {
-    console.log(this.state.current)
     switch (this.state.current) {
       case "activities":
         return (

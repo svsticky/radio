@@ -1,5 +1,6 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv-webpack');
 
 module.exports = {
   devtool: 'eval',
@@ -8,6 +9,9 @@ module.exports = {
     // 'webpack/hot/only-dev-server',
     './src/index'
   ],
+  node: {
+    fs: "empty"
+  },
   devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'dist'),
@@ -20,7 +24,8 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
-    })
+    }),
+    new dotenv()
   ],
   module: {
     loaders: [{
