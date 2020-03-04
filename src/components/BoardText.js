@@ -1,24 +1,12 @@
 import React, { Fragment } from 'react';
-const contentful = require("contentful");
-
-const client = contentful.createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
-});
+import GetContent from './Contentful';
 
 let text = [];
-
-// Get all entries from Contentful and put them into the text array
-client
-  .getEntries({
-    'content_type': 'board-message'
-  })
-  .then(result => {
-    text = result.items.map(entry => entry.fields.message);
-  })
-  .catch(err => console.log(err));
-
 let index = -1;
+
+GetContent('board-message', entries => {
+  text = entries !== null ? entries.map(entry => entry.fields.message) : []
+});
 
 // Get the next message from the array or start over if you have
 // reached the end.
