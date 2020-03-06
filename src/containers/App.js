@@ -47,7 +47,7 @@ export default class App extends Component {
    */
   static defaultProps = {
     loadInterval: 15 * 60 * 1000,
-    nextInterval: 2 * 1000
+    nextInterval: 8 * 1000
   };
 
   constructor(props) {
@@ -121,14 +121,14 @@ export default class App extends Component {
         break;
       case "boardText":
         this.setState({
-          current: "quotes"
-        });
-        break;
-      case "quotes":
-        this.setState({
           current: "activities"
         });
         break;
+      // case "quotes":
+      //   this.setState({
+      //     current: "activities"
+      //   });
+      //   break;
       default:
         return;
     }
@@ -173,8 +173,8 @@ export default class App extends Component {
         return (
           <BoardText />
         )
-      case "quotes": /// Not used yet
-        break;
+      // case "quotes": /// Not used yet
+      //   break;
       default:
         return;
     }

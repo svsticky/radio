@@ -28,7 +28,6 @@ body {
 
 .topbar {
 	padding-top: 20px;
-	padding-left: 50px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 }
@@ -39,10 +38,12 @@ body {
 
 .logo > img {
 	width: 250px;
+  padding-left: 50px;
 }
 
 .clock-wrapper {
 	height: 135px;
+  grid-column: 2 / 3;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -87,7 +88,6 @@ body {
   position: fixed;
   align-items: center;
   justify-content: center;
-  width: 100%;
   height: calc(100% - 300px);
 }
 
@@ -95,4 +95,6 @@ body {
   color: #DAE1E3;
   font-size: 50px;
   margin: 0 auto;
+  width: 80%;
+  text-align: center;
 }

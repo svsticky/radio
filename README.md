@@ -9,17 +9,13 @@ Radio is a plain React project. To learn how to use react, all the documentation
 
 # Build and dev instructions
 
-install packages
-```
-$ npm install
-```
-Run the development server:
+1. Install packages by running `npm install`
 
-```
-$ npm run start
-```
+1. Rename .env and 
 
-Dev server runs on [http://localhost:3000].
+1. Run the development server: `npm run start`
+
+Dev server runs on [http://localhost:3000](http://localhost:3000).
 
 # Release instructions
 
