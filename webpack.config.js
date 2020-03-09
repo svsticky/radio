@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
@@ -25,13 +26,17 @@ module.exports = {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new dotenv()
+    new dotenv(),
+    // new HtmlWebpackPlugin({
+    //   hash: true,
+    //   filename: 'index.html'
+    // })
   ],
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['react-hot', 'babel'],
-      exclude: 'node_modules',
+      loader: 'babel-loader',
+      exclude: path.join(__dirname, 'node_modules'),
       include: path.join(__dirname, 'src')
     }]
   }
