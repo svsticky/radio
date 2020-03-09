@@ -5,6 +5,8 @@ import Activities from '../components/Activities';
 import Clock from '../components/Clock';
 import BoardText from '../components/BoardText';
 import Quotes from '../components/Quotes';
+import Ad from '../components/Ad';
+
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -165,10 +167,7 @@ export default class App extends Component {
         );
       case "advertisement":
         return (
-          <div>
-            <Activities activities={this.state.activities} />
-            <Poster poster={this.currentPoster()} />
-          </div>
+          <Ad />
         );
       case "boardText":
         return <BoardText />
