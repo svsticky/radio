@@ -46,15 +46,15 @@ export default class App extends Component {
    * Default values for properties
    */
   static defaultProps = {
-    loadInterval: 15 * 60 * 1000,
-    nextInterval: 8 * 1000
+    loadInterval: process.env.LOAD_INTERVAL,
+    nextInterval: process.env.NEXT_INTERVAL
   };
 
   constructor(props) {
     super(props);
 
-    this.activitiesEndpoint = `${this.props.apiRoot}/activities`;
-    this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
+    this.activitiesEndpoint = process.env.ACTIVITY_ENDPOINT;
+    this.adsEndpoint = process.env.AD_ENDPOINT;
 
     this.state = {
       current: "activities",
@@ -185,7 +185,7 @@ export default class App extends Component {
       <div className='app'>
         <div className="topbar">
           <div className='logo'>
-            <img src='https://svsticky.nl/wp-content/uploads/logo-sticky-licht.png' />
+            <img src={process.env.LOGO} />
           </div>
           <Clock />
         </div>
