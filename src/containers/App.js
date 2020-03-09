@@ -46,8 +46,8 @@ export default class App extends Component {
    * Default values for properties
    */
   static defaultProps = {
-    loadInterval: process.env.LOAD_INTERVAL,
-    nextInterval: process.env.NEXT_INTERVAL
+    loadInterval: parseInt(process.env.LOAD_INTERVAL),
+    nextInterval: parseInt(process.env.NEXT_INTERVAL)
   };
 
   constructor(props) {
