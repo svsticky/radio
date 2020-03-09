@@ -160,10 +160,7 @@ export default class App extends Component {
     switch (this.state.current) {
       case "activities":
         return (
-          <div>
-            <Activities activities={this.state.activities} currentActivity={this.state.index} />
-            <Poster poster={this.currentPoster()} />
-          </div>
+          <Activities activities={this.state.activities} currentActivity={this.state.index} poster={this.currentPoster()} />
         );
       case "advertisement":
         return (
