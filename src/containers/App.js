@@ -4,6 +4,7 @@ import Poster from '../components/Poster';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
 import BoardText from '../components/BoardText';
+import Quotes from '../components/Quotes';
 
 /**
  * Utility function to change dates from activities to actual Date objects
@@ -47,7 +48,7 @@ export default class App extends Component {
    */
   static defaultProps = {
     loadInterval: 15 * 60 * 1000,
-    nextInterval: 8 * 1000
+    nextInterval: 1000 * 1000
   };
 
   constructor(props) {
@@ -57,7 +58,7 @@ export default class App extends Component {
     this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
 
     this.state = {
-      current: "activities",
+      current: "quotes",
       activities: [],
       ads: [],
       index: 0
@@ -121,14 +122,14 @@ export default class App extends Component {
         break;
       case "boardText":
         this.setState({
+          current: "quotes"
+        });
+        break;
+      case "quotes":
+        this.setState({
           current: "activities"
         });
         break;
-      // case "quotes":
-      //   this.setState({
-      //     current: "activities"
-      //   });
-      //   break;
       default:
         return;
     }
@@ -170,11 +171,9 @@ export default class App extends Component {
           </div>
         );
       case "boardText":
-        return (
-          <BoardText />
-        )
-      // case "quotes": /// Not used yet
-      //   break;
+        return <BoardText />
+      case "quotes":
+        return <Quotes />
       default:
         return;
     }

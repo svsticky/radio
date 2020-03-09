@@ -83,19 +83,37 @@ body {
 	background: #161616;
 }
 
-.boardTextSection {
+.boardTextSection, .quoteSection {
   display: flex;
   position: fixed;
   align-items: center;
-  justify-content: center;
-	height: calc(100% - 300px);
+	justify-content: center;
+	flex-direction: column;
 	width: 100%;
+	height: calc(100% - 300px);
 }
 
-#boardText {
+#boardText, #quoteText, #quotePerson {
   color: #DAE1E3;
   font-size: 50px;
   margin: 0 auto;
   width: 80%;
   text-align: center;
+}
+
+#quoteText {
+	font-size: 70px;
+	margin: 0;
+	width: 100%;
+	font-family: 'Kalam', cursive;
+}
+
+#quotePerson {
+	margin-top: 50px;
+	font-family: 'Kalam', cursive;
+}
+
+.quoteBackground {
+	padding: 50px;
+	border: 3px solid #ffffff;
 }
