@@ -48,7 +48,7 @@ export default class App extends Component {
    */
   static defaultProps = {
     loadInterval: 15 * 60 * 1000,
-    nextInterval: 1000 * 1000
+    nextInterval: 2 * 1000
   };
 
   constructor(props) {
@@ -58,7 +58,7 @@ export default class App extends Component {
     this.adsEndpoint = `${this.props.apiRoot}/advertisements`;
 
     this.state = {
-      current: "quotes",
+      current: "activities",
       activities: [],
       ads: [],
       index: 0
