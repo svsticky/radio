@@ -48,7 +48,7 @@ export default class App extends Component {
    */
   static defaultProps = {
     loadInterval: 15 * 60 * 1000,
-    nextInterval: 2 * 1000
+    nextInterval: 8 * 1000
   };
 
   constructor(props) {
