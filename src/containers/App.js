@@ -60,7 +60,7 @@ export default class App extends Component {
     this.adsEndpoint = process.env.AD_ENDPOINT;
 
     this.state = {
-      current: "activities",
+      current: "advertisement",
       activities: [],
       ads: [],
       index: 0
@@ -111,14 +111,9 @@ export default class App extends Component {
         }
         break;
       case "advertisement":
-        if (this.state.currentAd >= this.state.ads.length - 1) {
+        if (!AdCycle()) {
           this.setState({
-            current: "boardText",
-            index: 0
-          });
-        } else {
-          this.setState({
-            index: this.state.index + 1
+            current: "boardText"
           });
         }
         break;
