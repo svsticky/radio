@@ -27,6 +27,13 @@ module.exports = {
     }),
     new dotenv(),
   ],
+  devServer: {
+    contentBase: 'dist',
+    compress: true,
+    hot: true,
+    port: 3000,
+    publicPath: '/',
+  },
   module: {
     rules: [{
       test: /\.js$/,
