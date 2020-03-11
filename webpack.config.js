@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
-//var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
@@ -27,7 +26,6 @@ module.exports = {
       }
     }),
     new dotenv(),
-    //new HtmlWebpackPlugin()
   ],
   module: {
     rules: [{
