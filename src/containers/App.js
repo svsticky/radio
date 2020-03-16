@@ -1,25 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import fetch from 'isomorphic-fetch';
-import Poster from '../components/Poster';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
 import BoardText from '../components/BoardText';
 import Quotes from '../components/Quotes';
 import Ad from '../components/Ad';
-
-/**
- * Utility function to change dates from activities to actual Date objects
- */
-function setDate(activity) {
-  return Object.assign(
-    {},
-    activity,
-    { has_start_time: activity.start_date.indexOf('T') > -1 },
-    { has_end_time: activity.end_date && activity.end_date.indexOf('T') > -1 },
-    { start_date: new Date(activity.start_date) },
-    activity.end_date ? { end_date: new Date(activity.end_date) } : null
-  );
-}
 
 /**
  * Main app entrypoint.
@@ -44,52 +28,20 @@ export default class App extends Component {
     apiRoot: PropTypes.string.isRequired
   };
 
-  /**
-   * Default values for properties
-   */
-  static defaultProps = {
-    loadInterval: parseInt(process.env.LOAD_INTERVAL),
-    nextInterval: parseInt(process.env.NEXT_INTERVAL)
-  };
-
   constructor(props) {
     super(props);
 
-    this.activitiesEndpoint = process.env.ACTIVITY_ENDPOINT;
-    this.adsEndpoint = process.env.AD_ENDPOINT;
-
     this.state = {
       current: "activities",
-      activities: [],
-      ads: [],
       index: 0
     }
-  }
-
-  // See https://davidwalsh.name/fetch
-  loadData() {
-    // Get activities
-    fetch(this.activitiesEndpoint)
-      // Fix activity dates and sort them on start_date
-      .then(resp => resp.json())
-      .then(activities => activities.map(setDate).sort((a, b) => a.start_date - b.start_date))
-      .then(activities => {
-        // Make sure that we don't start scrolling activities when
-        // there are no activities to scroll through.
-        const currentActivity = activities.length > 0 ? 0 : null;
-        this.setState({ activities: activities.filter(act => act.poster), currentActivity });
-      });
-  }
-
-  currentPoster() {
-    let activity = this.state.activities[this.state.index];
-    return activity ? activity.poster : "";
   }
 
   next() {
     switch (this.state.current) {
       case "activities":
-        if (this.state.index >= this.state.activities.length - 1) {
+        if (this.finishedState) {
+          this.finishedState = false;
           this.setState({
             current: "advertisement",
             index: 0
@@ -129,17 +81,10 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // set up intervals.
-    // every this.props.loadInterval, new events are loaded from koala.
-    // every this.props.nextInterval, we switch to the next ad or activity to display
-    this.dataLoader =
-      setInterval(this.loadData.bind(this), this.props.loadInterval);
-
-    this.loadData();
-
+    // Set up interval.
+    // Every this.props.nextInterval, we switch to the next ad or activity to display
     this.activityChanger =
-      setInterval(this.next.bind(this), this.props.nextInterval);
-
+      setInterval(this.next.bind(this), parseInt(process.env.NEXT_INTERVAL));
   }
 
   componentWillUnmount() {
@@ -152,9 +97,10 @@ export default class App extends Component {
       case "activities":
         return (
           <Activities 
-            activities={this.state.activities} 
-            currentActivity={this.state.index} 
-            poster={this.currentPoster()}
+            current={this.state.index}
+            onChange={() => {
+              this.finishedState = true;
+            }} 
           />
         );
       case "advertisement":
