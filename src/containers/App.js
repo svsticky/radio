@@ -98,18 +98,14 @@ export default class App extends Component {
         return (
           <Activities 
             current={this.state.index}
-            onChange={() => {
-              this.finishedState = true;
-            }} 
+            onChange={() => {this.finishedState = true;}} 
           />
         );
       case "advertisement":
         return (
           <Ad 
             current={this.state.index} 
-            onChange={() => {
-              this.finishedState = true;
-            }} 
+            onChange={() => {this.finishedState = true;}} 
           />
         );
       case "boardText":
