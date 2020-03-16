@@ -20,12 +20,6 @@ body {
 	max-width: 40%;
 }
 
-.activities {
-	float: left;
-	max-width: 60%;
-	height: calc(100vh - 210px);
-}
-
 .topbar {
 	padding-top: 20px;
 	display: grid;
@@ -61,7 +55,26 @@ body {
 	color: #DAE1E3;
 	list-style: none;
 	overflow-y: hidden;
-	max-height: 70%
+	max-height: 70%;
+}
+
+.advertisement {
+	margin-left: 50px;
+	margin-top: 50px;
+	padding: 0;
+	color: #DAE1E3;
+	list-style: none;
+	overflow-y: hidden;
+	max-height: 70%;
+	width: 50%;
+}
+
+.advertisement h1 {
+	font-size: 40px;
+}
+
+.advertisement p {
+	font-size: 30px;
 }
 
 .activity {

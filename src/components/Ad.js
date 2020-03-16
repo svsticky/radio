@@ -24,7 +24,7 @@ export default class Ad extends Component {
       let currentAd = this.state.ads[this.props.current];
       return (
         <div>
-        <ul className='activities'>
+        <ul className='advertisement'>
           <h1>{currentAd.title}</h1>
           <p>
             {currentAd.description}
