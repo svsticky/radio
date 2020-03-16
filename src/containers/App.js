@@ -7,7 +7,6 @@ import BoardText from '../components/BoardText';
 import Quotes from '../components/Quotes';
 import Ad from '../components/Ad';
 
-
 /**
  * Utility function to change dates from activities to actual Date objects
  */
@@ -60,7 +59,7 @@ export default class App extends Component {
     this.adsEndpoint = process.env.AD_ENDPOINT;
 
     this.state = {
-      current: "advertisement",
+      current: "activities",
       activities: [],
       ads: [],
       index: 0
@@ -88,12 +87,8 @@ export default class App extends Component {
   }
 
   currentPoster() {
-    if (this.state.current === "activities") {
-      let activity = this.state.activities[this.state.index];
-      return activity ? activity.poster : "";
-    } else if (this.state.current === "advertisement") {
-      return this.state.ads[this.state.index].poster;
-    }
+    let activity = this.state.activities[this.state.index];
+    return activity ? activity.poster : "";
   }
 
   next() {
@@ -111,9 +106,15 @@ export default class App extends Component {
         }
         break;
       case "advertisement":
-        if (!AdCycle()) {
+        if (this.finishedState) {
+          this.finishedState = false;
           this.setState({
-            current: "boardText"
+            current: "boardText",
+            index: 0
+          });
+        } else {
+          this.setState({
+            index: this.state.index + 1
           });
         }
         break;
@@ -155,11 +156,20 @@ export default class App extends Component {
     switch (this.state.current) {
       case "activities":
         return (
-          <Activities activities={this.state.activities} currentActivity={this.state.index} poster={this.currentPoster()} />
+          <Activities 
+            activities={this.state.activities} 
+            currentActivity={this.state.index} 
+            poster={this.currentPoster()}
+          />
         );
       case "advertisement":
         return (
-          <Ad />
+          <Ad 
+            current={this.state.index} 
+            onChange={() => {
+              this.finishedState = true;
+            }} 
+          />
         );
       case "boardText":
         return <BoardText />
