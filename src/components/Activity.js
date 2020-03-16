@@ -36,9 +36,9 @@ export default class Activity extends Component {
           return moment(sd).format('HH:mm');
 
       if (this.props.has_start_time)
-          return moment(sd).format('DD-MM HH:mm');
+          return moment(sd).format('dddd DD-MM HH:mm');
 
-      return moment(sd).format('DD-MM');
+      return moment(sd).format('dddd DD-MM');
   }
 
   makeEndDate() {
@@ -51,9 +51,9 @@ export default class Activity extends Component {
       }
 
       if (this.props.has_end_time)
-          return moment(ed).format('DD-MM HH:mm');
+          return moment(ed).format('dddd DD-MM HH:mm');
 
-      return moment(ed).format('DD-MM');
+      return moment(ed).format('dddd DD-MM');
   }
 
   render() {
