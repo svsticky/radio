@@ -65,8 +65,6 @@ export default class Activity extends Component {
 	if (props.participant_counter != null)
 		participants = ` (${props.participant_counter})`;
 
-    console.log(props.active);
-
     let className = 'activity';
     if (props.active) {
       className += ' active';

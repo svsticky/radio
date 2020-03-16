@@ -48,17 +48,7 @@ body {
 	font-size: 80px;
 }
 
-.activities {
-	margin-left: 50px;
-	margin-top: 50px;
-	padding: 0;
-	color: #DAE1E3;
-	list-style: none;
-	overflow-y: hidden;
-	max-height: 70%;
-}
-
-.advertisement {
+.activities, .advertisement {
 	margin-left: 50px;
 	margin-top: 50px;
 	padding: 0;
