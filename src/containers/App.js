@@ -66,24 +66,19 @@ export default class App extends Component {
     }
   }
 
+  // See https://davidwalsh.name/fetch
   loadData() {
-    // See https://davidwalsh.name/fetch
-
-    // get activities
+    // Get activities
     fetch(this.activitiesEndpoint)
-      // fix activity dates and sort them on start_date
+      // Fix activity dates and sort them on start_date
       .then(resp => resp.json())
       .then(activities => activities.map(setDate).sort((a, b) => a.start_date - b.start_date))
-      .then(activities =>
-        fetch(this.adsEndpoint)
-          .then(resp => resp.json())
-          .then(ads => {
-            // make sure that we don't start scrolling activities or ads when
-            // there are no activities or ads to scroll through.
-            const currentActivity = activities.length > 0 ? 0 : null;
-            const currentAd = currentActivity === null && ads.length > 0 ? 0 : null;
-            this.setState({ activities: activities.filter(act => act.poster), ads, currentActivity, currentAd });
-          }));
+      .then(activities => {
+        // Make sure that we don't start scrolling activities when
+        // there are no activities to scroll through.
+        const currentActivity = activities.length > 0 ? 0 : null;
+        this.setState({ activities: activities.filter(act => act.poster), currentActivity });
+      });
   }
 
   currentPoster() {
