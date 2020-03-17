@@ -1,38 +1,46 @@
 # radio
 
-Random afkorting voor digitaal informatie overdrager. Dit is een React project
-dat activiteiten uit Koala inleest en deze weergeeft. De intentie is dat dit
-op de TV in de Sticky kamer gebeurt.
+Random Afkorting voor Digitale Informatie Overdracht.
+This is a plain React project that is used to display information on the TV screen in the Sticky room.
+This information is read in from Koala and Contentful.
 
-# Technology used
-Radio is a plain React project. To learn how to use react, all the documentation for that is on https://facebook.github.io/react/
+## Technology used
 
-# Build and dev instructions
+Radio is a plain React project.
+To learn how to use react, all the documentation for that is on <https://facebook.github.io/react/>
 
-1. Install packages by running `npm install`
+## Build and dev instructions
 
-1. Rename .env and 
+1. Install packages by running `npm install`;
 
-1. Run the development server: `npm run start`
+1. Rename sample.env to .env;
 
-Dev server runs on [http://localhost:3000](http://localhost:3000).
+1. Fill in the Contentful space_id and token;
 
-# Release instructions
+1. Run the development server: `npm run start`.
 
-Build the js file used for deployment. This will bundle all files together in a single `dist/bundle.js` file. Which is loaded in `index.html`
+Dev server runs on <http://localhost:3000>.
+
+## Release instructions
+
+Put the transpiled js, html and css files in the dist/ folder:
+
+``` bash
+npm run build
 ```
-$ npm run build
-```
 
-Simply copy over the dist/ folder to the sticky server to deploy. If you change the CSS or index.html you need to scp those over too.
+Simply copy over the dist/ folder to the server to deploy.
 
 On Linux this should be done by using:
-```
-$ scp -r dist/ index.html style.css svsticky.nl:/var/www/commit/radio.svsticky.nl
+
+``` bash
+scp -r dist/ svsticky.nl:/var/www/commit/radio.svsticky.nl
 ```
 
-When on Windows you need to use an SFTP client to connect to
-```
+When on Windows you need to use an SFTP client to connect to:
+
+``` bash
 sftp://commit@svsticky.nl
 ```
-That's it. happy hacking.
+
+That's it. Happy hacking.
