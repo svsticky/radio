@@ -10,7 +10,7 @@
     "moment": "^2.24.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "scroll-into-view": "^1.9.4"
+    "scroll-into-view": "^1.14.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -34,7 +34,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
-    "eslint": "^4.18.2",
+    "eslint": "^6.8.0",
     "eslint-plugin-react": "^4.2.2",
     "file-loader": "^5.1.0",
     "react-hot-loader": "^1.3.0",
