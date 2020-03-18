@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Activities from '../components/Activities';
 import Clock from '../components/Clock';
 import BoardText from '../components/BoardText';
 import Quotes from '../components/Quotes';
 import Ad from '../components/Ad';
+import PropTypes from 'prop-types'
 
 /**
  * Main app entrypoint.
