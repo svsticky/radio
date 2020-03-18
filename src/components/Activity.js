@@ -74,7 +74,7 @@ export default class Activity extends Component {
       <li className={className}>
         <h1>{props.name}{participants}</h1>
         <time>{startDate}</time>
-        {endDate ? <time>{endDate}</time> : null}
+        {endDate ? <time> - {endDate}</time> : null}
       </li>
     );
   }

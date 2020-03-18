@@ -79,7 +79,7 @@ body {
 }
 .activity time {
 	display: inline-block;
-	padding-right: 20px;
+	padding-right: 10px;
 	font-size: 1.4em
 }
 .activity.active {
