@@ -57,6 +57,7 @@ body {
 	overflow-y: hidden;
 	max-height: 70%;
 	width: 50%;
+	position: fixed;
 }
 
 .advertisement h1 {
