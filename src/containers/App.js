@@ -4,7 +4,7 @@ import Clock from '../components/Clock';
 import BoardText from '../components/BoardText';
 import Quotes from '../components/Quotes';
 import Ad from '../components/Ad';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 /**
  * Main app entrypoint.
@@ -39,6 +39,10 @@ export default class App extends Component {
   }
 
   next() {
+    const params = new URLSearchParams(window.location.search);
+
+    const display_internal = params.get("internal") == "true";
+
     switch (this.state.current) {
       case "activities":
         if (this.finishedState) {
@@ -56,8 +60,12 @@ export default class App extends Component {
       case "advertisement":
         if (this.finishedState) {
           this.finishedState = false;
+
+          // skip boardText and quotes on the screen on the outside of the
+          // Sticky room
+          let new_state = display_internal ? "boardText" : "activities";
           this.setState({
-            current: "boardText",
+            current: new_state,
             index: 0
           });
         } else {
@@ -97,16 +105,16 @@ export default class App extends Component {
     switch (this.state.current) {
       case "activities":
         return (
-          <Activities 
+          <Activities
             current={this.state.index}
-            onChange={() => {this.finishedState = true;}} 
+            onChange={() => {this.finishedState = true;}}
           />
         );
       case "advertisement":
         return (
-          <Ad 
-            current={this.state.index} 
-            onChange={() => {this.finishedState = true;}} 
+          <Ad
+            current={this.state.index}
+            onChange={() => {this.finishedState = true;}}
           />
         );
       case "boardText":

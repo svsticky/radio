@@ -20,6 +20,7 @@ To learn how to use react, all the documentation for that is on <https://faceboo
 1. Run the development server: `npm run start`.
 
 Dev server runs on <http://localhost:3000>.
+Also check <http://localhost:3000/?internal=true> to see the quotes and board ads.
 
 ## Release instructions
 
