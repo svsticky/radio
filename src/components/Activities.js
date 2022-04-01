@@ -44,25 +44,25 @@ export default class Activities extends Component {
     this.dataLoader =
       setInterval(this.loadData.bind(this), parseInt(process.env.LOAD_INTERVAL));
   }
-  
+
   render() {
     if (this.state.activities.length > 0) {
-      if(this.props.current >= (this.state.activities.length - 1))
+      if (this.props.current >= (this.state.activities.length - 1))
         this.props.onChange(true);
 
       let currentActivity = this.state.activities[this.props.current];
       return (
         <div>
           <ul className='activities'>
-            { this.state.activities.map((activity, i) => {
-              return <Activity 
-                key={i} 
-                {...activity} 
-                active={activity === currentActivity} 
+            {this.state.activities.map((activity, i) => {
+              return <Activity
+                key={i}
+                {...activity}
+                active={activity === currentActivity}
               />
-            }) }
+            })}
           </ul>
-          <Poster poster={currentActivity.poster} />
+          <Poster poster={currentActivity ? currentActivity.poster : null} />
         </div>
       );
     }
