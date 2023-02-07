@@ -60,6 +60,15 @@ body {
 	position: fixed;
 }
 
+.full-advertisement, .full-advertisement > .poster {
+	position: absolute;
+	left: 0;
+	top: 0;
+	max-width: 100vw;
+	max-height: 100vh;
+	height: inherit;
+}
+
 .advertisement h1 {
 	font-size: 40px;
 }
