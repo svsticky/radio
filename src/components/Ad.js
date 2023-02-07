@@ -22,17 +22,25 @@ export default class Ad extends Component {
 
     if (this.state.ads.length > 0) {
       let currentAd = this.state.ads[this.props.current];
-      return (
-        <div>
-          <ul className='advertisement'>
-            <h1>{currentAd.title}</h1>
-            <p>
-              {currentAd.description}
-            </p>
-          </ul>
-          <Poster poster={`https:${currentAd.poster.fields.file.url}`}></Poster>
-        </div>
-      );
+      if (currentAd.fullscreen) {
+        return (
+          <div className='full-advertisement'>
+            <Poster poster={`https:${currentAd.poster.fields.file.url}`}></Poster>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <ul className='advertisement'>
+              <h1>{currentAd.title}</h1>
+              <p>
+                {currentAd.description}
+              </p>
+            </ul>
+            <Poster poster={`https:${currentAd.poster.fields.file.url}`}></Poster>
+          </div>
+        );
+      }
     } else {
       return (
         <div>
