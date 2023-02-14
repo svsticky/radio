@@ -16,11 +16,11 @@ export default class Ad extends Component {
     });
   }
 
-  render() {
-    if (this.props.current >= (this.state.ads.length - 1))
-      this.props.onChange(true);
-
+  render() {    
     if (this.state.ads.length > 0) {
+      if (this.props.current >= (this.state.ads.length - 1))
+        this.props.onChange(true);
+
       let currentAd = this.state.ads[this.props.current];
       if (currentAd.fullscreen) {
         return (
