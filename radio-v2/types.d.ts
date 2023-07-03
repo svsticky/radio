@@ -1,0 +1,4 @@
+
+interface SceneProps {
+    onFinish: () => void,
+}  
