@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import Activities from '../components/Activities';
-import Clock from '../components/Clock';
-import BoardText from '../components/BoardText';
-import Quotes from '../components/Quotes';
-import Ad from '../components/Ad';
+import Activities from './components/Activities';
+import Clock from './components/Clock';
+import BoardText from './components/BoardText';
+import Quotes from './components/Quotes';
+import Ad from './components/Ad';
 import PropTypes from 'prop-types';
+import './App.css';
 
 /**
  * Main app entrypoint.
  */
+
+// export default function App (){ return "hi" }
+
 export default class App extends Component {
 
   static propTypes = {
@@ -93,7 +97,7 @@ export default class App extends Component {
     // Set up interval.
     // Every this.props.nextInterval, we switch to the next ad or activity to display
     this.activityChanger =
-      setInterval(this.next.bind(this), parseInt(process.env.NEXT_INTERVAL));
+      setInterval(this.next.bind(this), parseInt(process.env.REACT_APP_NEXT_INTERVAL));
   }
 
   componentWillUnmount() {
@@ -131,7 +135,7 @@ export default class App extends Component {
       <div className='app'>
         <div className="topbar">
           <div className='logo'>
-            <img src={process.env.LOGO} />
+            <img src={process.env.REACT_APP_LOGO} />
           </div>
           <Clock />
         </div>

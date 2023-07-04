@@ -29,7 +29,7 @@ export default class Activities extends Component {
   // Get activities
   loadData() {
     // See https://davidwalsh.name/fetch
-    fetch(process.env.ACTIVITY_ENDPOINT)
+    fetch(process.env.REACT_APP_ACTIVITY_ENDPOINT)
       // Fix activity dates and sort them on start_date
       .then(resp => resp.json())
       .then(activities => activities.map(this.setDate).sort((a, b) => a.start_date - b.start_date))
@@ -42,7 +42,7 @@ export default class Activities extends Component {
     // Set up interval.
     // Every this.props.loadInterval, new events are loaded from koala.
     this.dataLoader =
-      setInterval(this.loadData.bind(this), parseInt(process.env.LOAD_INTERVAL));
+      setInterval(this.loadData.bind(this), parseInt(process.env.REACT_APP_LOAD_INTERVAL));
   }
 
   render() {

@@ -1,7 +1,11 @@
 import React from 'react';
-import { render } from 'react-dom';
-import App from './containers/App';
-import css from './style.css';
-import html from './index.html';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
 
-render(<App apiRoot='https://koala.svsticky.nl/api' />, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App apiRoot='https://koala.svsticky.nl/api'/>
+  </React.StrictMode>
+);
