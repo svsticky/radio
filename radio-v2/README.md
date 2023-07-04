@@ -6,7 +6,7 @@
 
 2. Rename sample.env to .env;
 
-3. Fill in the Contentful space_id and token;
+3. Fill in the Contentful `space_id` and `token`;
 
 4. Run the development server: `npm run dev` or `yarn dev`. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -16,6 +16,15 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## TODOS
+
+- PR A: Remove libraries: Babel, Isomorphic fetch, Scroll-into-view, (Moment?)
+- PR B: Upgrade to newer React version
+- PR C: Converet JS-class compontents to (typescript?) functional components
+- PR D: Replace case-statements with scenes (Easy API to ADD-paged)
+- PR E: Github team-page
+- PR F: Github commit-messages (with sound!?)
 
 ## Changes in relation to v1
 
