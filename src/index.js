@@ -5,7 +5,7 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App apiRoot='https://koala.svsticky.nl/api'/>
-  </React.StrictMode>
+
+  <App apiRoot='https://koala.svsticky.nl/api' />
+
 );
