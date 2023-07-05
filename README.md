@@ -26,7 +26,7 @@ Also check <http://localhost:3000/?internal=true> to see the quotes and board ad
 
 Put the transpiled js, html and css files in the dist/ folder:
 
-``` bash
+```bash
 npm run build
 ```
 
@@ -34,14 +34,23 @@ Simply copy over the dist/ folder to the server to deploy.
 
 On Linux this should be done by using:
 
-``` bash
+```bash
 scp -r dist/* svsticky.nl:/var/www/commit/radio.svsticky.nl
 ```
 
 When on Windows you need to use an SFTP client to connect to:
 
-``` bash
+```bash
 sftp://commit@svsticky.nl
 ```
 
 That's it. Happy hacking.
+
+## TODOS
+
+- [ ] PR A: Remove deprecated libraries: Isomorphic fetch, Scroll-into-view, (Moment?)
+- [x] PR B: Upgrade to newer React version (and remove Babel)
+- [ ] PR C: Converet JS-class compontents to (typescript?) functional components
+- [ ] PR D: Replace case-statements with scenes (Easy API to ADD-paged)
+- [ ] PR E: Github team-page
+- [ ] PR F: Github commit-messages (with sound!?)
