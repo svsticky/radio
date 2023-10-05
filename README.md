@@ -26,7 +26,7 @@ Also check <http://localhost:3000/?internal=true> to see the quotes and board ad
 
 Put the transpiled js, html and css files in the dist/ folder:
 
-``` bash
+```bash
 npm run build
 ```
 
@@ -34,13 +34,13 @@ Simply copy over the dist/ folder to the server to deploy.
 
 On Linux this should be done by using:
 
-``` bash
+```bash
 scp -r dist/* svsticky.nl:/var/www/commit/radio.svsticky.nl
 ```
 
 When on Windows you need to use an SFTP client to connect to:
 
-``` bash
+```bash
 sftp://commit@svsticky.nl
 ```
 
