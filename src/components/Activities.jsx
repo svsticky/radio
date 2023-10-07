@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Activity from "./Activity";
 import Poster from "./Poster";
+import { KOALA_ACTIVITY_ENDPOINT } from "../helpers/env";
 
 export default class Activities extends Component {
   constructor(props) {
@@ -28,9 +29,7 @@ export default class Activities extends Component {
 
   // Get activities
   loadData() {
-    const ACTIVITY_ENDPOINT = import.meta.env.VITE_ACTIVITY_ENDPOINT;
-    // See https://davidwalsh.name/fetch
-    fetch(ACTIVITY_ENDPOINT)
+    fetch(KOALA_ACTIVITY_ENDPOINT)
       // Fix activity dates and sort them on start_date
       .then((resp) => resp.json())
       .then((activities) =>

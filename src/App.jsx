@@ -4,27 +4,10 @@ import Clock from "./components/Clock";
 import BoardText from "./components/BoardText";
 import Quotes from "./components/Quotes";
 import Ad from "./components/Ad";
-import PropTypes from "prop-types";
+import { TeamPage } from "./components/Team";
+import { LOGO } from "./helpers/env";
 
 export default class App extends Component {
-  static propTypes = {
-    /**
-     * The interval in milliseconds that indicates how often to reload the
-     * activities and advertisements from koala
-     */
-    loadInterval: PropTypes.number,
-    /**
-     * The interval in milliseconds that indicates how often we switch to
-     * a next activity or advertisement
-     */
-    nextInterval: PropTypes.number,
-    /**
-     * The api root of the koala Api. an example is http://koala.svsticky.nl/api
-     * for the Sticky Utrecht Koala instance
-     */
-    apiRoot: PropTypes.string.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -77,6 +60,11 @@ export default class App extends Component {
         break;
       case "quotes":
         this.setState({
+          current: "team",
+        });
+        break;
+      case "team":
+        this.setState({
           current: "activities",
         });
         break;
@@ -123,6 +111,8 @@ export default class App extends Component {
         return <BoardText />;
       case "quotes":
         return <Quotes />;
+      case "team":
+        return <TeamPage />;
       default:
         return;
     }
@@ -133,7 +123,7 @@ export default class App extends Component {
       <div className="app">
         <div className="topbar">
           <div className="logo">
-            <img src={import.meta.env.VITE_LOGO} />
+            <img src={LOGO} />
           </div>
           <Clock />
         </div>

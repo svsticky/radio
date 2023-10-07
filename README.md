@@ -13,7 +13,7 @@ To learn how to use react, all the documentation for that is on <https://faceboo
 
 1. Install packages by running `npm install`;
 
-1. Rename sample.env to .env;
+1. Rename sample.env to .env; (fill in the contentful secrets by requesting them from ITcrowd)
 
 1. Fill in the Contentful space_id and token;
 

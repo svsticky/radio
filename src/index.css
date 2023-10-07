@@ -6,6 +6,7 @@ html {
   max-height: 100%;
   width: 100%;
   position: fixed;
+  color: white;
 }
 
 body {
@@ -133,4 +134,30 @@ body {
 
 .quoteBackground {
   padding: 50px;
+}
+
+/* TEAM PAGE  */
+
+.member-wrapper {
+  padding-left: 50px;
+}
+
+.member-list {
+  padding: 16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+}
+
+.member-list__item {
+  text-align: center;
+  font-size: 9pt;
+  padding: 10px;
+}
+
+.member-list__item__img {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  margin-bottom: 3px;
 }
