@@ -1,5 +1,6 @@
 import { octokit } from "../helpers/github";
 import { useQuery } from "../hooks/useQuery";
+import Poster from "./Poster";
 
 export const TeamPage = () => {
   const { data: members, isLoading } = useQuery(async () => {
@@ -34,6 +35,7 @@ export const TeamPage = () => {
           );
         })}
       </div>
+      <Poster poster="/commitcrowd.jpeg" />
     </section>
   );
 };

@@ -21,9 +21,7 @@ export default class Ad extends Component {
       return (
         <div>
           <ul className="advertisement"></ul>
-          <Poster
-            poster={"https://public.svsticky.nl/.hidden/Backup-Ad.png"}
-          ></Poster>
+          <Poster poster={"https://public.svsticky.nl/.hidden/Backup-Ad.png"} />
         </div>
       );
 

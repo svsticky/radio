@@ -45,3 +45,9 @@ sftp://commit@svsticky.nl
 ```
 
 That's it. Happy hacking.
+
+# New in version 2 (#Changelog)
+
+- removed isomorpic fetch (for the built in fetch in modern javascript)
+- removed all web pack configurations for vite as build tool. The webpack configuration did not support the latest Node.js version anymore.
+- added a page named "Teams", where all members of the github `svsticky` are displayed.

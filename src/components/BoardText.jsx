@@ -11,8 +11,7 @@ GetContent("board-message", (entries) => {
 // Get the next message from the array or start over if you have
 // reached the end.
 function getCurrentText() {
-  if (index < text.length - 1) index++;
-  else index = 0;
+  index = index < text.length - 1 ? index + 1 : 0;
 
   return text[index];
 }

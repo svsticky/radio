@@ -5,6 +5,6 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App apiRoot="https://koala.svsticky.nl/api" />
+    <App />
   </React.StrictMode>
 );
