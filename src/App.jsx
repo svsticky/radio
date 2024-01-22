@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Activities from "./components/Activities";
 import Clock from "./components/Clock";
 import BoardText from "./components/BoardText";
