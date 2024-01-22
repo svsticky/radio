@@ -1,52 +1,30 @@
 {
   "name": "radio",
-  "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "contentful": "^7.15.2",
-    "dotenv-webpack": "^1.8.0",
-    "isomorphic-fetch": "^2.2.1",
-    "moment": "^2.29.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "scroll-into-view": "^1.15.0"
+    "contentful": "^10.6.1",
+    "moment": "^2.29.4",
+    "octokit": "^3.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "scroll-into-view": "^1.16.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-proposal-decorators": "^7.14.2",
-    "@babel/plugin-proposal-do-expressions": "^7.14.0",
-    "@babel/plugin-proposal-export-default-from": "^7.12.13",
-    "@babel/plugin-proposal-export-namespace-from": "^7.14.2",
-    "@babel/plugin-proposal-function-bind": "^7.12.13",
-    "@babel/plugin-proposal-function-sent": "^7.12.13",
-    "@babel/plugin-proposal-json-strings": "^7.14.2",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.14.2",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.2",
-    "@babel/plugin-proposal-numeric-separator": "^7.14.2",
-    "@babel/plugin-proposal-optional-chaining": "^7.14.2",
-    "@babel/plugin-proposal-pipeline-operator": "^7.12.13",
-    "@babel/plugin-proposal-throw-expressions": "^7.12.13",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/plugin-syntax-import-meta": "^7.10.4",
-    "@babel/preset-env": "^7.14.2",
-    "@babel/preset-react": "^7.13.13",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.23.2",
-    "file-loader": "^6.2.0",
-    "react-hot-loader": "^4.13.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2"
-  },
-  "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p --progress --colors",
-    "lint": "eslint src"
-  },
-  "author": "",
-  "license": "MIT"
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "vite": "^4.4.5"
+  }
 }

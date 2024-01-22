@@ -13,7 +13,7 @@ To learn how to use react, all the documentation for that is on <https://faceboo
 
 1. Install packages by running `npm install`;
 
-1. Rename sample.env to .env;
+1. Rename sample.env to .env; (fill in the contentful secrets by requesting them from ITcrowd)
 
 1. Fill in the Contentful space_id and token;
 
@@ -26,7 +26,7 @@ Also check <http://localhost:3000/?internal=true> to see the quotes and board ad
 
 Put the transpiled js, html and css files in the dist/ folder:
 
-``` bash
+```bash
 npm run build
 ```
 
@@ -34,14 +34,20 @@ Simply copy over the dist/ folder to the server to deploy.
 
 On Linux this should be done by using:
 
-``` bash
+```bash
 scp -r dist/* svsticky.nl:/var/www/commit/radio.svsticky.nl
 ```
 
 When on Windows you need to use an SFTP client to connect to:
 
-``` bash
+```bash
 sftp://commit@svsticky.nl
 ```
 
 That's it. Happy hacking.
+
+# New in version 2 (#Changelog)
+
+- removed isomorpic fetch (for the built in fetch in modern javascript)
+- removed all web pack configurations for vite as build tool. The webpack configuration did not support the latest Node.js version anymore.
+- added a page named "Teams", where all members of the github `svsticky` are displayed.
