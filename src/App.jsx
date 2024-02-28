@@ -6,13 +6,14 @@ import Quotes from "./components/Quotes";
 import Ad from "./components/Ad";
 import { TeamPage } from "./components/Team";
 import { LOGO } from "./helpers/env";
+import { CommitsPage } from "./components/Commits";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      current: "activities",
+      current: "commits",
       index: 0,
     };
   }
@@ -65,6 +66,11 @@ export default class App extends Component {
         break;
       case "team":
         this.setState({
+          current: "commits",
+        });
+        break;
+      case "commits":
+        this.setState({
           current: "activities",
         });
         break;
@@ -113,6 +119,8 @@ export default class App extends Component {
         return <Quotes />;
       case "team":
         return <TeamPage />;
+      case "commits":
+        return <CommitsPage />;
       default:
         return;
     }
