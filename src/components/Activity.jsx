@@ -64,9 +64,22 @@ export default class Activity extends Component {
     if (props.participant_counter != null)
       participants = ` (${props.participant_counter})`;
 
+    let day = new Date();
+    let pride = false;
+    if (day.getMonth() == 5) {
+      pride = true;
+    }
+
     let className = "activity";
     if (props.active) {
       className += " active";
+      if (pride) {
+        className += " activeRainbow";
+      }
+    }
+
+    if (pride) {
+      className += " rainbow";
     }
 
     return (
