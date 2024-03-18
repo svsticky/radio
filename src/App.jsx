@@ -60,7 +60,8 @@ export default class App extends Component {
         break;
       case "quotes":
         this.setState({
-          current: "team",
+          // current: "team", REMOVED TEMPORARELY
+          current: "activities",
         });
         break;
       case "team":
