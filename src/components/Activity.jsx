@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { findDOMNode } from "react-dom";
+import { Component, createRef } from "react";
 import moment from "moment";
 import scrollIntoView from "scroll-into-view";
 
@@ -7,6 +6,8 @@ export default class Activity extends Component {
   constructor(props) {
     super(props);
   }
+
+  dom_node = createRef(null);
 
   componentDidMount() {
     this.ensureVisible();
@@ -17,11 +18,8 @@ export default class Activity extends Component {
   }
 
   ensureVisible() {
-    if (this.props.active) {
-      scrollIntoView(findDOMNode(this), {
-        time: 500,
-      });
-    }
+    if (this.props.active) 
+      scrollIntoView(this.dom_node.current, { time: 500 });
   }
 
   sameDay(d, t = new Date()) {
@@ -70,7 +68,7 @@ export default class Activity extends Component {
     }
 
     return (
-      <li className={className}>
+      <li ref={this.dom_node} className={className}>
         <h1>
           {props.name}
           {participants}

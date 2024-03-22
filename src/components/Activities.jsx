@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Activity from "./Activity";
 import Poster from "./Poster";
 import { KOALA_ACTIVITY_ENDPOINT } from "../helpers/env";
