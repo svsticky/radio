@@ -19,6 +19,8 @@ export default class App extends Component {
   }
 
   next() {
+    return;
+
     const params = new URLSearchParams(window.location.search);
 
     const display_internal = params.get("internal") == "true";

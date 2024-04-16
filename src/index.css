@@ -62,6 +62,32 @@ body {
   position: fixed;
 }
 
+.commits-title,
+.commits-list {
+  margin-left: 50px;
+  margin-top: 50px;
+  padding: 0;
+  color: #dae1e3;
+  max-height: 70%;
+  width: 50%;
+}
+
+.commits-list > li {
+  padding: 0;
+}
+
+.commits-list__item__message {
+  font-size: 35px;
+  padding: 0;
+  margin: 0;
+}
+
+.commits-list__item__meta {
+  font-size: 25px;
+  padding: 0;
+  margin: 1rem 1rem 1rem 2rem;
+}
+
 .full-advertisement,
 .full-advertisement > .poster {
   position: absolute;
