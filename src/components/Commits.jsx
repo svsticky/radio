@@ -1,11 +1,12 @@
 import {octokit} from "../helpers/github";
 import {useQuery} from "../hooks/useQuery";
 import Poster from "./Poster";
+import {GITHUB_REPOS} from "../helpers/env.js";
 
-function getCommits(repo) {
+function getCommits(owner, repo) {
   return useQuery(async () => {
     const res = await octokit.rest.repos.listCommits({
-      owner: "svsticky",
+      owner: owner,
       repo: repo,
       per_page: 4,
     });
@@ -16,23 +17,19 @@ function getCommits(repo) {
         message: commit.commit.message,
         author: commit.commit.author.name ?? commit.commit.author.login,
         repo: repo,
-        date: new Date(commit.commit.committer.date)
+        date: new Date(commit.commit.committer.date),
+        owner: owner
       })
     });
   });
 }
 
 function getAllCommits() {
-  const repos = [
-    'static-sticky',
-    'intro-website',
-    'constipated-koala',
-    'chroma',
-  ]
-
-  const v = repos
-    .map(repoName => {
-      return getCommits(repoName);
+  const v = GITHUB_REPOS
+    .split(" ")
+    .map(fIdent => {
+      const v = fIdent.split("/");
+      return getCommits(v[0], v[1]);
     });
 
   let commits = v
@@ -48,6 +45,16 @@ function getAllCommits() {
     data: commits.slice(0, 5),
     isLoading: isLoading.includes(true),
   }
+}
+
+function formatTime(date) {
+  let hh = date.getHours();
+  let mm = date.getMinutes();
+
+  if (hh < 10) hh = '0' + hh;
+  if (mm < 10) mm = '0' + mm;
+
+  return `${hh}:${mm}`
 }
 
 function formatDate(date) {
@@ -77,7 +84,7 @@ export const CommitsPage = () => {
                   {commit.message.split('\n')[0]}
                 </p>
                 <p className="commits-list__item__meta">
-                  On <em>{commit.repo}</em> by <strong>{commit.author}</strong> ({formatDate(commit.date)})
+                  On <em>{commit.owner}/{commit.repo}</em> by <strong>{commit.author}</strong> ({formatDate(commit.date)} {formatTime(commit.date)})
                 </p>
               </li>
             </>
