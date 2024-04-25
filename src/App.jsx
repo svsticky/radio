@@ -5,7 +5,7 @@ import BoardText from "./components/BoardText";
 import Quotes from "./components/Quotes";
 import Ad from "./components/Ad";
 import { TeamPage } from "./components/Team";
-import { LOGO } from "./helpers/env";
+import {GITHUB_REPOS, LOGO} from "./helpers/env";
 import { CommitsPage } from "./components/Commits";
 
 export default class App extends Component {
@@ -68,9 +68,18 @@ export default class App extends Component {
         });
         break;
       case "team":
-        this.setState({
-          current: "commits",
-        });
+
+        // Dont go to commits page if no repositories are configured
+        if(GITHUB_REPOS === "") {
+          this.setState({
+            current: "activities",
+          });
+        } else {
+          this.setState({
+            current: "commits",
+          });
+        }
+
         break;
       case "commits":
         this.setState({
