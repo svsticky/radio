@@ -13,16 +13,13 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      current: "commits",
+      current: "activities",
       index: 0,
     };
   }
 
   next() {
-    return;
-
     const params = new URLSearchParams(window.location.search);
-
     const display_internal = params.get("internal") == "true";
 
     switch (this.state.current) {
@@ -62,12 +59,10 @@ export default class App extends Component {
         });
         break;
       case "quotes":
-        this.setState({
-          // current: "team", REMOVED TEMPORARELY
-          current: "activities",
-        });
-        break;
-      case "team":
+        // this.setState({
+        //   // current: "team", REMOVED TEMPORARELY
+        //   current: "activities",
+        // });
 
         // Dont go to commits page if no repositories are configured
         if(GITHUB_REPOS === "") {
@@ -80,6 +75,9 @@ export default class App extends Component {
           });
         }
 
+        break;
+      case "team":
+        // Temporarily disabled
         break;
       case "commits":
         this.setState({

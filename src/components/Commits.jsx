@@ -91,7 +91,7 @@ export const CommitsPage = () => {
           );
         })}
       </ul>
-      <Poster poster="/commitcrowd.jpeg" />
+      <Poster poster="/commitcrowd.png" />
     </div>
   );
 };
