@@ -5,7 +5,8 @@ import BoardText from "./components/BoardText";
 import Quotes from "./components/Quotes";
 import Ad from "./components/Ad";
 import { TeamPage } from "./components/Team";
-import { LOGO } from "./helpers/env";
+import {GITHUB_REPOS, LOGO} from "./helpers/env";
+import { CommitsPage } from "./components/Commits";
 
 export default class App extends Component {
   constructor(props) {
@@ -19,7 +20,6 @@ export default class App extends Component {
 
   next() {
     const params = new URLSearchParams(window.location.search);
-
     const display_internal = params.get("internal") == "true";
 
     switch (this.state.current) {
@@ -59,12 +59,27 @@ export default class App extends Component {
         });
         break;
       case "quotes":
-        this.setState({
-          // current: "team", REMOVED TEMPORARELY
-          current: "activities",
-        });
+        // this.setState({
+        //   // current: "team", REMOVED TEMPORARELY
+        //   current: "activities",
+        // });
+
+        // Dont go to commits page if no repositories are configured
+        if(GITHUB_REPOS === "") {
+          this.setState({
+            current: "activities",
+          });
+        } else {
+          this.setState({
+            current: "commits",
+          });
+        }
+
         break;
       case "team":
+        // Temporarily disabled
+        break;
+      case "commits":
         this.setState({
           current: "activities",
         });
@@ -114,6 +129,8 @@ export default class App extends Component {
         return <Quotes />;
       case "team":
         return <TeamPage />;
+      case "commits":
+        return <CommitsPage />;
       default:
         return;
     }
