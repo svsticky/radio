@@ -141,6 +141,7 @@ body {
 #quotePerson {
   color: #dae1e3;
   font-size: 50px;
+  font-weight: 400;
   margin: 0 auto;
   width: 80%;
   text-align: center;
@@ -149,13 +150,12 @@ body {
 #quoteText {
   font-size: 70px;
   margin: 0;
+  font-weight: 400;
   width: 100%;
-  font-family: "Kalam", cursive;
 }
 
 #quotePerson {
   margin-top: 50px;
-  font-family: "Kalam", cursive;
 }
 
 .quoteBackground {

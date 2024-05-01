@@ -13,7 +13,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      current: "activities",
+      current: "quotes",
       index: 0,
     };
   }
