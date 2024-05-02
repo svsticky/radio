@@ -8,3 +8,6 @@ export const GITHUB_REPOS = import.meta.env.VITE_GITHUB_REPOS;
 
 export const KOALA_ACTIVITY_ENDPOINT = import.meta.env.VITE_ACTIVITY_ENDPOINT;
 export const LOGO = import.meta.env.VITE_LOGO;
+
+export const NEXT_INTERVAL = import.meta.env.VITE_NEXT_INTERVAL;
+export const NEXT_INTERVAL_COMMITS = import.meta.env.VITE_NEXT_INTERVAL_COMMITS;
