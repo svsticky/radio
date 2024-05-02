@@ -5,7 +5,7 @@ import BoardText from "./components/BoardText";
 import Quotes from "./components/Quotes";
 import Ad from "./components/Ad";
 import { TeamPage } from "./components/Team";
-import {GITHUB_REPOS, LOGO} from "./helpers/env";
+import {GITHUB_REPOS, LOGO, NEXT_INTERVAL, NEXT_INTERVAL_COMMITS} from "./helpers/env";
 import { CommitsPage } from "./components/Commits";
 
 export default class App extends Component {
@@ -80,9 +80,12 @@ export default class App extends Component {
         // Temporarily disabled
         break;
       case "commits":
-        this.setState({
-          current: "activities",
-        });
+        setTimeout(
+          () => this.setState({
+            current: "activities",
+          }),
+          NEXT_INTERVAL_COMMITS
+        )
         break;
       default:
         return;
@@ -94,7 +97,7 @@ export default class App extends Component {
     // Every this.props.nextInterval, we switch to the next ad or activity to display
     this.activityChanger = setInterval(
       this.next.bind(this),
-      parseInt(import.meta.env.VITE_NEXT_INTERVAL)
+      parseInt(NEXT_INTERVAL)
     );
   }
 
