@@ -1,0 +1,9 @@
+{
+  "extends": "react-app",
+	"ignorePatterns" :["dist/*"],
+	"env": {
+		"browser": true,
+		"node": true
+	}
+}
+
