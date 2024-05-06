@@ -42,11 +42,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .clock {
   color: white;
   font-size: 80px;
+}
+.oval{
+  width: 240px;
+  height: 100px;
+  background-color: #262626;
+  border-radius: 100px /100px;
+  text-align: center;
 }
 
 .activities,
