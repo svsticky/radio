@@ -52,7 +52,7 @@ body {
 .oval{
   width: 240px;
   height: 100px;
-  background-color: #262626;
+  background-color: #262626af;
   border-radius: 100px /100px;
   text-align: center;
 }
