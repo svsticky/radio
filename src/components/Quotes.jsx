@@ -21,7 +21,7 @@ function getRandomQuote(quotes) {
     };
 
     // Delete quote after using it.
-    quotes = quotes.filter((quote) => quote != quotes[i]);
+    quotes = quotes.filter((quote) => quote !== quotes[i]);
     window.localStorage.setItem('quotes', JSON.stringify(quotes));
   }
 
@@ -31,11 +31,13 @@ function getRandomQuote(quotes) {
 export default function Quotes() {
   let quotes = JSON.parse(localStorage.getItem('quotes') || '[]');
 
-  if (
-    quotes == null ||
-    quotes == undefined ||
-    quotes.length == 0 ||
-    quotes == []
+  // If there are no quotes, retrieve them
+  if (!quotes ||
+    // quotes === null ||
+    // quotes === undefined ||
+    // quotes === "" ||
+    // quotes === false ||
+    (Array.isArray(quotes) && quotes.length === 0)
   ) {
     quotes = JSON.parse(window.localStorage.getItem('AllQuotes'));
     window.localStorage.setItem('quotes', JSON.stringify(quotes));

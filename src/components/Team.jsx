@@ -26,6 +26,7 @@ export const TeamPage = () => {
                 <img
                   className="member-list__item__img"
                   src={member.avatar_url}
+                  alt="member avatar"
                 />
                 <div className="member-list__item_name">
                   {member.name || member.login}

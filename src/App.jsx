@@ -20,7 +20,7 @@ export default class App extends Component {
 
   next() {
     const params = new URLSearchParams(window.location.search);
-    const display_internal = params.get('internal') == 'true';
+    const display_internal = params.get('internal') === 'true';
 
     switch (this.state.current) {
       case 'activities':
@@ -144,7 +144,7 @@ export default class App extends Component {
       <div className="app">
         <div className="topbar">
           <div className="logo">
-            <img src={LOGO} />
+            <img src={LOGO} alt="sticky logo" />
           </div>
           <Clock />
         </div>

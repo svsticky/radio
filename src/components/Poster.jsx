@@ -7,5 +7,5 @@ import React from 'react';
  * @returns
  */
 export default function Poster(props) {
-  return <img src={props.poster} className="poster" />;
+  return <img src={props.poster} className="poster" alt="poster" />;
 }

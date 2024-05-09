@@ -4,9 +4,6 @@ import moment from 'moment';
 import scrollIntoView from 'scroll-into-view';
 
 export default class Activity extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.ensureVisible();
@@ -26,9 +23,9 @@ export default class Activity extends Component {
 
   sameDay(d, t = new Date()) {
     return (
-      d.getDate() == t.getDate() && // getDate returns day number in month...
-      d.getMonth() == t.getMonth() &&
-      d.getYear() == t.getYear()
+      d.getDate() === t.getDate() && // getDate returns day number in month...
+      d.getMonth() === t.getMonth() &&
+      d.getYear() === t.getYear()
     );
   }
 

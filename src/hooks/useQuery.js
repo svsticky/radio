@@ -14,6 +14,8 @@ export function useQuery(func) {
             setData(data);
             setLoading(false);
         })
+    // Supress linter warning:
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { data, isLoading };

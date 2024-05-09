@@ -3,7 +3,7 @@ import {useQuery} from '../hooks/useQuery';
 import Poster from './Poster';
 import {GITHUB_REPOS} from '../helpers/env.js';
 
-function getCommits(owner, repo) {
+function useCommits(owner, repo) {
   return useQuery(async () => {
     const res = await octokit.rest.repos.listCommits({
       owner: owner,
@@ -29,7 +29,7 @@ function getAllCommits() {
     .split(' ')
     .map(fIdent => {
       const v = fIdent.split('/');
-      return getCommits(v[0], v[1]);
+      return useCommits(v[0], v[1]);
     });
 
   let commits = v
