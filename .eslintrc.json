@@ -1,0 +1,22 @@
+{
+  "extends": [ // Inherit the following presets, from https://github.com/jsx-eslint/eslint-plugin-react/tree/master/configs
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+	"ignorePatterns" :["dist/*"], // At all times, ignore generated code.
+	"env": {
+		"browser": true // Radio is run directly in the browser
+	},
+  "rules": {
+    "quotes": [1, "single"] // Enforce single quotes
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  }
+}
+
