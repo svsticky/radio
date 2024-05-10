@@ -1,15 +1,16 @@
 {
-  "extends": "react-app",
-	"ignorePatterns" :["dist/*"],
+  "extends": [ // Inherit the following presets, from https://github.com/jsx-eslint/eslint-plugin-react/tree/master/configs
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+	"ignorePatterns" :["dist/*"], // At all times, ignore generated code.
 	"env": {
-		"browser": true,
-		"node": true
+		"browser": true // Radio is run directly in the browser
 	},
   "rules": {
-    "quotes": [1, "single"],
-    "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1,
-    "react/react-in-jsx-scope": 1
+    "quotes": [1, "single"] // Enforce single quotes
   },
   "parserOptions": {
     "ecmaFeatures": {
