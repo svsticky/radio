@@ -47,7 +47,7 @@ export default function Quotes() {
   return (
     <article className="quoteSection">
       <section className="quoteBackground">
-        <h1 id="quoteText">"{quote.text}"</h1>
+        <h1 id="quoteText">&quot;{quote.text}&quot;</h1>
         <h2 id="quotePerson">-{quote.person}</h2>
       </section>
     </article>
