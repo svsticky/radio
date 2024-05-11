@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Activity from './Activity';
 import Poster from './Poster';
 import { KOALA_ACTIVITY_ENDPOINT } from '../helpers/env';
+import PropTypes from 'prop-types';
 
 export default class Activities extends Component {
   constructor(props) {
@@ -75,3 +76,9 @@ export default class Activities extends Component {
     return <div />;
   }
 }
+
+// Explain expected types, for early error detection
+Activities.propTypes = {
+  current: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

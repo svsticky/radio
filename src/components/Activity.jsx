@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import scrollIntoView from 'scroll-into-view';
 
 export default class Activity extends Component {
@@ -78,3 +79,14 @@ export default class Activity extends Component {
     );
   }
 }
+
+// Explain expected types, for early error detection
+Activity.propTypes = {
+  active: PropTypes.bool.isRequired,
+  start_date: PropTypes.string.isRequired,
+  end_date: PropTypes.string,
+  has_start_time: PropTypes.bool.isRequired,
+  has_end_time: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  participant_counter: PropTypes.number,
+};

@@ -7,7 +7,7 @@
   ],
 	"ignorePatterns" :["dist/*"], // At all times, ignore generated code.
 	"env": {
-		"browser": true // Radio is run directly in the browser
+		"browser": true // Indicate that browser globals are available
 	},
   "rules": {
     "quotes": [1, "single"] // Enforce single quotes

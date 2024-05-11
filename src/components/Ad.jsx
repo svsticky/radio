@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import Poster from './Poster';
 import GetContent from '../helpers/contentful';
 
@@ -48,3 +49,9 @@ export default class Ad extends Component {
     }
   }
 }
+
+// Explain expected types, for early error detection
+Ad.propTypes = {
+  current: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
