@@ -1,4 +1,4 @@
-import { Octokit } from "octokit";
+import { Octokit } from 'octokit';
 import { GITHUB_API_TOKEN } from './env.js'
 
 

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Poster from "./Poster";
-import GetContent from "../helpers/contentful";
+import React, { Component } from 'react';
+import Poster from './Poster';
+import GetContent from '../helpers/contentful';
 
 export default class Ad extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class Ad extends Component {
       ads: [],
     };
 
-    GetContent("ads", (entries) => {
+    GetContent('ads', (entries) => {
       this.setState({
         ads: entries !== null ? entries.map((entry) => entry.fields) : [],
       });
@@ -21,7 +21,7 @@ export default class Ad extends Component {
       return (
         <div>
           <ul className="advertisement"></ul>
-          <Poster poster={"https://public.svsticky.nl/.hidden/Backup-Ad.png"} />
+          <Poster poster={'https://public.svsticky.nl/.hidden/Backup-Ad.png'} />
         </div>
       );
 

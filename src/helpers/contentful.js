@@ -1,5 +1,5 @@
-import { createClient } from "contentful";
-import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from "./env";
+import { createClient } from 'contentful';
+import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from './env';
 
 const client = createClient({
   space: CONTENTFUL_SPACE_ID,

@@ -1,16 +1,16 @@
-import React from "react";
-import GetContent from "../helpers/contentful";
+import React from 'react';
+import GetContent from '../helpers/contentful';
 
-GetContent("quotes", (entries) => {
+GetContent('quotes', (entries) => {
   const quotes = entries !== null ? entries.map((entry) => entry.fields) : [];
-  window.localStorage.setItem("AllQuotes", JSON.stringify(quotes));
+  window.localStorage.setItem('AllQuotes', JSON.stringify(quotes));
 });
 
 // Get a random quote
 function getRandomQuote(quotes) {
   let quote = {
-    text: "",
-    person: "",
+    text: '',
+    person: '',
   };
 
   let i = Math.floor(Math.random() * quotes.length);
@@ -22,14 +22,14 @@ function getRandomQuote(quotes) {
 
     // Delete quote after using it.
     quotes = quotes.filter((quote) => quote != quotes[i]);
-    window.localStorage.setItem("quotes", JSON.stringify(quotes));
+    window.localStorage.setItem('quotes', JSON.stringify(quotes));
   }
 
   return quote;
 }
 
 export default function Quotes() {
-  let quotes = JSON.parse(localStorage.getItem("quotes") || "[]");
+  let quotes = JSON.parse(localStorage.getItem('quotes') || '[]');
 
   if (
     quotes == null ||
@@ -37,8 +37,8 @@ export default function Quotes() {
     quotes.length == 0 ||
     quotes == []
   ) {
-    quotes = JSON.parse(window.localStorage.getItem("AllQuotes"));
-    window.localStorage.setItem("quotes", JSON.stringify(quotes));
+    quotes = JSON.parse(window.localStorage.getItem('AllQuotes'));
+    window.localStorage.setItem('quotes', JSON.stringify(quotes));
   }
 
   let quote = getRandomQuote(quotes);

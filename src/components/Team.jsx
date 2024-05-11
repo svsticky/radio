@@ -1,11 +1,11 @@
-import { octokit } from "../helpers/github";
-import { useQuery } from "../hooks/useQuery";
-import Poster from "./Poster";
+import { octokit } from '../helpers/github';
+import { useQuery } from '../hooks/useQuery';
+import Poster from './Poster';
 
 export const TeamPage = () => {
   const { data: members, isLoading } = useQuery(async () => {
     const res = await octokit.rest.orgs.listMembers({
-      org: "svsticky",
+      org: 'svsticky',
       per_page: 100,
     });
 

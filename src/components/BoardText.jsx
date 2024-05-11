@@ -1,10 +1,10 @@
-import React from "react";
-import GetContent from "../helpers/contentful";
+import React from 'react';
+import GetContent from '../helpers/contentful';
 
 let text = [];
 let index = -1;
 
-GetContent("board-message", (entries) => {
+GetContent('board-message', (entries) => {
   text = entries !== null ? entries.map((entry) => entry.fields.message) : [];
 });
 

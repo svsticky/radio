@@ -1,7 +1,7 @@
-import {octokit} from "../helpers/github";
-import {useQuery} from "../hooks/useQuery";
-import Poster from "./Poster";
-import {GITHUB_REPOS} from "../helpers/env.js";
+import {octokit} from '../helpers/github';
+import {useQuery} from '../hooks/useQuery';
+import Poster from './Poster';
+import {GITHUB_REPOS} from '../helpers/env.js';
 
 function getCommits(owner, repo) {
   return useQuery(async () => {
@@ -26,9 +26,9 @@ function getCommits(owner, repo) {
 
 function getAllCommits() {
   const v = GITHUB_REPOS
-    .split(" ")
+    .split(' ')
     .map(fIdent => {
-      const v = fIdent.split("/");
+      const v = fIdent.split('/');
       return getCommits(v[0], v[1]);
     });
 
