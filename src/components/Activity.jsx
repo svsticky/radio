@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import scrollIntoView from 'scroll-into-view';

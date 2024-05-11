@@ -1,4 +1,3 @@
-import React from 'react';
 import GetContent from '../helpers/contentful';
 
 GetContent('quotes', (entries) => {
