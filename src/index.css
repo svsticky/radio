@@ -118,7 +118,6 @@ body {
 }
 .activity time {
   display: inline-block;
-  padding-right: 10px;
   font-size: 1.4em;
 }
 .activity.active {
