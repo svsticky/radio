@@ -78,7 +78,7 @@ Activity.propTypes = {
   end_date: PropTypes.instanceOf(Date),
   has_start_time: PropTypes.bool.isRequired,
   has_end_time: PropTypes.bool.isRequired,
-  participant_counter: PropTypes.number,
+  participant_counter: PropTypes.string,
 };
 
 export default Activity;
