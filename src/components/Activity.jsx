@@ -3,6 +3,21 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import scrollIntoView from 'scroll-into-view';
 
+function sameDay(d, t) {
+  return (
+    d.getDate() === t.getDate() && // getDate returns day number in month...
+    d.getMonth() === t.getMonth() &&
+    d.getYear() === t.getYear()
+  );
+}
+
+function createFormat(has_time, date, as = new Date()) {
+  const format =
+    (!sameDay(date, as) ? 'dddd DD-MM ' : '')
+    + (has_time ? 'HH:mm' : '');
+  return format || '[]';
+}
+
 const Activity = ({ active, name, start_date, end_date, has_start_time, has_end_time, participant_counter }) => {
   const activityRef = useRef(null);
 
@@ -15,57 +30,20 @@ const Activity = ({ active, name, start_date, end_date, has_start_time, has_end_
     }
   }, [active]);
 
-  const sameDay = (d, t = new Date()) => {
-    return (
-      d.getDate() === t.getDate() && // getDate returns day number in month...
-      d.getMonth() === t.getMonth() &&
-      d.getYear() === t.getYear()
-    );
-  }
-
-  const makeStartDate = () => {
-    var sd = start_date;
-    if (sameDay(sd) && has_start_time)
-      return moment(sd).format('HH:mm');
-
-    if (has_start_time) return moment(sd).format('dddd DD-MM HH:mm');
-
-    return moment(sd).format('dddd DD-MM');
-  }
-
-  const makeEndDate = () => {
-    var ed = end_date;
-    if (!ed) return null;
-    if (sameDay(ed, start_date)) {
-      if (has_end_time) return moment(ed).format('HH:mm');
-      return null; // Same as start_date
-    }
-
-    if (has_end_time) return moment(ed).format('dddd DD-MM HH:mm');
-
-    return moment(ed).format('dddd DD-MM');
-  }
-
-  const startDate = makeStartDate();
-  const endDate = makeEndDate();
-  var participants = '';
-
-  if (participant_counter != null)
-    participants = ` (${participant_counter})`;
-
-  let className = 'activity';
-  if (active) {
-    className += ' active';
-  }
+  const startDate = moment(start_date)
+    .format(createFormat(has_start_time, start_date));
+  const endDate = moment(end_date)
+    .format(createFormat(has_end_time, end_date, start_date));
+  const className = 'activity' + (active ? ' active' : '');
 
   return (
     <li className={className} ref={activityRef}>
       <h1>
         {name}
-        {participants}
+        {participant_counter && ` (${participant_counter})`}
       </h1>
       <time>{startDate}</time>
-      {endDate ? <time> - {endDate}</time> : null}
+      {endDate && <> - <time>{endDate}</time></>}
     </li>
   );
 }
