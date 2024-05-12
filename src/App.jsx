@@ -1,33 +1,33 @@
-import React, { Component } from "react";
-import Activities from "./components/Activities";
-import Clock from "./components/Clock";
-import BoardText from "./components/BoardText";
-import Quotes from "./components/Quotes";
-import Ad from "./components/Ad";
-import { TeamPage } from "./components/Team";
-import {GITHUB_REPOS, LOGO, NEXT_INTERVAL, NEXT_INTERVAL_COMMITS} from "./helpers/env";
-import { CommitsPage } from "./components/Commits";
+import { Component } from 'react';
+import Activities from './components/Activities';
+import Clock from './components/Clock';
+import BoardText from './components/BoardText';
+import Quotes from './components/Quotes';
+import Ad from './components/Ad';
+import { TeamPage } from './components/Team';
+import {GITHUB_REPOS, LOGO, NEXT_INTERVAL, NEXT_INTERVAL_COMMITS} from './helpers/env';
+import { CommitsPage } from './components/Commits';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      current: "activities",
+      current: 'activities',
       index: 0,
     };
   }
 
   next() {
     const params = new URLSearchParams(window.location.search);
-    const display_internal = params.get("internal") == "true";
+    const display_internal = params.get('internal') === 'true';
 
     switch (this.state.current) {
-      case "activities":
+      case 'activities':
         if (this.finishedState) {
           this.finishedState = false;
           this.setState({
-            current: "advertisement",
+            current: 'advertisement',
             index: 0,
           });
         } else {
@@ -36,13 +36,13 @@ export default class App extends Component {
           });
         }
         break;
-      case "advertisement":
+      case 'advertisement':
         if (this.finishedState) {
           this.finishedState = false;
 
           // skip boardText and quotes on the screen on the outside of the
           // Sticky room
-          let new_state = display_internal ? "boardText" : "activities";
+          let new_state = display_internal ? 'boardText' : 'activities';
           this.setState({
             current: new_state,
             index: 0,
@@ -53,36 +53,36 @@ export default class App extends Component {
           });
         }
         break;
-      case "boardText":
+      case 'boardText':
         this.setState({
-          current: "quotes",
+          current: 'quotes',
         });
         break;
-      case "quotes":
+      case 'quotes':
         // this.setState({
-        //   // current: "team", REMOVED TEMPORARELY
-        //   current: "activities",
+        //   // current: 'team', REMOVED TEMPORARELY
+        //   current: 'activities',
         // });
 
         // Dont go to commits page if no repositories are configured
-        if(GITHUB_REPOS === "") {
+        if(GITHUB_REPOS === '') {
           this.setState({
-            current: "activities",
+            current: 'activities',
           });
         } else {
           this.setState({
-            current: "commits",
+            current: 'commits',
           });
         }
 
         break;
-      case "team":
+      case 'team':
         // Temporarily disabled
         break;
-      case "commits":
+      case 'commits':
         setTimeout(
           () => this.setState({
-            current: "activities",
+            current: 'activities',
           }),
           NEXT_INTERVAL_COMMITS
         )
@@ -108,7 +108,7 @@ export default class App extends Component {
 
   renderContent() {
     switch (this.state.current) {
-      case "activities":
+      case 'activities':
         return (
           <Activities
             current={this.state.index}
@@ -117,7 +117,7 @@ export default class App extends Component {
             }}
           />
         );
-      case "advertisement":
+      case 'advertisement':
         return (
           <Ad
             current={this.state.index}
@@ -126,13 +126,13 @@ export default class App extends Component {
             }}
           />
         );
-      case "boardText":
+      case 'boardText':
         return <BoardText />;
-      case "quotes":
+      case 'quotes':
         return <Quotes />;
-      case "team":
+      case 'team':
         return <TeamPage />;
-      case "commits":
+      case 'commits':
         return <CommitsPage />;
       default:
         return;
@@ -144,7 +144,7 @@ export default class App extends Component {
       <div className="app">
         <div className="topbar">
           <div className="logo">
-            <img src={LOGO} />
+            <img src={LOGO} alt="sticky logo" />
           </div>
           <Clock />
         </div>

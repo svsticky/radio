@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import Activity from "./Activity";
-import Poster from "./Poster";
-import { KOALA_ACTIVITY_ENDPOINT } from "../helpers/env";
+import { Component } from 'react';
+import Activity from './Activity';
+import Poster from './Poster';
+import { KOALA_ACTIVITY_ENDPOINT } from '../helpers/env';
+import PropTypes from 'prop-types';
 
 export default class Activities extends Component {
   constructor(props) {
@@ -18,9 +19,9 @@ export default class Activities extends Component {
     return Object.assign(
       {},
       activity,
-      { has_start_time: activity.start_date.indexOf("T") > -1 },
+      { has_start_time: activity.start_date.indexOf('T') > -1 },
       {
-        has_end_time: activity.end_date && activity.end_date.indexOf("T") > -1,
+        has_end_time: activity.end_date && activity.end_date.indexOf('T') > -1,
       },
       { start_date: new Date(activity.start_date) },
       activity.end_date ? { end_date: new Date(activity.end_date) } : null
@@ -75,3 +76,9 @@ export default class Activities extends Component {
     return <div />;
   }
 }
+
+// Explain expected types, for early error detection
+Activities.propTypes = {
+  current: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

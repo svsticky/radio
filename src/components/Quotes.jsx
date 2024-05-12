@@ -1,16 +1,15 @@
-import React from "react";
-import GetContent from "../helpers/contentful";
+import GetContent from '../helpers/contentful';
 
-GetContent("quotes", (entries) => {
+GetContent('quotes', (entries) => {
   const quotes = entries !== null ? entries.map((entry) => entry.fields) : [];
-  window.localStorage.setItem("AllQuotes", JSON.stringify(quotes));
+  window.localStorage.setItem('AllQuotes', JSON.stringify(quotes));
 });
 
 // Get a random quote
 function getRandomQuote(quotes) {
   let quote = {
-    text: "",
-    person: "",
+    text: '',
+    person: '',
   };
 
   let i = Math.floor(Math.random() * quotes.length);
@@ -21,24 +20,26 @@ function getRandomQuote(quotes) {
     };
 
     // Delete quote after using it.
-    quotes = quotes.filter((quote) => quote != quotes[i]);
-    window.localStorage.setItem("quotes", JSON.stringify(quotes));
+    quotes = quotes.filter((quote) => quote !== quotes[i]);
+    window.localStorage.setItem('quotes', JSON.stringify(quotes));
   }
 
   return quote;
 }
 
 export default function Quotes() {
-  let quotes = JSON.parse(localStorage.getItem("quotes") || "[]");
+  let quotes = JSON.parse(localStorage.getItem('quotes') || '[]');
 
-  if (
-    quotes == null ||
-    quotes == undefined ||
-    quotes.length == 0 ||
-    quotes == []
+  // If there are no quotes, retrieve them
+  if (!quotes ||
+    // quotes === null ||
+    // quotes === undefined ||
+    // quotes === "" ||
+    // quotes === false ||
+    (Array.isArray(quotes) && quotes.length === 0)
   ) {
-    quotes = JSON.parse(window.localStorage.getItem("AllQuotes"));
-    window.localStorage.setItem("quotes", JSON.stringify(quotes));
+    quotes = JSON.parse(window.localStorage.getItem('AllQuotes'));
+    window.localStorage.setItem('quotes', JSON.stringify(quotes));
   }
 
   let quote = getRandomQuote(quotes);
@@ -46,7 +47,7 @@ export default function Quotes() {
   return (
     <article className="quoteSection">
       <section className="quoteBackground">
-        <h1 id="quoteText">"{quote.text}"</h1>
+        <h1 id="quoteText">&quot;{quote.text}&quot;</h1>
         <h2 id="quotePerson">-{quote.person}</h2>
       </section>
     </article>

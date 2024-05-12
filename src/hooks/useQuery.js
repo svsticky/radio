@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 /** 
  * @description simple function to fetch data
@@ -14,6 +14,8 @@ export function useQuery(func) {
             setData(data);
             setLoading(false);
         })
+    // Supress linter warning:
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { data, isLoading };
