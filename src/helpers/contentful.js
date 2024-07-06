@@ -7,13 +7,7 @@ const client = createClient({
 });
 
 // Get all entries from Contentful and return the data array
-export default function GetContent(type, func) {
-  client
-    .getEntries({
-      'content_type': type
-    })
-    .then(result => {
-      func(result.items)
-    })
-    .catch(err => { throw err });
+export default async function getContentfulContent(type) {
+  const entries = await client.getEntries({ 'content_type': type });
+  return entries.items;
 }
