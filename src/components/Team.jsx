@@ -2,7 +2,7 @@ import { octokit } from '../helpers/github';
 import { useQuery } from '../hooks/useQuery';
 import Poster from './Poster';
 
-export const TeamPage = () => {
+export default function TeamPage() {
   const { data: members, isLoading } = useQuery(async () => {
     const res = await octokit.rest.orgs.listMembers({
       org: 'svsticky',
@@ -39,4 +39,4 @@ export const TeamPage = () => {
       <Poster poster="/commitcrowd.jpeg" />
     </section>
   );
-};
+}

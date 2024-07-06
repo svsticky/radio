@@ -68,7 +68,7 @@ function formatDate(date) {
   return `${dd}-${mm}-${yyyy}`;
 }
 
-export const CommitsPage = () => {
+export default function CommitsPage() {
   const { data: commits, isLoading } = getAllCommits();
   if (isLoading) return <> Loading... </>;
 
@@ -94,4 +94,4 @@ export const CommitsPage = () => {
       <Poster poster="/commitcrowd.png" />
     </div>
   );
-};
+}
