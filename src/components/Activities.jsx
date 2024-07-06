@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 export default function Activities({ current, onChange }) {
   const activities = useActivities();
 
-  if (activities.length > 0) {
-    if (current >= activities.length - 1)
-      onChange(true);
+  if (current >= activities.length - 1)
+    onChange(true);
 
+  if (activities.length > 0) {
     const currentActivity = activities[current];
     return (
       <div>
@@ -62,7 +62,7 @@ function useActivities() {
     }, Number(import.meta.env.VITE_LOAD_INTERVAL));
 
     return () => clearInterval(interval);
-  });
+  }, []);
 
   return activities;
 }
