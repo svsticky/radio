@@ -17,10 +17,13 @@ We recommend installing the LTS version of node.js (https://nodejs.org/), which 
 1. Clone this repository to a location you prefer.
 2. Then, enter the cloned repository with your terminal, or open visual studio code or some other IDE
    in there, as long as you have a command-line open in the folder of your clone of radio.
-3. In the terminal, run the following commands: ```bash
-corepack enable # Install the package manager
-npm i           # Install the dependencies
-```
+3. In the terminal, run the following commands:
+
+  ```bash
+  corepack enable # Install the package manager
+  npm i           # Install the dependencies
+  ```
+
 4. Finally, you need to provide your local installation of radio with some secrets.
     1. Copy `sample.env` to `.env`.
     2. Fill in all the missing secrets in `.env`.
