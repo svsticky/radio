@@ -1,33 +1,35 @@
-import { useState, useEffect } from 'react';
 import Activity from './Activity';
 import Poster from './Poster';
 import { KOALA_ACTIVITY_ENDPOINT } from '../helpers/env';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
 export default function Activities({ current, onChange }) {
-  const activities = useActivities();
+  const { data: activities, isSuccess } = useActivities();
 
-  if (current >= activities.length - 1)
-    onChange(true);
+  if (isSuccess) {
+    if (current >= activities.length - 1)
+      onChange(true);
 
-  if (activities.length > 0) {
-    const currentActivity = activities[current];
-    return (
-      <div>
-        <ul className="activities">
-          {activities.map((activity, i) =>
-            <Activity
-              key={i}
-              {...activity}
-              active={activity === currentActivity}
-              />
-          )}
-        </ul>
-        <Poster poster={currentActivity ? currentActivity.poster : null} />
-      </div>
-    );
-  } else {
-    return <></>;
+    if (activities.length > 0) {
+      const currentActivity = activities[current];
+      return (
+        <div>
+          <ul className="activities">
+            {activities.map((activity, i) =>
+              <Activity
+                key={i}
+                {...activity}
+                active={activity === currentActivity}
+                />
+            )}
+          </ul>
+          <Poster poster={currentActivity ? currentActivity.poster : null} />
+        </div>
+      );
+    } else {
+      return <></>;
+    }
   }
 }
 
@@ -47,22 +49,16 @@ function setDate(activity) {
 }
 
 function useActivities() {
-  const [activities, setActivities] = useState([]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetch(KOALA_ACTIVITY_ENDPOINT)
-        // Fix activity dates and sort them on start_date
-        .then(resp => resp.json())
-        .then(activities =>
-          setActivities(activities
-            .filter(act => act.poster)
-            .map(setDate)
-            .sort((a, b) => a.start_date - b.start_date)));
-    }, Number(import.meta.env.VITE_LOAD_INTERVAL));
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return activities;
+  return useQuery({
+    queryKey: "activities",
+    refetchInterval: Number(import.meta.env.VITE_LOAD_INTERVAL),
+    async queryFn() {
+      const results = await fetch(KOALA_ACTIVITY_ENDPOINT)
+        .then(resp => resp.json());
+      return results
+        .filter(act => act.poster)
+        .map(setDate)
+        .sort((a, b) => a.start_date - b.start_date);
+    }
+  });
 }
