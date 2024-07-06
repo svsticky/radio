@@ -10,22 +10,21 @@ and contains things like upcoming activities and peculiar quotes.
 
 ### Prequisites
 
-Radio requires you to have some Node package manager installed on your device. This README assumes that
-you have NPM installed, but anything will work really.
-
-See [the official documentation](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) 
-on how to install NPM, if you would like to use that one.
+We recommend installing the LTS version of node.js (https://nodejs.org/), which includes corepack which can install the correct package manager for this project.
 
 ### How to install
 
 1. Clone this repository to a location you prefer.
 2. Then, enter the cloned repository with your terminal, or open visual studio code or some other IDE
    in there, as long as you have a command-line open in the folder of your clone of radio.
-2. In that commandline, simply run `npm install`!
-3. Finally, you need to provide your local installation of radio with some secrets.
+3. In the terminal, run the following commands: ```bash
+corepack enable # Install the package manager
+npm i           # Install the dependencies
+```
+4. Finally, you need to provide your local installation of radio with some secrets.
     1. Copy `sample.env` to `.env`.
     2. Fill in all the missing secrets in `.env`.
-    
+
        If you do not have access to them, feel free to ask for them! However, you might not need them.
        The secrets are only required to fetch content for the 'internal' pages, meant only for inside
        the Sticky room: those visible only when you add `?internal=true` to the URL.
