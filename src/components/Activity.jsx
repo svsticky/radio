@@ -18,7 +18,7 @@ function createFormat(has_time, date, as = new Date()) {
   return format || '[]';
 }
 
-const Activity = ({ active, name, start_date, end_date, has_start_time, has_end_time, participant_counter }) => {
+export default function Activity({ active, name, start_date, end_date, has_start_time, has_end_time, participant_counter }) {
   const activityRef = useRef(null);
 
   // Ensure that the current activity is visible
@@ -58,5 +58,3 @@ Activity.propTypes = {
   has_end_time: PropTypes.bool.isRequired,
   participant_counter: PropTypes.string,
 };
-
-export default Activity;
