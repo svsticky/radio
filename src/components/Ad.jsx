@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Poster from './Poster';
-import GetContent from '../helpers/contentful';
+import { useGetAdsQuery } from "../store/ads";
 
 export default function Ad({ current, onChange }) {
-  const ads = useAds();
+  const { data: ads, isSuccess } = useGetAdsQuery();
+
+  if (!isSuccess)
+    return <></>;
 
   if (ads.length > 0 && current >= ads.length - 1)
     onChange(true);
@@ -34,16 +36,6 @@ export default function Ad({ current, onChange }) {
       </div>
     );
   }
-}
-
-function useAds() {
-  const [ads, setAds] = useState([]);
-
-  useEffect(() => {
-    GetContent('ads', entries => setAds((entries ?? []).map(entry => entry.fields)));
-  }, []);
-
-  return ads;
 }
 
 // Explain expected types, for early error detection
