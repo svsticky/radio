@@ -1,10 +1,10 @@
 import Activity from './Activity';
 import Poster from './Poster';
 import PropTypes from 'prop-types';
-import { useGetActivitiesQuery } from '../store/activities';
+import { useActivitiesQuery } from '../store/koala';
 
 export default function Activities({ current, onChange }) {
-  const { data: activities, isSuccess } = useGetActivitiesQuery({
+  const { data: activities, isSuccess } = useActivitiesQuery({
     pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL)
   });
 
