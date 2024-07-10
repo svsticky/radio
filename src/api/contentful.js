@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from '../helpers/env';
+import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from '../env';
 
 const client = createClient({
   space: CONTENTFUL_SPACE_ID,

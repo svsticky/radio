@@ -1,7 +1,7 @@
 import { Octokit } from 'octokit';
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { GITHUB_API_TOKEN, GITHUB_REPOS } from '../helpers/env.js';
+import { GITHUB_API_TOKEN, GITHUB_REPOS } from '../env.js';
 
 export const octokit = new Octokit({ auth: GITHUB_API_TOKEN });
 

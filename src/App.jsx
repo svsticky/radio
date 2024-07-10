@@ -1,11 +1,13 @@
 import { Component } from 'react';
+
+import {GITHUB_REPOS, LOGO, NEXT_INTERVAL, NEXT_INTERVAL_COMMITS} from './env';
+
 import Activities from './components/Activities';
 import Clock from './components/Clock';
 import BoardText from './components/BoardText';
 import Quotes from './components/Quotes';
 import Ad from './components/Ad';
 import TeamPage from './components/Team';
-import {GITHUB_REPOS, LOGO, NEXT_INTERVAL, NEXT_INTERVAL_COMMITS} from './helpers/env';
 import CommitsPage from './components/Commits';
 
 export default class App extends Component {
