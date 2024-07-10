@@ -1,20 +1,10 @@
-import { octokit } from '../helpers/github';
-import { useQuery } from '../hooks/useQuery';
+import {useMembersQuery} from '../api/github';
 import Poster from './Poster';
 
 export default function TeamPage() {
-  const { data: members, isLoading } = useQuery(async () => {
-    const res = await octokit.rest.orgs.listMembers({
-      org: 'svsticky',
-      per_page: 100,
-    });
-
-    return res.data;
-  });
+  const { data: members, isLoading } = useMembersQuery();
 
   if (isLoading) return <> Loading... </>;
-
-  console.log(members);
 
   return (
     <section className="member-wrapper">
