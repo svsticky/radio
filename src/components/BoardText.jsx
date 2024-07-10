@@ -1,11 +1,11 @@
-import GetContent from '../helpers/contentful';
+// import GetContent from '../helpers/contentful';
 
 let text = [];
 let index = -1;
 
-GetContent('board-message', (entries) => {
-  text = entries !== null ? entries.map((entry) => entry.fields.message) : [];
-});
+// GetContent('board-message', (entries) => {
+//   text = entries !== null ? entries.map((entry) => entry.fields.message) : [];
+// });
 
 // Get the next message from the array or start over if you have
 // reached the end.

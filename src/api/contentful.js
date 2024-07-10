@@ -1,10 +1,17 @@
+import { createClient } from 'contentful';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import getContentfulContent from '../helpers/contentful';
 
-async function contentfulBaseQuery(arg) {
+import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from '../helpers/env';
+
+const client = createClient({
+  space: CONTENTFUL_SPACE_ID,
+  accessToken: CONTENTFUL_ACCESS_TOKEN,
+});
+
+async function contentfulBaseQuery(content_type) {
   try {
-    const res = await getContentfulContent(arg);
-    return { data: res.map(entry => entry.fields) };
+    const res = await client.getEntries({ content_type });
+    return { data: res.items.map(entry => entry.fields) };
   } catch (error) {
     return { error: error.toString() };
   }

@@ -1,7 +1,7 @@
 import Activity from './Activity';
 import Poster from './Poster';
 import PropTypes from 'prop-types';
-import { useActivitiesQuery } from '../store/koala';
+import { useActivitiesQuery } from '../api/koala';
 
 export default function Activities({ current, onChange }) {
   const { data: activities, isSuccess } = useActivitiesQuery({
@@ -40,25 +40,3 @@ Activities.propTypes = {
   current: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
-
-
-// function useActivities() {
-//   const [activities, setActivities] = useState([]);
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       fetch(KOALA_ACTIVITY_ENDPOINT)
-//         // Fix activity dates and sort them on start_date
-//         .then(resp => resp.json())
-//         .then(activities =>
-//           setActivities(activities
-//             .filter(act => act.poster)
-//             .map(setDate)
-//             .sort((a, b) => a.start_date - b.start_date)));
-//     }, Number(import.meta.env.VITE_LOAD_INTERVAL));
-
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   return activities;
-// }

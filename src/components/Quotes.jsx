@@ -1,9 +1,9 @@
-import GetContent from '../helpers/contentful';
+// import GetContent from '../helpers/contentful';
 
-GetContent('quotes', (entries) => {
-  const quotes = entries !== null ? entries.map((entry) => entry.fields) : [];
-  window.localStorage.setItem('AllQuotes', JSON.stringify(quotes));
-});
+// GetContent('quotes', (entries) => {
+//   const quotes = entries !== null ? entries.map((entry) => entry.fields) : [];
+//   window.localStorage.setItem('AllQuotes', JSON.stringify(quotes));
+// });
 
 // Get a random quote
 function getRandomQuote(quotes) {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Poster from './Poster';
-import { useAdsQuery } from '../store/contentful';
+import { useAdsQuery } from '../api/contentful';
 
 export default function Ad({ current, onChange }) {
   const { data: ads, isSuccess } = useAdsQuery();
