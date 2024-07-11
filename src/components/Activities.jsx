@@ -1,7 +1,7 @@
 import Activity from './Activity';
 import Poster from './Poster';
 import PropTypes from 'prop-types';
-import { useActivitiesQuery } from '../api/koala';
+import { useActivitiesQuery } from '../store/api';
 
 export default function Activities({ current, onChange }) {
   const { data: activities, isSuccess } = useActivitiesQuery({

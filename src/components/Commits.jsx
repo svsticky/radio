@@ -1,5 +1,5 @@
 import Poster from './Poster';
-import {useAllCommitsQuery} from '../api/github';
+import {useAllCommitsQuery} from '../store/api';
 
 function formatTime(date) {
   let hh = date.getHours();

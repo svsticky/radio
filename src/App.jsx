@@ -1,7 +1,5 @@
 import { Component } from 'react';
 
-import {GITHUB_REPOS, LOGO, NEXT_INTERVAL, NEXT_INTERVAL_COMMITS} from './env';
-
 import Activities from './components/Activities';
 import Clock from './components/Clock';
 import BoardText from './components/BoardText';
@@ -9,6 +7,10 @@ import Quotes from './components/Quotes';
 import Ad from './components/Ad';
 import TeamPage from './components/Team';
 import CommitsPage from './components/Commits';
+
+const LOGO = import.meta.env.VITE_LOGO;
+const NEXT_INTERVAL = import.meta.env.VITE_NEXT_INTERVAL;
+const NEXT_INTERVAL_COMMITS = import.meta.env.VITE_NEXT_INTERVAL_COMMITS;
 
 export default class App extends Component {
   constructor(props) {
@@ -67,7 +69,7 @@ export default class App extends Component {
         // });
 
         // Dont go to commits page if no repositories are configured
-        if(GITHUB_REPOS === '') {
+        if (import.meta.env.VITE_GITHUB_REPOS === '') {
           this.setState({
             current: 'activities',
           });

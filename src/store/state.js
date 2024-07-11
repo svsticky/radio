@@ -1,6 +1,4 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-
-import { koala, contentful, github } from './api';
+import { createSlice } from "@reduxjs/toolkit";
 
 const state = createSlice({
   name: 'state',
@@ -33,20 +31,4 @@ const state = createSlice({
 });
 
 export const { incrementActivityIndex, incrementAdIndex, incrementBoardMessageIndex, shiftQuote } = state.actions;
-
-const store = configureStore({
-  reducer: {
-    [koala.reducerPath]: koala.reducer,
-    [contentful.reducerPath]: contentful.reducer,
-    [github.reducerPath]: github.reducer,
-    state
-  },
-  middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware()
-      .concat(koala.middleware)
-      .concat(contentful.middleware)
-      .concat(github.middleware);
-  }
-});
-
-export default store;
+export default state.reducer;

@@ -1,9 +1,9 @@
 import { Octokit } from 'octokit';
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { GITHUB_API_TOKEN, GITHUB_REPOS } from '../env.js';
-
-export const octokit = new Octokit({ auth: GITHUB_API_TOKEN });
+export const octokit = new Octokit({
+  auth: import.meta.env.VITE_GITHUB_API_TOKEN
+});
 
 async function listCommits(owner, repo) {
   const res = await octokit.rest.repos.listCommits({
@@ -26,7 +26,7 @@ const github = createApi({
       queryFn: async () => {
         try {
           const commitsPerRepo = await Promise.allSettled(
-            GITHUB_REPOS
+            import.meta.env.VITE_GITHUB_REPOS
               .split(' ')
               .map(name => {
                 const [owner, repo] = name.split('/');

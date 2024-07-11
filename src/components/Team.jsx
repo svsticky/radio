@@ -1,4 +1,4 @@
-import {useMembersQuery} from '../api/github';
+import {useMembersQuery} from '../store/api';
 import Poster from './Poster';
 
 export default function TeamPage() {

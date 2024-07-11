@@ -1,11 +1,9 @@
 import { createClient } from 'contentful';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from '../env';
-
 const client = createClient({
-  space: CONTENTFUL_SPACE_ID,
-  accessToken: CONTENTFUL_ACCESS_TOKEN,
+  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
+  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
 });
 
 async function contentfulBaseQuery(content_type) {
