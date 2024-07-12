@@ -22,9 +22,11 @@ function formatDate(date) {
   return `${dd}-${mm}-${yyyy}`;
 }
 
-export default function CommitsPage() {
-  const { data: commits, isLoading } = useAllCommitsQuery();
-  if (isLoading) return <> Loading... </>;
+export default function Commits() {
+  const { data: commits, isSuccess } = useAllCommitsQuery();
+
+  if (!isSuccess)
+    return <></>;
 
   return (
     <div>

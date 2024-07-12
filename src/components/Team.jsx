@@ -1,10 +1,11 @@
 import {useMembersQuery} from '../store/api';
 import Poster from './Poster';
 
-export default function TeamPage() {
-  const { data: members, isLoading } = useMembersQuery();
+export default function Team() {
+  const { data: members, isSuccess } = useMembersQuery();
 
-  if (isLoading) return <> Loading... </>;
+  if (!isSuccess)
+    return <></>;
 
   return (
     <section className="member-wrapper">

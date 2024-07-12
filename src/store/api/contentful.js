@@ -20,7 +20,10 @@ const contentful = createApi({
   baseQuery: contentfulBaseQuery,
   endpoints: build => ({
     ads: build.query({ query: () => 'ads' }),
-    boardMessages: build.query({ query: () => 'board-message' }),
+    boardMessages: build.query({
+      query: () => 'board-message',
+      transformResponse: response => response.map(message => message.message)
+    }),
     quotes: build.query({ query: () => 'quotes' })
   })
 });

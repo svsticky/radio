@@ -1,12 +1,14 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Activities from './components/Activities';
-import Clock from './components/Clock';
-import BoardText from './components/BoardText';
-import Quotes from './components/Quotes';
-import Ad from './components/Ad';
-import CommitsPage from './components/Commits';
+import {
+  Activities,
+  Clock,
+  BoardText,
+  Quotes,
+  Ad,
+  Commits
+} from './components';
 
 import {nextState} from './store';
 import {contentful} from './store/api';
@@ -61,7 +63,7 @@ function StateMachine() {
     case 'quotes':
       return <Quotes current={state.quoteIndex} />;
     case 'commits':
-      return <CommitsPage />;
+      return <Commits />;
     default:
       return <></>;
   }

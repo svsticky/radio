@@ -7,7 +7,7 @@ export default function BoardText({ current }) {
   if (!isSuccess)
     return <></>;
 
-  const { message } = boardMessages[current];
+  const message = boardMessages[current];
 
   return (
     <section className='boardTextSection'>
