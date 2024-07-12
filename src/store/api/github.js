@@ -5,6 +5,10 @@ export const octokit = new Octokit({
   auth: import.meta.env.VITE_GITHUB_API_TOKEN
 });
 
+/**
+ * Return all commits from a Github repository
+ * identified by owner and name.
+ */
 async function listCommits(owner, repo) {
   const res = await octokit.rest.repos.listCommits({
     owner, repo, per_page: 4,
@@ -18,6 +22,12 @@ async function listCommits(owner, repo) {
   }));
 }
 
+/**
+ * The Github api slice
+ *
+ * It does not use a base query, since the octokit API
+ * does not allow for a nice abstraction in endpoint form
+ */
 const github = createApi({
   reducerPath: 'github',
   baseQuery: fakeBaseQuery(),
@@ -40,7 +50,7 @@ const github = createApi({
                 ...commit,
                 date: commit.date.getTime(),
               }))
-              .sort((a, b) => b - a)
+              .sort((a, b) => b.date - a.date)
           };
         } catch (error) {
           return { error: error.toString() };

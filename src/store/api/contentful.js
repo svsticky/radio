@@ -6,6 +6,11 @@ const client = createClient({
   accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
 });
 
+/**
+ * A base query function for contentful queries: each endpoint
+ * specifies the content_type of the thing it requests and these
+ * entries are searched via the contentful API.
+ */
 async function contentfulBaseQuery(content_type) {
   try {
     const res = await client.getEntries({ content_type });

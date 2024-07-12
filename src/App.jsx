@@ -33,6 +33,7 @@ export default function App() {
 function StateMachine() {
   const dispatch = useDispatch();
 
+  // Preload the quotes and initialise the store with the quote indices
   useEffect(() => {
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
@@ -43,6 +44,7 @@ function StateMachine() {
     return result.unsubscribe;
   }, []);
 
+  // Create timer that ticks the state machine
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(nextState);
@@ -51,6 +53,7 @@ function StateMachine() {
     return () => clearInterval(interval);
   });
 
+  // Display the correct component based on state machine's state
   const state = useSelector(state => state.state);
 
   switch (state.current) {

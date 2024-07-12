@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+/**
+ * The koala api slice
+ *
+ * Uses a fetch-based base query, the endpoint's query is appended to
+ * the base url and assumes the response is JSON, which is automatically decoded.
+ */
 const koala = createApi({
   reducerPath: 'koala',
   baseQuery: fetchBaseQuery({
@@ -16,6 +22,9 @@ const koala = createApi({
   })
 });
 
+/**
+ * Patch an activity
+ */
 function setDate(activity) {
   return Object.assign({
     ...activity,

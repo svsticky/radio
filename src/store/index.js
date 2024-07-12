@@ -3,6 +3,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import { koala, contentful, github } from './api';
 import state, * as actions from './state';
 
+/**
+ * nextState is the transition function for the state machine. It
+ * updates the the state slice with new values based on the loaded
+ * activities, ads, etc.
+ *
+ * This function is implemented as a
+ * [synchronous thunk]{@link https://redux.js.org/usage/writing-logic-thunks#what-is-a-thunk}
+ * that is invoked at a fixed interval in the StateMachine component.
+ */
 export function nextState(dispatch, getState) {
   const params = new URLSearchParams(window.location.search);
   const displayInternal = params.get('internal') === 'true';
@@ -71,6 +80,10 @@ export function nextState(dispatch, getState) {
   }
 }
 
+/**
+ * The store consists of 4 slices: one for every api source we use
+ * and one for the state machine variables.
+ */
 const store = configureStore({
   reducer: {
     [koala.reducerPath]: koala.reducer,
