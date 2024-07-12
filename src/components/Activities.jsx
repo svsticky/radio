@@ -3,16 +3,13 @@ import Poster from './Poster';
 import PropTypes from 'prop-types';
 import { useActivitiesQuery } from '../store/api';
 
-export default function Activities({ current, onChange }) {
-  const { data: activities, isSuccess } = useActivitiesQuery({
+export default function Activities({ current }) {
+  const { data: activities, isSuccess } = useActivitiesQuery(undefined, {
     pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL)
   });
 
   if (!isSuccess)
     return <></>;
-
-  if (current >= activities.length - 1)
-    onChange(true);
 
   if (activities.length > 0) {
     const currentActivity = activities[current];
@@ -31,12 +28,15 @@ export default function Activities({ current, onChange }) {
       </div>
     );
   } else {
-    return <></>;
+    return (
+      <section className='boardTextSection'>
+        <h1>There are no activities, wanbeleid!</h1>
+      </section>
+    );
   }
 }
 
 // Explain expected types, for early error detection
 Activities.propTypes = {
-  current: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  current: PropTypes.number.isRequired
 };

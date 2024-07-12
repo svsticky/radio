@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const koala = createApi({
-  reducerPath: 'activities',
+  reducerPath: 'koala',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_KOALA_API_BASE
   }),

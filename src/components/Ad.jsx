@@ -2,14 +2,11 @@ import PropTypes from 'prop-types';
 import Poster from './Poster';
 import { useAdsQuery } from '../store/api';
 
-export default function Ad({ current, onChange }) {
+export default function Ad({ current }) {
   const { data: ads, isSuccess } = useAdsQuery();
 
   if (!isSuccess)
     return <></>;
-
-  if (ads.length > 0 && current >= ads.length - 1)
-    onChange(true);
 
   const currentAd = ads[current];
   if (ads.length <= 0) {
@@ -40,6 +37,5 @@ export default function Ad({ current, onChange }) {
 
 // Explain expected types, for early error detection
 Ad.propTypes = {
-  current: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  current: PropTypes.number.isRequired
 };

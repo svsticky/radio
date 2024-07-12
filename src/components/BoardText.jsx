@@ -1,24 +1,21 @@
-// import GetContent from '../helpers/contentful';
+import PropTypes from 'prop-types';
+import {useBoardMessagesQuery} from '../store/api';
 
-let text = [];
-let index = -1;
+export default function BoardText({ current }) {
+  const { data: boardMessages, isSuccess } = useBoardMessagesQuery();
 
-// GetContent('board-message', (entries) => {
-//   text = entries !== null ? entries.map((entry) => entry.fields.message) : [];
-// });
+  if (!isSuccess)
+    return <></>;
 
-// Get the next message from the array or start over if you have
-// reached the end.
-function getCurrentText() {
-  index = index < text.length - 1 ? index + 1 : 0;
+  const { message } = boardMessages[current];
 
-  return text[index];
-}
-
-export default function BoardText() {
   return (
-    <section className="boardTextSection">
-      <h1 id="boardText">{getCurrentText()}</h1>
+    <section className='boardTextSection'>
+      <h1 id='boardText'>{message}</h1>
     </section>
   );
 }
+
+BoardText.propTypes = {
+  current: PropTypes.number.isRequired,
+};
