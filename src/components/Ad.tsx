@@ -1,25 +1,32 @@
-import PropTypes from 'prop-types';
 import Poster from './Poster';
 import { useAdsQuery } from '../store/api';
 
-export default function Ad({ current }) {
+type AdProps = {
+  current: number;
+};
+
+export default function Ad({ current }: AdProps) {
   const { data: ads, isSuccess } = useAdsQuery();
 
   if (!isSuccess)
     return <></>;
 
   const currentAd = ads[current];
+
+  if (!currentAd.poster?.fields.file?.url)
+    throw new Error('Ad without poster');
+
   if (ads.length <= 0) {
     return (
       <div>
         <ul className="advertisement"></ul>
-        <Poster poster={'https://public.svsticky.nl/.hidden/Backup-Ad.png'} />
+        <Poster src={'https://public.svsticky.nl/.hidden/Backup-Ad.png'} />
       </div>
     );
   } else if (currentAd.fullscreen) {
     return (
       <div className="full-advertisement">
-        <Poster poster={`https:${currentAd.poster.fields.file.url}`}></Poster>
+        <Poster src={`https:${currentAd.poster.fields.file.url}`}></Poster>
       </div>
     );
   } else {
@@ -29,13 +36,8 @@ export default function Ad({ current }) {
           <h1>{currentAd.title}</h1>
           <p>{currentAd.description}</p>
         </ul>
-        <Poster poster={`https:${currentAd.poster.fields.file.url}`}></Poster>
+        <Poster src={`https:${currentAd.poster.fields.file.url}`}></Poster>
       </div>
     );
   }
 }
-
-// Explain expected types, for early error detection
-Ad.propTypes = {
-  current: PropTypes.number.isRequired
-};

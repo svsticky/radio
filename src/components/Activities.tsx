@@ -1,9 +1,12 @@
 import Activity from './Activity';
 import Poster from './Poster';
-import PropTypes from 'prop-types';
 import { useActivitiesQuery } from '../store/api';
 
-export default function Activities({ current }) {
+type ActivitiesProps = {
+  current: number
+};
+
+export default function Activities({ current }: ActivitiesProps) {
   const { data: activities, isSuccess } = useActivitiesQuery(undefined, {
     pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL)
   });
@@ -21,10 +24,10 @@ export default function Activities({ current }) {
               key={i}
               {...activity}
               active={activity === currentActivity}
-              />
+            />
           )}
         </ul>
-        <Poster poster={currentActivity ? currentActivity.poster : null} />
+        <Poster src={currentActivity.poster} />
       </div>
     );
   } else {
@@ -35,8 +38,3 @@ export default function Activities({ current }) {
     );
   }
 }
-
-// Explain expected types, for early error detection
-Activities.propTypes = {
-  current: PropTypes.number.isRequired
-};

@@ -1,4 +1,4 @@
-import {useMembersQuery} from '../store/api';
+import { useMembersQuery } from '../store/api';
 import Poster from './Poster';
 
 export default function Team() {
@@ -27,7 +27,7 @@ export default function Team() {
           );
         })}
       </div>
-      <Poster poster="/commitcrowd.jpeg" />
+      <Poster src="/commitcrowd.jpeg" />
     </section>
   );
 }

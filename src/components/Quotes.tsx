@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types';
-import {useQuotesQuery} from '../store/api';
+import { useQuotesQuery } from '../store/api';
 
-export default function Quotes({ current }) {
+type QuotesProps = {
+  current: number
+};
+
+export default function Quotes({ current }: QuotesProps) {
   const { data: quotes, isSuccess } = useQuotesQuery();
 
   if (!isSuccess)
@@ -18,7 +21,3 @@ export default function Quotes({ current }) {
     </article>
   );
 }
-
-Quotes.propTypes = {
-  current: PropTypes.number.isRequired,
-};

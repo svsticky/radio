@@ -1,4 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export enum StateMachineState {
+  Activities,
+  Advertisement,
+  BoardText,
+  Quotes,
+  Commits
+}
+
+export type StateMachine = {
+  activityIndex: number,
+  adIndex: number,
+  boardMessageIndex: number,
+  availableQuotes: number[],
+  usedQuotes: number[],
+  quoteIndex: number,
+  current: StateMachineState
+};
 
 const state = createSlice({
   name: 'state',
@@ -9,8 +27,8 @@ const state = createSlice({
     availableQuotes: [],
     usedQuotes: [],
     quoteIndex: 0,
-    current: 'activities'
-  },
+    current: StateMachineState.Activities
+  } as StateMachine,
   reducers: {
     incrementActivityIndex(state) {
       state.activityIndex++;
@@ -41,27 +59,21 @@ const state = createSlice({
 
       [state.quoteIndex] = state.availableQuotes.splice(availableQuoteIndex, 1);
     },
-    resetQuotes(state, action) {
+    resetQuotes(state, action: PayloadAction<number>) {
       state.availableQuotes = new Array(action.payload)
-          .fill(0)
-          .map((_, i) => i);
+        .fill(0)
+        .map((_, i) => i);
       state.usedQuotes = [];
 
       const availableQuoteIndex = Math.floor(Math.random() * (action.payload - 1));
       [state.quoteIndex] = state.availableQuotes.splice(availableQuoteIndex, 1);
     },
 
-    setCurrent(state, action) {
+    setCurrent(state, action: PayloadAction<StateMachineState>) {
       state.current = action.payload;
     }
   }
 });
 
-export const {
-  incrementActivityIndex, resetActivityIndex,
-  incrementAdIndex, resetAdIndex,
-  incrementBoardMessageIndex, resetBoardMessageIndex,
-  nextQuote, resetQuotes,
-  setCurrent
-} = state.actions;
+export const actions = state.actions;
 export default state.reducer;

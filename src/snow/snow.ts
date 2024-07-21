@@ -5,20 +5,20 @@ const isWinter = (mm >= 12 || mm < 3);
 
 if (isWinter) {
   // Add snow stylesheet
-  let link = document.createElement('link');
+  const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = 'snow.css';
   document.head.appendChild(link);
-  
+
   // Prepend snow group
-  let snowGroup = document.createElement('div');
+  const snowGroup = document.createElement('div');
   snowGroup.id = 'snow-group';
   document.body.prepend(snowGroup);
 
   // Create 200 snowflakes
   for (let i = 0; i < 200; i++) {
-    let snowflake = document.createElement('div');
+    const snowflake = document.createElement('div');
     snowflake.className = 'snowflake';
-    document.getElementById('snow-group').appendChild(snowflake);
+    snowGroup.appendChild(snowflake);
   }
 }

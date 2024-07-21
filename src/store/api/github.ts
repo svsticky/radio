@@ -1,23 +1,37 @@
 import { Octokit } from 'octokit';
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const octokit = new Octokit({
+const octokit = new Octokit({
   auth: import.meta.env.VITE_GITHUB_API_TOKEN
 });
+
+type Commit = {
+  message: string,
+  author: string,
+  date: number | null,
+  repo: string,
+  owner: string
+};
+
+type ArrayElement<T extends readonly unknown[]> =
+  T extends readonly (infer U)[] ? U : never;
+type Member = ArrayElement<Awaited<ReturnType<typeof octokit.rest.orgs.listMembers>>['data']>;
 
 /**
  * Return all commits from a Github repository
  * identified by owner and name.
  */
-async function listCommits(owner, repo) {
+async function listCommits(owner: string, repo: string): Promise<Commit[]> {
   const res = await octokit.rest.repos.listCommits({
     owner, repo, per_page: 4,
   });
 
   return res.data.map(({ commit }) => ({
     message: commit.message,
-    author: commit.author.name ?? commit.author.login,
-    date: new Date(commit.committer.date),
+    author: commit.author?.name ?? commit.author?.email ?? "",
+    date: commit.committer?.date
+      ? new Date(commit.committer.date).getTime()
+      : null,
     repo, owner
   }));
 }
@@ -32,7 +46,7 @@ const github = createApi({
   reducerPath: 'github',
   baseQuery: fakeBaseQuery(),
   endpoints: build => ({
-    allCommits: build.query({
+    allCommits: build.query<Commit[], void>({
       queryFn: async () => {
         try {
           const commitsPerRepo = await Promise.allSettled(
@@ -45,19 +59,20 @@ const github = createApi({
 
           return {
             data: commitsPerRepo
-              .flatMap(commits => commits.value)
-              .map(commit => ({
-                ...commit,
-                date: commit.date.getTime(),
-              }))
-              .sort((a, b) => b.date - a.date)
+              .flatMap(commits =>
+                commits.status === "fulfilled"
+                  ? commits.value
+                  : [])
+              .sort((a, b) => a.date && b.date
+                ? b.date - a.date
+                : -1)
           };
         } catch (error) {
-          return { error: error.toString() };
+          return { error };
         }
       }
     }),
-    members: build.query({
+    members: build.query<Member[], void>({
       queryFn: async () => {
         try {
           const res = await octokit.rest.orgs.listMembers({
@@ -65,9 +80,9 @@ const github = createApi({
             per_page: 100,
           });
 
-          return res.data;
+          return { data: res.data };
         } catch (error) {
-          return { error: error.toString() };
+          return { error };
         }
       }
     })

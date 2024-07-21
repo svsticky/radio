@@ -1,5 +1,4 @@
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useEffect } from 'react';
 
 import {
   Activities,
@@ -10,9 +9,9 @@ import {
   Commits
 } from './components';
 
-import {nextState} from './store';
-import {contentful} from './store/api';
-import {resetQuotes} from './store/state';
+import { nextState, useAppDispatch, useAppSelector } from './store';
+import { contentful } from './store/api';
+import { actions, StateMachineState } from './store/state';
 
 const LOGO = import.meta.env.VITE_LOGO;
 
@@ -31,14 +30,15 @@ export default function App() {
 }
 
 function StateMachine() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Preload the quotes and initialise the store with the quote indices
   useEffect(() => {
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
-    result.then(({ data: quotes }) => {
-      dispatch(resetQuotes(quotes.length));
+    result.then(({ data: quotes, isSuccess }) => {
+      if (isSuccess)
+        dispatch(actions.resetQuotes(quotes.length));
     });
 
     return result.unsubscribe;
@@ -48,24 +48,24 @@ function StateMachine() {
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(nextState);
-    }, import.meta.env.VITE_NEXT_INTERVAL);
+    }, Number(import.meta.env.VITE_NEXT_INTERVAL));
 
     return () => clearInterval(interval);
   });
 
   // Display the correct component based on state machine's state
-  const state = useSelector(state => state.state);
+  const state = useAppSelector(state => state.state);
 
   switch (state.current) {
-    case 'activities':
+    case StateMachineState.Activities:
       return <Activities current={state.activityIndex} />;
-    case 'advertisement':
+    case StateMachineState.Advertisement:
       return <Ad current={state.adIndex} />;
-    case 'boardText':
+    case StateMachineState.BoardText:
       return <BoardText current={state.boardMessageIndex} />;
-    case 'quotes':
+    case StateMachineState.Quotes:
       return <Quotes current={state.quoteIndex} />;
-    case 'commits':
+    case StateMachineState.Commits:
       return <Commits />;
     default:
       return <></>;

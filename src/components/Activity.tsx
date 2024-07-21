@@ -1,0 +1,52 @@
+import { useEffect, useRef } from 'react';
+import moment from 'moment';
+import { type Activity } from '../store/api';
+
+function sameDay(d: Date, t: Date): boolean {
+  return d.getDate() === t.getDate() // getDate returns day number in month...
+    && d.getMonth() === t.getMonth()
+    && d.getFullYear() === t.getFullYear();
+}
+
+function createFormat(has_time: boolean, date: Date, as = new Date()): string {
+  const format =
+    (!sameDay(date, as) ? 'dddd DD-MM ' : '')
+    + (has_time ? 'HH:mm' : '');
+  return format || '[]';
+}
+
+type ActivityProps = Activity & { active: boolean };
+
+export default function Activity({
+  active, name, start_date, end_date,
+  has_start_time, has_end_time, participant_counter
+}: ActivityProps) {
+  const activityRef = useRef<HTMLLIElement | null>(null);
+
+  // Ensure that the current activity is visible
+  useEffect(() => {
+    if (active && activityRef.current)
+      activityRef.current.scrollIntoView({
+        behavior: 'smooth'
+      });
+  }, [active]);
+
+  const startDate = moment(start_date)
+    .format(createFormat(has_start_time, new Date(start_date)));
+  const endDate = end_date
+    ? moment(end_date)
+      .format(createFormat(has_end_time, new Date(end_date), new Date(start_date)))
+    : null;
+  const className = 'activity' + (active ? ' active' : '');
+
+  return (
+    <li className={className} ref={activityRef}>
+      <h1>
+        {name}
+        {participant_counter && ` (${participant_counter})`}
+      </h1>
+      <time>{startDate}</time>
+      {endDate && <> - <time>{endDate}</time></>}
+    </li>
+  );
+}
