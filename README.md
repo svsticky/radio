@@ -10,7 +10,7 @@ and contains things like upcoming activities and peculiar quotes.
 
 ### Prequisites
 
-We recommend installing the LTS version of node.js (https://nodejs.org/), which includes corepack which can install the correct package manager for this project.
+We recommend installing the LTS version of [node.js](https://nodejs.org/), which includes [corepack](https://github.com/nodejs/corepack) which can install the correct package manager for this project.
 
 ### How to install
 
