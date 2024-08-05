@@ -23,6 +23,49 @@ async function listCommits(owner, repo) {
 }
 
 /**
+ * Get all commits from all the configered repos in the environment
+ */
+async function allCommits() {
+  try {
+    const commitsPerRepo = await Promise.allSettled(
+      import.meta.env.VITE_GITHUB_REPOS
+        .split(' ')
+        .map(name => {
+          const [owner, repo] = name.split('/');
+          return listCommits(owner, repo);
+        }));
+
+    return {
+      data: commitsPerRepo
+        .flatMap(commits => commits.value)
+        .map(commit => ({
+          ...commit,
+          date: commit.date.getTime(),
+        }))
+        .sort((a, b) => b.date - a.date)
+    };
+  } catch (error) {
+    return { error: error.toString() };
+  }
+}
+
+/**
+ * Get all members in the github organisation
+ */
+async function allMembers() {
+  try {
+    const res = await octokit.rest.orgs.listMembers({
+      org: 'svsticky',
+      per_page: 100,
+    });
+
+    return { data: res.data };
+  } catch (error) {
+    return { error: error.toString() };
+  }
+}
+
+/**
  * The Github api slice
  *
  * It does not use a base query, since the octokit API
@@ -32,45 +75,8 @@ const github = createApi({
   reducerPath: 'github',
   baseQuery: fakeBaseQuery(),
   endpoints: build => ({
-    allCommits: build.query({
-      queryFn: async () => {
-        try {
-          const commitsPerRepo = await Promise.allSettled(
-            import.meta.env.VITE_GITHUB_REPOS
-              .split(' ')
-              .map(name => {
-                const [owner, repo] = name.split('/');
-                return listCommits(owner, repo);
-              }));
-
-          return {
-            data: commitsPerRepo
-              .flatMap(commits => commits.value)
-              .map(commit => ({
-                ...commit,
-                date: commit.date.getTime(),
-              }))
-              .sort((a, b) => b.date - a.date)
-          };
-        } catch (error) {
-          return { error: error.toString() };
-        }
-      }
-    }),
-    members: build.query({
-      queryFn: async () => {
-        try {
-          const res = await octokit.rest.orgs.listMembers({
-            org: 'svsticky',
-            per_page: 100,
-          });
-
-          return res.data;
-        } catch (error) {
-          return { error: error.toString() };
-        }
-      }
-    })
+    allCommits: build.query({ queryFn: allCommits }),
+    members: build.query({ queryFn: allMembers })
   })
 });
 
