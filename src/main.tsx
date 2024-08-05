@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import store from './store/index.js';
 
 import './index.css';
-import './snow/snow.js';
 import './snow/snow.css';
 
 const root = document.getElementById('root');
