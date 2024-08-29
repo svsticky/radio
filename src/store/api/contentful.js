@@ -20,7 +20,7 @@ async function contentfulBaseQuery(content_type) {
   }
 }
 
-const contentful = createApi({
+export const contentful = createApi({
   reducerPath: 'contentful',
   baseQuery: contentfulBaseQuery,
   endpoints: build => ({
@@ -38,4 +38,3 @@ export const {
   useBoardMessagesQuery,
   useQuotesQuery
 } = contentful;
-export default contentful;

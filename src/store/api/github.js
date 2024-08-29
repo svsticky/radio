@@ -71,7 +71,7 @@ async function allMembers() {
  * It does not use a base query, since the octokit API
  * does not allow for a nice abstraction in endpoint form
  */
-const github = createApi({
+export const github = createApi({
   reducerPath: 'github',
   baseQuery: fakeBaseQuery(),
   endpoints: build => ({
@@ -81,4 +81,3 @@ const github = createApi({
 });
 
 export const { useAllCommitsQuery, useMembersQuery } = github;
-export default github;
