@@ -15,6 +15,7 @@ async function listCommits(owner, repo) {
   });
 
   return res.data.map(({ commit }) => ({
+    id: commit.id,
     message: commit.message,
     author: commit.author.name ?? commit.author.login,
     date: new Date(commit.committer.date),

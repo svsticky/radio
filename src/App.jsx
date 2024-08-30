@@ -54,7 +54,7 @@ function StateMachine() {
   }, [dispatch]);
 
   // Display the correct component based on state machine's state
-  const state = useSelector(state => state.state);
+  const state = useSelector(state => state.screen);
 
   switch (state.current) {
     case 'activities':

@@ -1,5 +1,5 @@
 import Poster from './Poster';
-import {useAllCommitsQuery} from '../store/api';
+import { useAllCommitsQuery } from '../store/api';
 
 function formatTime(date) {
   let hh = date.getHours();
@@ -32,8 +32,8 @@ export default function Commits() {
     <div>
       <h1 className="commits-title"> Recent commits</h1>
       <ul className="commits-list">
-        {commits.map((commit, index) =>
-          <li key={index} className="commits-list__item">
+        {commits.map(commit =>
+          <li key={commit.id} className="commits-list__item">
             <p className="commits-list__item__message">
               {commit.message.split('\n')[0]}
             </p>
