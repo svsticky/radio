@@ -21,10 +21,10 @@ export default function Activities({ current }) {
               key={i}
               {...activity}
               active={activity === currentActivity}
-              />
+            />
           )}
         </ul>
-        <Poster poster={currentActivity ? currentActivity.poster : null} />
+        <Poster poster={currentActivity?.poster} />
       </div>
     );
   } else {

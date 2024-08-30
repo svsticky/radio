@@ -5,17 +5,17 @@ import scrollIntoView from 'scroll-into-view';
 
 function sameDay(d, t) {
   return (
-    d.getDate() === t.getDate() && // getDate returns day number in month...
-    d.getMonth() === t.getMonth() &&
-    d.getYear() === t.getYear()
+    d.date() === t.date() &&
+    d.month() === t.month() &&
+    d.year() === t.year()
   );
 }
 
-function createFormat(has_time, date, as = new Date()) {
+function formatDate(has_time, date, as = moment()) {
   const format =
     (!sameDay(date, as) ? 'dddd DD-MM ' : '')
     + (has_time ? 'HH:mm' : '');
-  return format || '[]';
+  return date.format(format || '[]');
 }
 
 export default function Activity({ active, name, start_date, end_date, has_start_time, has_end_time, participant_counter }) {
@@ -30,20 +30,22 @@ export default function Activity({ active, name, start_date, end_date, has_start
     }
   }, [active]);
 
-  const startDate = moment(start_date)
-    .format(createFormat(has_start_time, start_date));
-  const endDate = moment(end_date)
-    .format(createFormat(has_end_time, end_date, start_date));
-  const className = 'activity' + (active ? ' active' : '');
+  //  TODO: Get rid of moment for formatting some time
+  start_date = moment(start_date);
+
+  const formattedStartDate = formatDate(has_start_time, start_date);
+  const formattedEndDate = end_date
+    ? formatDate(has_end_time, moment(end_date), start_date)
+    : '';
 
   return (
-    <li className={className} ref={activityRef}>
+    <li className={`activity ${active ? 'active' : ''}`} ref={activityRef}>
       <h1>
         {name}
         {participant_counter && ` (${participant_counter})`}
       </h1>
-      <time>{startDate}</time>
-      {endDate && <> - <time>{endDate}</time></>}
+      <time>{formattedStartDate}</time>
+      {formattedEndDate && <> - <time>{formattedEndDate}</time></>}
     </li>
   );
 }
@@ -52,8 +54,8 @@ export default function Activity({ active, name, start_date, end_date, has_start
 Activity.propTypes = {
   active: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  start_date: PropTypes.instanceOf(Date).isRequired,
-  end_date: PropTypes.instanceOf(Date),
+  start_date: PropTypes.string.isRequired,
+  end_date: PropTypes.string,
   has_start_time: PropTypes.bool.isRequired,
   has_end_time: PropTypes.bool.isRequired,
   participant_counter: PropTypes.string,
