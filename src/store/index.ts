@@ -13,18 +13,21 @@ import { useDispatch, useSelector } from 'react-redux';
  * [synchronous thunk]{@link https://redux.js.org/usage/writing-logic-thunks#what-is-a-thunk}
  * that is invoked at a fixed interval in the StateMachine component.
  */
-export const nextState: ThunkAction<void, RootState, void, UnknownAction> =
-  (dispatch, getState) => {
-    const params = new URLSearchParams(window.location.search);
-    const displayInternal = params.get('internal') === 'true';
+export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
+  dispatch,
+  getState,
+) => {
+  const params = new URLSearchParams(window.location.search);
+  const displayInternal = params.get('internal') === 'true';
 
-    const state = getState();
-    switch (state.state.current) {
-      case StateMachineState.Activities: {
-        const { data: activities, isSuccess } = koala.endpoints.activities.select()(state);
+  const state = getState();
+  switch (state.state.current) {
+    case StateMachineState.Activities:
+      {
+        const { data: activities, isSuccess } =
+          koala.endpoints.activities.select()(state);
 
-        if (!isSuccess)
-          throw new Error('');
+        if (!isSuccess) throw new Error('');
 
         if (state.state.activityIndex >= activities.length - 1) {
           dispatch(actions.resetActivityIndex());
@@ -32,29 +35,36 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> =
         } else {
           dispatch(actions.incrementActivityIndex());
         }
-      } break;
+      }
+      break;
 
-      case StateMachineState.Advertisement: {
-        const { data: ads, isSuccess } = contentful.endpoints.ads.select()(state);
+    case StateMachineState.Advertisement:
+      {
+        const { data: ads, isSuccess } =
+          contentful.endpoints.ads.select()(state);
 
         if (isSuccess) {
           if (state.state.adIndex >= ads.length - 1) {
             dispatch(actions.resetAdIndex());
 
-            dispatch(actions.setCurrent(
-              displayInternal
-                ? StateMachineState.BoardText
-                : StateMachineState.Activities
-            ));
+            dispatch(
+              actions.setCurrent(
+                displayInternal
+                  ? StateMachineState.BoardText
+                  : StateMachineState.Activities,
+              ),
+            );
           } else {
             dispatch(actions.incrementAdIndex());
           }
         }
+      }
+      break;
 
-      } break;
-
-      case StateMachineState.BoardText: {
-        const { data: messages, isSuccess } = contentful.endpoints.boardMessages.select()(state);
+    case StateMachineState.BoardText:
+      {
+        const { data: messages, isSuccess } =
+          contentful.endpoints.boardMessages.select()(state);
 
         if (isSuccess) {
           if (state.state.boardMessageIndex >= messages.length - 1) {
@@ -65,33 +75,36 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> =
         }
 
         dispatch(actions.setCurrent(StateMachineState.Quotes));
-      } break;
+      }
+      break;
 
-      case StateMachineState.Quotes:
-        if (!state.state.availableQuotes.length) {
-          const { data: quotes, isSuccess } = contentful.endpoints.quotes.select()(state);
+    case StateMachineState.Quotes:
+      if (!state.state.availableQuotes.length) {
+        const { data: quotes, isSuccess } =
+          contentful.endpoints.quotes.select()(state);
 
-          if (isSuccess)
-            dispatch(actions.resetQuotes(quotes.length));
-        } else {
-          dispatch(actions.nextQuote());
-        }
+        if (isSuccess) dispatch(actions.resetQuotes(quotes.length));
+      } else {
+        dispatch(actions.nextQuote());
+      }
 
-        dispatch(actions.setCurrent(
+      dispatch(
+        actions.setCurrent(
           import.meta.env.VITE_GITHUB_REPOS
             ? StateMachineState.Commits
-            : StateMachineState.Activities
-        ));
-        break;
+            : StateMachineState.Activities,
+        ),
+      );
+      break;
 
-      case StateMachineState.Commits:
-        dispatch(actions.setCurrent(StateMachineState.Activities));
-        break;
+    case StateMachineState.Commits:
+      dispatch(actions.setCurrent(StateMachineState.Activities));
+      break;
 
-      default:
-        break;
-    }
+    default:
+      break;
   }
+};
 
 /**
  * The store consists of 4 slices: one for every api source we use
@@ -102,14 +115,14 @@ const store = configureStore({
     [koala.reducerPath]: koala.reducer,
     [contentful.reducerPath]: contentful.reducer,
     [github.reducerPath]: github.reducer,
-    state
+    state,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()
       .concat(koala.middleware)
       .concat(contentful.middleware)
       .concat(github.middleware);
-  }
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

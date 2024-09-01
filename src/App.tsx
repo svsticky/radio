@@ -6,7 +6,7 @@ import {
   BoardText,
   Quotes,
   Ad,
-  Commits
+  Commits,
 } from './components';
 
 import { nextState, useAppDispatch, useAppSelector } from './store';
@@ -37,8 +37,7 @@ function StateMachine() {
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
     result.then(({ data: quotes, isSuccess }) => {
-      if (isSuccess)
-        dispatch(actions.resetQuotes(quotes.length));
+      if (isSuccess) dispatch(actions.resetQuotes(quotes.length));
     });
 
     return result.unsubscribe;
@@ -46,15 +45,18 @@ function StateMachine() {
 
   // Create timer that ticks the state machine
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(nextState);
-    }, Number(import.meta.env.VITE_NEXT_INTERVAL));
+    const interval = setInterval(
+      () => {
+        dispatch(nextState);
+      },
+      Number(import.meta.env.VITE_NEXT_INTERVAL),
+    );
 
     return () => clearInterval(interval);
   });
 
   // Display the correct component based on state machine's state
-  const state = useAppSelector(state => state.state);
+  const state = useAppSelector((state) => state.state);
 
   switch (state.current) {
     case StateMachineState.Activities:

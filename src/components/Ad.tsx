@@ -8,13 +8,11 @@ type AdProps = {
 export default function Ad({ current }: AdProps) {
   const { data: ads, isSuccess } = useAdsQuery();
 
-  if (!isSuccess)
-    return <></>;
+  if (!isSuccess) return <></>;
 
   const currentAd = ads[current];
 
-  if (!currentAd.poster?.fields.file?.url)
-    throw new Error('Ad without poster');
+  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 
   if (ads.length <= 0) {
     return (

@@ -1,5 +1,5 @@
 type PosterProps = {
-  src: string
+  src: string;
 };
 
 export default function Poster({ src }: PosterProps) {

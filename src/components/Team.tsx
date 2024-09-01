@@ -4,8 +4,7 @@ import Poster from './Poster';
 export default function Team() {
   const { data: members, isSuccess } = useMembersQuery();
 
-  if (!isSuccess)
-    return <></>;
+  if (!isSuccess) return <></>;
 
   return (
     <section className="member-wrapper">

@@ -1,21 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum StateMachineState {
   Activities,
   Advertisement,
   BoardText,
   Quotes,
-  Commits
+  Commits,
 }
 
 export type StateMachine = {
-  activityIndex: number,
-  adIndex: number,
-  boardMessageIndex: number,
-  availableQuotes: number[],
-  usedQuotes: number[],
-  quoteIndex: number,
-  current: StateMachineState
+  activityIndex: number;
+  adIndex: number;
+  boardMessageIndex: number;
+  availableQuotes: number[];
+  usedQuotes: number[];
+  quoteIndex: number;
+  current: StateMachineState;
 };
 
 const state = createSlice({
@@ -27,7 +27,7 @@ const state = createSlice({
     availableQuotes: [],
     usedQuotes: [],
     quoteIndex: 0,
-    current: StateMachineState.Activities
+    current: StateMachineState.Activities,
   } as StateMachine,
   reducers: {
     incrementActivityIndex(state) {
@@ -65,14 +65,16 @@ const state = createSlice({
         .map((_, i) => i);
       state.usedQuotes = [];
 
-      const availableQuoteIndex = Math.floor(Math.random() * (action.payload - 1));
+      const availableQuoteIndex = Math.floor(
+        Math.random() * (action.payload - 1),
+      );
       [state.quoteIndex] = state.availableQuotes.splice(availableQuoteIndex, 1);
     },
 
     setCurrent(state, action: PayloadAction<StateMachineState>) {
       state.current = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const actions = state.actions;
