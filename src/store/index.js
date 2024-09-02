@@ -1,13 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import { koala, contentful, github } from './api';
+import { koala, contentful, github } from "./api";
 import screen, {
-  incrementAdIndex, incrementActivityIndex,
-  resetAdIndex, resetActivityIndex,
-  incrementBoardMessageIndex, resetBoardMessageIndex,
-  setCurrent
-} from './screen';
-import quotes, { resetQuotes, nextQuote } from './quotes';
+  incrementCurrentIndex,
+  resetCurrentIndex,
+  incrementBoardMessageIndex,
+  resetBoardMessageIndex,
+  setCurrent,
+} from "./screen";
+import quotes, { resetQuotes, nextQuote } from "./quotes";
 
 /**
  * nextState is the transition function for the state machine. It
@@ -20,49 +21,52 @@ import quotes, { resetQuotes, nextQuote } from './quotes';
  */
 export function nextState(dispatch, getState) {
   const params = new URLSearchParams(window.location.search);
-  const displayInternal = params.get('internal') === 'true';
+  const displayInternal = params.get("internal") === "true";
 
   const state = getState();
   switch (state.screen.current) {
-    case 'activities': {
-      const { data: activities } = koala.endpoints.activities.select()(state);
+    case "activities":
+      {
+        const { data: activities } = koala.endpoints.activities.select()(state);
 
-      if (state.screen.activityIndex >= activities.length - 1) {
-        dispatch(setCurrent('advertisement'));
-        dispatch(resetActivityIndex());
-      } else {
-        dispatch(incrementActivityIndex());
+        if (state.screen.screenCurrentIndex >= activities.length - 1) {
+          dispatch(setCurrent("advertisement"));
+          dispatch(resetCurrentIndex());
+        } else {
+          dispatch(incrementCurrentIndex());
+        }
       }
-    } break;
+      break;
 
-    case 'advertisement': {
-      const { data: ads } = contentful.endpoints.ads.select()(state);
+    case "advertisement":
+      {
+        const { data: ads } = contentful.endpoints.ads.select()(state);
 
-      if (state.screen.adIndex >= ads.length - 1) {
-        dispatch(setCurrent(
-          displayInternal
-            ? 'boardText'
-            : 'activities'
-        ));
-        dispatch(resetAdIndex());
-      } else {
-        dispatch(incrementAdIndex());
+        if (state.screen.screenCurrentIndex >= ads.length - 1) {
+          dispatch(setCurrent(displayInternal ? "boardText" : "activities"));
+          dispatch(resetCurrentIndex());
+        } else {
+          dispatch(incrementCurrentIndex());
+        }
       }
-    } break;
+      break;
 
-    case 'boardText': {
-      const { data: messages } = contentful.endpoints.boardMessages.select()(state);
+    case "boardText":
+      {
+        const { data: messages } =
+          contentful.endpoints.boardMessages.select()(state);
 
-      if (state.screen.boardMessageIndex >= messages.length - 1) {
-        dispatch(resetBoardMessageIndex());
-      } else {
-        dispatch(incrementBoardMessageIndex());
+        if (state.screen.boardMessageIndex >= messages.length - 1) {
+          dispatch(resetBoardMessageIndex());
+        } else {
+          dispatch(incrementBoardMessageIndex());
+        }
+
+        dispatch(setCurrent("quotes"));
       }
+      break;
 
-      dispatch(setCurrent('quotes'));
-    } break;
-
-    case 'quotes':
+    case "quotes":
       if (!state.quotes.availableQuotes.length) {
         const { data: quotes } = contentful.endpoints.quotes.select()(state);
         dispatch(resetQuotes(quotes.length));
@@ -70,15 +74,15 @@ export function nextState(dispatch, getState) {
         dispatch(nextQuote());
       }
 
-      dispatch(setCurrent(
-        import.meta.env.VITE_GITHUB_REPOS
-          ? 'commits'
-          : 'activities'
-      ));
+      dispatch(
+        setCurrent(
+          import.meta.env.VITE_GITHUB_REPOS ? "commits" : "activities",
+        ),
+      );
       break;
 
-    case 'commits':
-      dispatch(setCurrent('activities'));
+    case "commits":
+      dispatch(setCurrent("activities"));
       break;
 
     default:
@@ -96,14 +100,14 @@ const store = configureStore({
     [contentful.reducerPath]: contentful.reducer,
     [github.reducerPath]: github.reducer,
     screen,
-    quotes
+    quotes,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()
       .concat(koala.middleware)
       .concat(contentful.middleware)
       .concat(github.middleware);
-  }
+  },
 });
 
 export default store;

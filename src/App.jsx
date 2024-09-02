@@ -58,9 +58,9 @@ function StateMachine() {
 
   switch (state.current) {
     case 'activities':
-      return <Activities current={state.activityIndex} />;
+      return <Activities current={state.screenCurrentIndex} />;
     case 'advertisement':
-      return <Ad current={state.adIndex} />;
+      return <Ad current={state.screenCurrentIndex} />;
     case 'boardText':
       return <BoardText current={state.boardMessageIndex} />;
     case 'quotes':
