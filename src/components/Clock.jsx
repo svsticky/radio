@@ -25,7 +25,9 @@ export default function Clock() {
 
   return (
     <div className="clock-wrapper">
-      <span className="clock">{formattedDate}</span>
+      <div className="oval">
+        <span className="clock">{formattedDate}</span>
+      </div>
     </div>
   );
 }
