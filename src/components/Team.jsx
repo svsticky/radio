@@ -12,9 +12,8 @@ export default function TeamPage() {
     return res.data;
   });
 
-  if (isLoading) return <> Loading... </>;
-
-  console.log(members);
+  if (isLoading)
+    return <>Loading...</>;
 
   return (
     <section className="member-wrapper">

@@ -10,25 +10,24 @@ export default function Activities({ current, onChange }) {
   if (current >= activities.length - 1)
     onChange(true);
 
-  if (activities.length > 0) {
-    const currentActivity = activities[current];
-    return (
-      <div>
-        <ul className="activities">
-          {activities.map((activity, i) =>
-            <Activity
-              key={i}
-              {...activity}
-              active={activity === currentActivity}
-              />
-          )}
-        </ul>
-        <Poster poster={currentActivity ? currentActivity.poster : null} />
-      </div>
-    );
-  } else {
+  if (activities.length === 0)
     return <></>;
-  }
+
+  const currentActivity = activities[current];
+  return (
+    <div>
+      <ul className="activities">
+        {activities.map((activity, i) =>
+          <Activity
+            key={i}
+            {...activity}
+            active={activity === currentActivity}
+          />
+        )}
+      </ul>
+      <Poster poster={currentActivity ? currentActivity.poster : null} />
+    </div>
+  );
 }
 
 // Explain expected types, for early error detection

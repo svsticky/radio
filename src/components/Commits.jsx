@@ -1,7 +1,7 @@
-import {octokit} from '../helpers/github';
-import {useQuery} from '../hooks/useQuery';
+import { octokit } from '../helpers/github';
+import { useQuery } from '../hooks/useQuery';
 import Poster from './Poster';
-import {GITHUB_REPOS} from '../helpers/env.js';
+import { GITHUB_REPOS } from '../helpers/env.js';
 
 function useCommits(owner, repo) {
   return useQuery(async () => {
@@ -70,7 +70,9 @@ function formatDate(date) {
 
 export default function CommitsPage() {
   const { data: commits, isLoading } = getAllCommits();
-  if (isLoading) return <> Loading... </>;
+
+  if (isLoading)
+    return <>Loading...</>;
 
   return (
     <div>
