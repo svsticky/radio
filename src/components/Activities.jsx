@@ -11,29 +11,28 @@ export default function Activities({ current }) {
   if (!isSuccess)
     return <></>;
 
-  if (activities.length > 0) {
-    const currentActivity = activities[current];
-    return (
-      <div>
-        <ul className='activities'>
-          {activities.map((activity, i) =>
-            <Activity
-              key={i}
-              {...activity}
-              active={activity === currentActivity}
-            />
-          )}
-        </ul>
-        <Poster poster={currentActivity?.poster} />
-      </div>
-    );
-  } else {
+  if (activities.length === 0)
     return (
       <section className='boardTextSection'>
         <h1>There are no activities, wanbeleid!</h1>
       </section>
     );
-  }
+
+  const currentActivity = activities[current];
+  return (
+    <div>
+      <ul className="activities">
+        {activities.map((activity, i) =>
+          <Activity
+            key={i}
+            {...activity}
+            active={activity === currentActivity}
+          />
+        )}
+      </ul>
+      <Poster poster={currentActivity ? currentActivity.poster : null} />
+    </div>
+  );
 }
 
 // Explain expected types, for early error detection
