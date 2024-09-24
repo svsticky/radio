@@ -41,4 +41,4 @@ export function resetQuotes(payload) {
   }
 }
 
-export default quotes;
+export default quotes.reducer;

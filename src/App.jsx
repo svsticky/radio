@@ -55,6 +55,7 @@ function StateMachine() {
 
   // Display the correct component based on state machine's state
   const state = useSelector(state => state.screen);
+  const quotes = useSelector(state => state.quotes);
 
   switch (state.current) {
     case 'activities':
@@ -64,7 +65,7 @@ function StateMachine() {
     case 'boardText':
       return <BoardText current={state.boardMessageIndex} />;
     case 'quotes':
-      return <Quotes current={state.quoteIndex} />;
+      return <Quotes current={quotes.quoteIndex} />;
     case 'commits':
       return <Commits />;
     default:
