@@ -10,6 +10,13 @@ function sameDay(d: Date, t: Date): boolean {
   );
 }
 
+/**
+  * Create a format for the activity date
+  *
+  * If the date is today or the same same as the end date (supplied by the as parameter)
+  * then the day is not displayed. Additionally if the activity has a time, then it is
+  * displayed.
+  */
 function createFormat(has_time: boolean, date: Date, as = new Date()): string {
   const format =
     (!sameDay(date, as) ? 'dddd DD-MM ' : '') + (has_time ? 'HH:mm' : '');
@@ -45,13 +52,12 @@ export default function Activity({
         createFormat(has_end_time, new Date(end_date), new Date(start_date)),
       )
     : null;
-  const className = 'activity' + (active ? ' active' : '');
 
   return (
-    <li className={className} ref={activityRef}>
+    <li className={`activity ${active ? ' active' : ''}`} ref={activityRef}>
       <h1>
         {name}
-        {participant_counter && ` (${participant_counter})`}
+        {participant_counter ? ` (${participant_counter})` : ""}
       </h1>
       <time>{startDate}</time>
       {endDate && (
