@@ -21,13 +21,13 @@ export default function Activities({ current }: StateMachineSlideProps) {
   return (
     <div>
       <ul className="activities">
-        {activities.map((activity, i) =>
+        {activities.map((activity, i) => (
           <Activity
             key={i}
             {...activity}
             active={activity === currentActivity}
           />
-        )}
+        ))}
       </ul>
       <Poster src={currentActivity.poster} />
     </div>

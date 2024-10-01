@@ -31,7 +31,7 @@ export default function App() {
 }
 
 export interface StateMachineSlideProps {
-  current: number
+  current: number;
 }
 
 function StateMachine() {
@@ -42,8 +42,7 @@ function StateMachine() {
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
     result.then(({ data: quotes, isSuccess }) => {
-      if (isSuccess)
-        dispatch(resetQuotes(quotes.length));
+      if (isSuccess) dispatch(resetQuotes(quotes.length));
     });
 
     return result.unsubscribe;
@@ -62,8 +61,8 @@ function StateMachine() {
   }, [dispatch]);
 
   // Display the correct component based on state machine's state
-  const state = useAppSelector(state => state.screen);
-  const quotes = useAppSelector(state => state.quotes);
+  const state = useAppSelector((state) => state.screen);
+  const quotes = useAppSelector((state) => state.quotes);
 
   switch (state.current) {
     case StateMachineState.Activities:

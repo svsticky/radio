@@ -7,10 +7,10 @@ import screen, {
   incrementCurrentIndex,
   resetBoardMessageIndex,
   incrementBoardMessageIndex,
-  setCurrent
+  setCurrent,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
-import quotes, { nextQuote, resetQuotes } from "./quotes";
+import quotes, { nextQuote, resetQuotes } from './quotes';
 
 /**
  * nextState is the transition function for the state machine. It
@@ -30,18 +30,20 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
   const state = getState();
   switch (state.screen.current) {
-    case StateMachineState.Activities: {
-      const { data: activities, isSuccess } = koala.endpoints.activities.select()(state);
+    case StateMachineState.Activities:
+      {
+        const { data: activities, isSuccess } =
+          koala.endpoints.activities.select()(state);
 
-      if (!isSuccess) throw new Error('');
+        if (!isSuccess) throw new Error('');
 
-      if (state.screen.screenCurrentIndex >= activities.length - 1) {
-        dispatch(resetCurrentIndex());
-        dispatch(setCurrent(StateMachineState.Advertisement));
-      } else {
-        dispatch(incrementCurrentIndex());
+        if (state.screen.screenCurrentIndex >= activities.length - 1) {
+          dispatch(resetCurrentIndex());
+          dispatch(setCurrent(StateMachineState.Advertisement));
+        } else {
+          dispatch(incrementCurrentIndex());
+        }
       }
-    }
       break;
 
     case StateMachineState.Advertisement:
@@ -53,11 +55,13 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           if (state.screen.screenCurrentIndex >= ads.length - 1) {
             dispatch(resetCurrentIndex());
 
-            dispatch(setCurrent(
-              displayInternal
-                ? StateMachineState.BoardText
-                : StateMachineState.Activities
-            ));
+            dispatch(
+              setCurrent(
+                displayInternal
+                  ? StateMachineState.BoardText
+                  : StateMachineState.Activities,
+              ),
+            );
           } else {
             dispatch(incrementCurrentIndex());
           }
@@ -79,23 +83,25 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
         }
 
         dispatch(setCurrent(StateMachineState.Quotes));
-      } break;
+      }
+      break;
 
     case StateMachineState.Quotes:
       if (!state.quotes.availableQuotes.length) {
-        const { data: quotes, isSuccess } = contentful.endpoints.quotes.select()(state);
+        const { data: quotes, isSuccess } =
+          contentful.endpoints.quotes.select()(state);
 
-        if (isSuccess)
-          dispatch(resetQuotes(quotes.length));
+        if (isSuccess) dispatch(resetQuotes(quotes.length));
       } else {
         dispatch(nextQuote());
       }
 
-      dispatch(setCurrent(
-        import.meta.env.VITE_GITHUB_REPOS
-          ? StateMachineState.Commits
-          : StateMachineState.Activities,
-      ),
+      dispatch(
+        setCurrent(
+          import.meta.env.VITE_GITHUB_REPOS
+            ? StateMachineState.Commits
+            : StateMachineState.Activities,
+        ),
       );
       break;
 
@@ -115,7 +121,7 @@ const store = configureStore({
     [contentful.reducerPath]: contentful.reducer,
     [github.reducerPath]: github.reducer,
     screen,
-    quotes
+    quotes,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()

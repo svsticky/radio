@@ -18,9 +18,7 @@ export default function Team() {
                   src={member.avatar_url}
                   alt="member avatar"
                 />
-                <div className="member-list__item_name">
-                  {member.name}
-                </div>
+                <div className="member-list__item_name">{member.name}</div>
               </div>
             </>
           );

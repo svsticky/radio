@@ -14,8 +14,8 @@ type Commit = {
 };
 
 type Member = {
-  avatar_url: string,
-  name: string
+  avatar_url: string;
+  name: string;
 };
 
 /**
@@ -24,17 +24,20 @@ type Member = {
  */
 async function listCommits(owner: string, repo: string): Promise<Commit[]> {
   const { data: commits } = await octokit.rest.repos.listCommits({
-    owner, repo, per_page: 4,
+    owner,
+    repo,
+    per_page: 4,
   });
 
   return commits
-    .filter(commit => !!commit.commit.committer?.date)
+    .filter((commit) => !!commit.commit.committer?.date)
     .map(({ commit, sha }) => ({
       id: sha,
       message: commit.message,
-      author: commit.author?.name ?? commit.author?.email ?? "",
+      author: commit.author?.name ?? commit.author?.email ?? '',
       date: new Date(commit.committer!.date!).getTime(),
-      repo, owner
+      repo,
+      owner,
     }));
 }
 
@@ -44,18 +47,19 @@ async function listCommits(owner: string, repo: string): Promise<Commit[]> {
 async function allCommits() {
   try {
     const commitsPerRepo = await Promise.allSettled(
-      import.meta.env.VITE_GITHUB_REPOS
-        .split(' ')
-        .map(name => {
-          const [owner, repo] = name.split('/');
-          return listCommits(owner, repo);
-        }));
+      import.meta.env.VITE_GITHUB_REPOS.split(' ').map((name) => {
+        const [owner, repo] = name.split('/');
+        return listCommits(owner, repo);
+      }),
+    );
 
     return {
       data: commitsPerRepo
-        .flatMap(commits => commits.status === "fulfilled" ? commits.value : [])
+        .flatMap((commits) =>
+          commits.status === 'fulfilled' ? commits.value : [],
+        )
         .filter((commit): commit is Commit & { date: number } => !!commit.date)
-        .sort((a, b) => b.date - a.date)
+        .sort((a, b) => b.date - a.date),
     };
   } catch (error) {
     return { error };
@@ -73,10 +77,10 @@ async function allMembers() {
     });
 
     return {
-      data: res.data.map(member => ({
+      data: res.data.map((member) => ({
         name: member.name || member.login,
-        avatar_url: member.avatar_url
-      })) as Member[]
+        avatar_url: member.avatar_url,
+      })) as Member[],
     };
   } catch (error) {
     return { error };
@@ -92,10 +96,10 @@ async function allMembers() {
 export const github = createApi({
   reducerPath: 'github',
   baseQuery: fakeBaseQuery(),
-  endpoints: build => ({
+  endpoints: (build) => ({
     allCommits: build.query<Commit[], void>({ queryFn: allCommits }),
-    members: build.query<Member[], void>({ queryFn: allMembers })
-  })
+    members: build.query<Member[], void>({ queryFn: allMembers }),
+  }),
 });
 
 export const { useAllCommitsQuery, useMembersQuery } = github;

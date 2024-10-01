@@ -18,8 +18,7 @@ export default function Ad({ current }: StateMachineSlideProps) {
 
   const currentAd = ads[current];
 
-  if (!currentAd.poster?.fields.file?.url)
-    throw new Error('Ad without poster');
+  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 
   if (currentAd.fullscreen)
     return (
