@@ -13,27 +13,74 @@ type Commit = {
   owner: string
 };
 
-type ArrayElement<T extends readonly unknown[]> =
-  T extends readonly (infer U)[] ? U : never;
-type Member = ArrayElement<Awaited<ReturnType<typeof octokit.rest.orgs.listMembers>>['data']>;
+type Member = {
+  avatar_url: string,
+  name: string
+};
 
 /**
  * Return all commits from a Github repository
  * identified by owner and name.
  */
 async function listCommits(owner: string, repo: string): Promise<Commit[]> {
-  const res = await octokit.rest.repos.listCommits({
+  const { data: commits } = await octokit.rest.repos.listCommits({
     owner, repo, per_page: 4,
   });
 
-  return res.data.map(({ commit }) => ({
-    message: commit.message,
-    author: commit.author?.name ?? commit.author?.email ?? "",
-    date: commit.committer?.date
-      ? new Date(commit.committer.date).getTime()
-      : null,
-    repo, owner
-  }));
+  return commits
+    .filter(commit => !!commit.commit.committer?.date)
+    .map(({ commit, sha }) => ({
+      id: sha,
+      message: commit.message,
+      author: commit.author?.name ?? commit.author?.email ?? "",
+      date: new Date(commit.committer!.date!).getTime(),
+      repo, owner
+    }));
+}
+
+/**
+ * Get all commits from all the configered repos in the environment
+ */
+async function allCommits() {
+  try {
+    const commitsPerRepo = await Promise.allSettled(
+      import.meta.env.VITE_GITHUB_REPOS
+        .split(' ')
+        .map(name => {
+          const [owner, repo] = name.split('/');
+          return listCommits(owner, repo);
+        }));
+
+    return {
+      data: commitsPerRepo
+        .flatMap(commits => commits.status === "fulfilled" ? commits.value : [])
+        .filter((commit): commit is Commit & { date: number } => !!commit.date)
+        .sort((a, b) => b.date - a.date)
+    };
+  } catch (error) {
+    return { error };
+  }
+}
+
+/**
+ * Get all members in the github organisation
+ */
+async function allMembers() {
+  try {
+    const res = await octokit.rest.orgs.listMembers({
+      org: 'svsticky', //  TODO: Maybe move this to the env file
+      per_page: 100,
+    });
+
+    return {
+      data: res.data.map(member => ({
+        name: member.name || member.login,
+        avatar_url: member.avatar_url
+      })) as Member[]
+    };
+  } catch (error) {
+    return { error };
+  }
 }
 
 /**
@@ -42,52 +89,13 @@ async function listCommits(owner: string, repo: string): Promise<Commit[]> {
  * It does not use a base query, since the octokit API
  * does not allow for a nice abstraction in endpoint form
  */
-const github = createApi({
+export const github = createApi({
   reducerPath: 'github',
   baseQuery: fakeBaseQuery(),
   endpoints: build => ({
-    allCommits: build.query<Commit[], void>({
-      queryFn: async () => {
-        try {
-          const commitsPerRepo = await Promise.allSettled(
-            import.meta.env.VITE_GITHUB_REPOS
-              .split(' ')
-              .map(name => {
-                const [owner, repo] = name.split('/');
-                return listCommits(owner, repo);
-              }));
-
-          return {
-            data: commitsPerRepo
-              .flatMap(commits =>
-                commits.status === "fulfilled"
-                  ? commits.value
-                  : [])
-              .sort((a, b) => a.date && b.date
-                ? b.date - a.date
-                : -1)
-          };
-        } catch (error) {
-          return { error };
-        }
-      }
-    }),
-    members: build.query<Member[], void>({
-      queryFn: async () => {
-        try {
-          const res = await octokit.rest.orgs.listMembers({
-            org: 'svsticky',
-            per_page: 100,
-          });
-
-          return { data: res.data };
-        } catch (error) {
-          return { error };
-        }
-      }
-    })
+    allCommits: build.query<Commit[], void>({ queryFn: allCommits }),
+    members: build.query<Member[], void>({ queryFn: allMembers })
   })
 });
 
 export const { useAllCommitsQuery, useMembersQuery } = github;
-export default github;

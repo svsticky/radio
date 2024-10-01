@@ -20,8 +20,9 @@ export default function Commits() {
             <p className="commits-list__item__meta">
               On <em>{commit.owner}/{commit.repo}</em>
               {' by'} <strong>{commit.author}</strong>
-              {commit.date &&
-                ` (${moment(commit.date).format('LLL')})`}
+              {commit.date
+                ? ` (${moment(commit.date).format('LLL')})`
+                : ""}
             </p>
           </li>
         )}

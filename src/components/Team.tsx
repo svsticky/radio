@@ -10,7 +10,7 @@ export default function Team() {
   return (
     <section className="member-wrapper">
       <div className="member-list">
-        {members?.map((member) => {
+        {members.map((member) => {
           return (
             <>
               <div className="member-list__item">
@@ -20,7 +20,7 @@ export default function Team() {
                   alt="member avatar"
                 />
                 <div className="member-list__item_name">
-                  {member.name || member.login}
+                  {member.name}
                 </div>
               </div>
             </>

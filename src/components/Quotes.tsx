@@ -1,10 +1,7 @@
+import { StateMachineSlideProps } from '../App';
 import { useQuotesQuery } from '../store/api';
 
-type QuotesProps = {
-  current: number
-};
-
-export default function Quotes({ current }: QuotesProps) {
+export default function Quotes({ current }: StateMachineSlideProps) {
   const { data: quotes, isSuccess } = useQuotesQuery();
 
   if (!isSuccess)

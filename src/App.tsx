@@ -11,7 +11,8 @@ import {
 
 import { nextState, useAppDispatch, useAppSelector } from './store';
 import { contentful } from './store/api';
-import { actions, StateMachineState } from './store/state';
+import { StateMachineState } from './store/state';
+import { resetQuotes } from './store/quotes';
 
 const LOGO = import.meta.env.VITE_LOGO;
 
@@ -29,6 +30,10 @@ export default function App() {
   );
 }
 
+export interface StateMachineSlideProps {
+  current: number
+}
+
 function StateMachine() {
   const dispatch = useAppDispatch();
 
@@ -38,11 +43,11 @@ function StateMachine() {
 
     result.then(({ data: quotes, isSuccess }) => {
       if (isSuccess)
-        dispatch(actions.resetQuotes(quotes.length));
+        dispatch(resetQuotes(quotes.length));
     });
 
     return result.unsubscribe;
-  }, []);
+  }, [dispatch]);
 
   // Create timer that ticks the state machine
   useEffect(() => {
@@ -51,20 +56,21 @@ function StateMachine() {
     }, Number(import.meta.env.VITE_NEXT_INTERVAL));
 
     return () => clearInterval(interval);
-  });
+  }, [dispatch]);
 
   // Display the correct component based on state machine's state
-  const state = useAppSelector(state => state.state);
+  const state = useAppSelector(state => state.screen);
+  const quotes = useAppSelector(state => state.quotes);
 
   switch (state.current) {
     case StateMachineState.Activities:
-      return <Activities current={state.activityIndex} />;
+      return <Activities current={state.screenCurrentIndex} />;
     case StateMachineState.Advertisement:
-      return <Ad current={state.adIndex} />;
+      return <Ad current={state.screenCurrentIndex} />;
     case StateMachineState.BoardText:
       return <BoardText current={state.boardMessageIndex} />;
     case StateMachineState.Quotes:
-      return <Quotes current={state.quoteIndex} />;
+      return <Quotes current={quotes.quoteIndex} />;
     case StateMachineState.Commits:
       return <Commits />;
     default:

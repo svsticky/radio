@@ -1,10 +1,7 @@
+import { StateMachineSlideProps } from '../App';
 import { useBoardMessagesQuery } from '../store/api';
 
-type BoardTextProps = {
-  current: number
-};
-
-export default function BoardText({ current }: BoardTextProps) {
+export default function BoardText({ current }: StateMachineSlideProps) {
   const { data: boardMessages, isSuccess } = useBoardMessagesQuery();
 
   if (!isSuccess)
