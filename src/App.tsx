@@ -6,7 +6,7 @@ import {
   BoardText,
   Quotes,
   Ad,
-  Commits
+  Commits,
 } from './components';
 
 import { nextState, useAppDispatch, useAppSelector } from './store';
@@ -31,7 +31,7 @@ export default function App() {
 }
 
 export interface StateMachineSlideProps {
-  current: number
+  current: number;
 }
 
 function StateMachine() {
@@ -42,8 +42,7 @@ function StateMachine() {
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
     result.then(({ data: quotes, isSuccess }) => {
-      if (isSuccess)
-        dispatch(resetQuotes(quotes.length));
+      if (isSuccess) dispatch(resetQuotes(quotes.length));
     });
 
     return result.unsubscribe;
@@ -51,16 +50,19 @@ function StateMachine() {
 
   // Create timer that ticks the state machine
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(nextState);
-    }, Number(import.meta.env.VITE_NEXT_INTERVAL));
+    const interval = setInterval(
+      () => {
+        dispatch(nextState);
+      },
+      Number(import.meta.env.VITE_NEXT_INTERVAL),
+    );
 
     return () => clearInterval(interval);
   }, [dispatch]);
 
   // Display the correct component based on state machine's state
-  const state = useAppSelector(state => state.screen);
-  const quotes = useAppSelector(state => state.quotes);
+  const state = useAppSelector((state) => state.screen);
+  const quotes = useAppSelector((state) => state.quotes);
 
   switch (state.current) {
     case StateMachineState.Activities:

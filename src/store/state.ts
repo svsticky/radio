@@ -1,25 +1,25 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum StateMachineState {
   Activities,
   Advertisement,
   BoardText,
   Quotes,
-  Commits
+  Commits,
 }
 
 export type StateMachine = {
-  screenCurrentIndex: number,
-  boardMessageIndex: number,
-  current: StateMachineState
+  screenCurrentIndex: number;
+  boardMessageIndex: number;
+  current: StateMachineState;
 };
 
 const screen = createSlice({
-  name: "screen",
+  name: 'screen',
   initialState: {
     screenCurrentIndex: 0,
     boardMessageIndex: 0,
-    current: StateMachineState.Activities
+    current: StateMachineState.Activities,
   } as StateMachine,
   reducers: {
     incrementCurrentIndex(state) {

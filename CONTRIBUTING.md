@@ -22,7 +22,6 @@ To contribute to our projects, please follow these steps:
 git clone https://github.com/svsticky/radio.git
 ```
 
-
 2. **Switch to a New Branch**: Create a new branch for your work and switch to it.
 
 ```shell

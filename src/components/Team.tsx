@@ -4,8 +4,7 @@ import Poster from './Poster';
 export default function Team() {
   const { data: members, isSuccess } = useMembersQuery();
 
-  if (!isSuccess)
-    return <></>;
+  if (!isSuccess) return <></>;
 
   return (
     <section className="member-wrapper">
@@ -19,9 +18,7 @@ export default function Team() {
                   src={member.avatar_url}
                   alt="member avatar"
                 />
-                <div className="member-list__item_name">
-                  {member.name}
-                </div>
+                <div className="member-list__item_name">{member.name}</div>
               </div>
             </>
           );

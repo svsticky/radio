@@ -1,16 +1,21 @@
-import { PayloadAction, createSlice, ThunkAction, UnknownAction } from "@reduxjs/toolkit";
-import { type RootState } from ".";
+import {
+  PayloadAction,
+  createSlice,
+  ThunkAction,
+  UnknownAction,
+} from '@reduxjs/toolkit';
+import { type RootState } from '.';
 
 type QuotesState = {
-  availableQuotes: number[],
-  quoteIndex: number
+  availableQuotes: number[];
+  quoteIndex: number;
 };
 
 const quotes = createSlice({
   name: 'quotes',
   initialState: {
     availableQuotes: [],
-    quoteIndex: 0
+    quoteIndex: 0,
   } as QuotesState,
   reducers: {
     /**
@@ -30,8 +35,8 @@ const quotes = createSlice({
       state.availableQuotes = new Array(action.payload)
         .fill(0)
         .map((_, i) => i);
-    }
-  }
+    },
+  },
 });
 
 export const { nextQuote } = quotes.actions;
@@ -40,12 +45,11 @@ export const { nextQuote } = quotes.actions;
  * A synchronous thunk that resets the quotes state into an unused valid state.
  * @param payload the total number of quotes
  */
-export const resetQuotes = (payload: number): ThunkAction<void, RootState, void, UnknownAction> =>
+export const resetQuotes =
+  (payload: number): ThunkAction<void, RootState, void, UnknownAction> =>
   (dispatch, _getState) => {
     dispatch(quotes.actions.resetAvailableQuotes(payload));
     dispatch(quotes.actions.nextQuote());
   };
 
-
 export default quotes.reducer;
-

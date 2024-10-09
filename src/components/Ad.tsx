@@ -5,8 +5,7 @@ import { StateMachineSlideProps } from '../App';
 export default function Ad({ current }: StateMachineSlideProps) {
   const { data: ads, isSuccess } = useAdsQuery();
 
-  if (!isSuccess)
-    return <></>;
+  if (!isSuccess) return <></>;
 
   //  TODO: Maybe this case isnt necessary anymore
   if (ads.length <= 0)
@@ -19,8 +18,7 @@ export default function Ad({ current }: StateMachineSlideProps) {
 
   const currentAd = ads[current];
 
-  if (!currentAd.poster?.fields.file?.url)
-    throw new Error('Ad without poster');
+  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 
   if (currentAd.fullscreen)
     return (

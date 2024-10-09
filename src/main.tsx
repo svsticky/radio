@@ -15,8 +15,8 @@ if (root) {
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </Provider>
+    </Provider>,
   );
 } else {
-  throw new Error("Cannot find root element to bind to");
+  throw new Error('Cannot find root element to bind to');
 }
