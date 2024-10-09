@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 type ResponseActivity = {
+  id: string;
   name: string;
   start_date: string;
   end_date: string | null;

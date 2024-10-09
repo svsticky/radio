@@ -21,9 +21,9 @@ export default function Activities({ current }: StateMachineSlideProps) {
   return (
     <div>
       <ul className="activities">
-        {activities.map((activity, i) => (
+        {activities.map((activity) => (
           <Activity
-            key={i}
+            key={activity.id}
             {...activity}
             active={activity === currentActivity}
           />
