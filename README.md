@@ -8,30 +8,33 @@ and contains things like upcoming activities and peculiar quotes.
 
 ## Installation
 
-### Prequisites
+### Prerequisites
 
-Radio requires you to have some Node package manager installed on your device. This README assumes that
-you have NPM installed, but anything will work really.
-
-See [the official documentation](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) 
-on how to install NPM, if you would like to use that one.
+We recommend installing the LTS version of [node.js](https://nodejs.org/), which includes [corepack](https://github.com/nodejs/corepack) which can install the correct package manager for this project.
 
 ### How to install
 
 1. Clone this repository to a location you prefer.
 2. Then, enter the cloned repository with your terminal, or open visual studio code or some other IDE
    in there, as long as you have a command-line open in the folder of your clone of radio.
-2. In that commandline, simply run `npm install`!
-3. Finally, you need to provide your local installation of radio with some secrets.
-    1. Copy `sample.env` to `.env`.
-    2. Fill in all the missing secrets in `.env`.
-    
-       If you do not have access to them, feel free to ask for them! However, you might not need them.
-       The secrets are only required to fetch content for the 'internal' pages, meant only for inside
-       the Sticky room: those visible only when you add `?internal=true` to the URL.
+3. In the terminal, run the following commands:
 
-       If, at the moment, you are not interested in those pages, you can just provide gibberish
-       secrets everywhere, and radio will work!
+```bash
+corepack enable # Install the package manager
+npm i           # Install the dependencies
+```
+
+4. Finally, you need to provide your local installation of radio with some secrets.
+
+   1. Copy `sample.env` to `.env`.
+   2. Fill in all the missing secrets in `.env`.
+
+      If you do not have access to them, feel free to ask for them! However, you might not need them.
+      The secrets are only required to fetch content for the 'internal' pages, meant only for inside
+      the Sticky room: those visible only when you add `?internal=true` to the URL.
+
+      If, at the moment, you are not interested in those pages, you can just provide gibberish
+      secrets everywhere, and radio will work!
 
 ## Usage
 
@@ -81,7 +84,7 @@ npm run preview
 ### Distribution
 
 There are many ways one can replace the contents of the `dist` folder on the server
-with your local `dist` folder's contents.  For instance, you could travel to germany,
+with your local `dist` folder's contents. For instance, you could travel to germany,
 ask the server maintainers kindly to plug in your USB stick and copy over your files.
 However, you could of course also do the following (on linux/WSL):
 
