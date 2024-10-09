@@ -1,19 +1,18 @@
 import Activity from './Activity';
 import Poster from './Poster';
-import PropTypes from 'prop-types';
 import { useActivitiesQuery } from '../store/api';
+import { StateMachineSlideProps } from '../App';
 
-export default function Activities({ current }) {
+export default function Activities({ current }: StateMachineSlideProps) {
   const { data: activities, isSuccess } = useActivitiesQuery(undefined, {
-    pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL)
+    pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL),
   });
 
-  if (!isSuccess)
-    return <></>;
+  if (!isSuccess) return <></>;
 
   if (activities.length === 0)
     return (
-      <section className='boardTextSection'>
+      <section className="boardTextSection">
         <h1>There are no activities, wanbeleid!</h1>
       </section>
     );
@@ -22,20 +21,15 @@ export default function Activities({ current }) {
   return (
     <div>
       <ul className="activities">
-        {activities.map((activity, i) =>
+        {activities.map((activity) => (
           <Activity
-            key={i}
+            key={activity.id}
             {...activity}
             active={activity === currentActivity}
           />
-        )}
+        ))}
       </ul>
-      <Poster poster={currentActivity ? currentActivity.poster : null} />
+      <Poster src={currentActivity.poster} />
     </div>
   );
 }
-
-// Explain expected types, for early error detection
-Activities.propTypes = {
-  current: PropTypes.number.isRequired
-};
