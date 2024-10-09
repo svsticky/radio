@@ -8,7 +8,7 @@ and contains things like upcoming activities and peculiar quotes.
 
 ## Installation
 
-### Prequisites
+### Prerequisites
 
 We recommend installing the LTS version of [node.js](https://nodejs.org/), which includes [corepack](https://github.com/nodejs/corepack) which can install the correct package manager for this project.
 
@@ -19,21 +19,22 @@ We recommend installing the LTS version of [node.js](https://nodejs.org/), which
    in there, as long as you have a command-line open in the folder of your clone of radio.
 3. In the terminal, run the following commands:
 
-  ```bash
-  corepack enable # Install the package manager
-  npm i           # Install the dependencies
-  ```
+```bash
+corepack enable # Install the package manager
+npm i           # Install the dependencies
+```
 
 4. Finally, you need to provide your local installation of radio with some secrets.
-    1. Copy `sample.env` to `.env`.
-    2. Fill in all the missing secrets in `.env`.
 
-       If you do not have access to them, feel free to ask for them! However, you might not need them.
-       The secrets are only required to fetch content for the 'internal' pages, meant only for inside
-       the Sticky room: those visible only when you add `?internal=true` to the URL.
+   1. Copy `sample.env` to `.env`.
+   2. Fill in all the missing secrets in `.env`.
 
-       If, at the moment, you are not interested in those pages, you can just provide gibberish
-       secrets everywhere, and radio will work!
+      If you do not have access to them, feel free to ask for them! However, you might not need them.
+      The secrets are only required to fetch content for the 'internal' pages, meant only for inside
+      the Sticky room: those visible only when you add `?internal=true` to the URL.
+
+      If, at the moment, you are not interested in those pages, you can just provide gibberish
+      secrets everywhere, and radio will work!
 
 ## Usage
 
@@ -83,7 +84,7 @@ npm run preview
 ### Distribution
 
 There are many ways one can replace the contents of the `dist` folder on the server
-with your local `dist` folder's contents.  For instance, you could travel to germany,
+with your local `dist` folder's contents. For instance, you could travel to germany,
 ask the server maintainers kindly to plug in your USB stick and copy over your files.
 However, you could of course also do the following (on linux/WSL):
 

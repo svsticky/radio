@@ -23,4 +23,3 @@ jobs:
           # labeled: # optional
           # The behavior of the labels filter, AND to match all labels, OR to match any label, NOT to exclude any listed label (default is OR)
           # label-operator: # optional
-
