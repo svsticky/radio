@@ -3,6 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_CONTENTFUL_SPACE_ID: string;
   readonly VITE_CONTENTFUL_ACCESS_TOKEN: string;
+  readonly VITE_CONTENTFUL_ENVIRONMENT: string;
 
   readonly VITE_LOGO: string;
   readonly VITE_KOALA_API_BASE: string;
