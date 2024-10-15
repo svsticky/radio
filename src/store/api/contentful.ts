@@ -2,13 +2,14 @@ import {
   createClient,
   type EntryFieldTypes,
   type Entry,
-  EntrySkeletonType,
+  type EntrySkeletonType,
 } from 'contentful';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 const client = createClient({
   space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
   accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
+  environment: import.meta.env.VITE_CONTENTFUL_ENVIRONMENT,
 });
 
 // Type aliases because the contentful types are quite verbose
@@ -18,7 +19,7 @@ type ToEntity<T extends EntrySkeletonType> = Entry<
 >;
 type ContentTypeIdOf<T extends Entry> = T['sys']['contentType']['sys']['id'];
 
-type Ad = ToEntity<{
+export type Ad = ToEntity<{
   contentTypeId: 'ads';
   fields: {
     title: EntryFieldTypes.Text;
@@ -57,6 +58,7 @@ async function contentfulBaseQuery(
     const res = await client.withoutUnresolvableLinks.getEntries({
       content_type,
     });
+    console.log(res);
     return { data: res.items.map((entry) => entry.fields) };
   } catch (error) {
     return { error };
