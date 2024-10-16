@@ -1,6 +1,8 @@
 import Poster from './Poster';
-import { useAdsQuery } from '../store/api';
-import { StateMachineSlideProps } from '../App';
+import { type Ad, useAdsQuery } from '../store/api';
+import { StateMachineSlideProps, useTimer } from '../StateMachine';
+import { nextState, useAppDispatch } from '../store';
+import { useCallback } from 'react';
 
 export default function Ad({ current }: StateMachineSlideProps) {
   const { data: ads, isSuccess } = useAdsQuery();
@@ -17,6 +19,53 @@ export default function Ad({ current }: StateMachineSlideProps) {
     );
 
   const currentAd = ads[current];
+
+  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
+
+  const contentType = currentAd.poster?.fields.file.contentType;
+  if (contentType.startsWith('video')) {
+    return <VideoAd currentAd={currentAd} />;
+  } else {
+    return <ImageAd currentAd={currentAd} />;
+  }
+}
+
+function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
+  const dispatch = useAppDispatch();
+
+  const onEnded = useCallback(() => dispatch(nextState), [dispatch]);
+
+  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
+
+  return (
+    <video
+      onEnded={onEnded}
+      style={{
+        width: '100vw',
+        height: '100vh',
+        objectFit: 'cover',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+      }}
+      autoPlay
+      muted
+    >
+      <source
+        src={currentAd.poster.fields.file.url}
+        type={currentAd.poster.fields.file.contentType}
+      />
+    </video>
+  );
+}
+
+function ImageAd({ currentAd }: { currentAd: Ad['fields'] }) {
+  const dependencies = [currentAd];
+  useTimer(
+    currentAd.duration
+      ? { duration: currentAd.duration * 1000, dependencies }
+      : { dependencies },
+  );
 
   if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 

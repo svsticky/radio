@@ -1,9 +1,11 @@
 import Activity from './Activity';
 import Poster from './Poster';
 import { useActivitiesQuery } from '../store/api';
-import { StateMachineSlideProps } from '../App';
+import { StateMachineSlideProps, useTimer } from '../StateMachine';
 
 export default function Activities({ current }: StateMachineSlideProps) {
+  useTimer({ interval: true });
+
   const { data: activities, isSuccess } = useActivitiesQuery(undefined, {
     pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL),
   });
