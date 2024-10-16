@@ -1,7 +1,8 @@
-import { StateMachineSlideProps } from '../App';
+import { StateMachineSlideProps, useTimer } from '../App';
 import { useBoardMessagesQuery } from '../store/api';
 
 export default function BoardText({ current }: StateMachineSlideProps) {
+  useTimer();
   const { data: boardMessages, isSuccess } = useBoardMessagesQuery();
 
   if (!isSuccess) return <></>;

@@ -34,6 +34,38 @@ export interface StateMachineSlideProps {
   current: number;
 }
 
+type TimerOptions = { interval: boolean };
+export function useTimer(): void;
+export function useTimer(options: TimerOptions): void;
+export function useTimer(
+  duration: number | undefined,
+  options?: TimerOptions,
+): void;
+export function useTimer(
+  arg: number | TimerOptions | undefined = undefined,
+  options: TimerOptions = { interval: false },
+) {
+  const duration =
+    typeof arg === 'number' ? arg : Number(import.meta.env.VITE_NEXT_INTERVAL);
+
+  options =
+    typeof arg !== 'number' && arg !== undefined
+      ? { ...options, ...arg }
+      : options;
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const handler = () => dispatch(nextState);
+    if (options.interval) {
+      const interval = setInterval(handler, duration);
+      return () => clearInterval(interval);
+    } else {
+      const timeout = setTimeout(handler, duration);
+      return () => clearTimeout(timeout);
+    }
+  }, [dispatch]);
+}
+
 function StateMachine() {
   const dispatch = useAppDispatch();
 
@@ -49,16 +81,16 @@ function StateMachine() {
   }, [dispatch]);
 
   // Create timer that ticks the state machine
-  useEffect(() => {
-    const interval = setInterval(
-      () => {
-        dispatch(nextState);
-      },
-      Number(import.meta.env.VITE_NEXT_INTERVAL),
-    );
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const interval = setInterval(
+  //     () => {
+  //       dispatch(nextState);
+  //     },
+  //     Number(import.meta.env.VITE_NEXT_INTERVAL),
+  //   );
+  //
+  //   return () => clearInterval(interval);
+  // }, [dispatch]);
 
   // Display the correct component based on state machine's state
   const state = useAppSelector((state) => state.screen);

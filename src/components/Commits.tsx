@@ -1,8 +1,10 @@
 import Poster from './Poster';
 import { useAllCommitsQuery } from '../store/api';
 import moment from 'moment';
+import { useTimer } from '../App';
 
 export default function Commits() {
+  useTimer();
   const { data: commits, isSuccess } = useAllCommitsQuery();
 
   if (!isSuccess) return <></>;

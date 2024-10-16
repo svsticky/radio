@@ -1,7 +1,8 @@
-import { StateMachineSlideProps } from '../App';
+import { StateMachineSlideProps, useTimer } from '../App';
 import { useQuotesQuery } from '../store/api';
 
 export default function Quotes({ current }: StateMachineSlideProps) {
+  useTimer();
   const { data: quotes, isSuccess } = useQuotesQuery();
 
   if (!isSuccess) return <></>;

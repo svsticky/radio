@@ -1,7 +1,9 @@
+import { useTimer } from '../App';
 import { useMembersQuery } from '../store/api';
 import Poster from './Poster';
 
 export default function Team() {
+  useTimer();
   const { data: members, isSuccess } = useMembersQuery();
 
   if (!isSuccess) return <></>;
