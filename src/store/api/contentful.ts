@@ -26,7 +26,7 @@ export type Ad = ToEntity<{
     description: EntryFieldTypes.Text;
     fullscreen: EntryFieldTypes.Boolean;
     poster: EntryFieldTypes.AssetLink;
-    duration: EntryFieldTypes.Number;
+    duration?: EntryFieldTypes.Number;
   };
 }>;
 

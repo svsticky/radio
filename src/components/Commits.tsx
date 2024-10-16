@@ -1,7 +1,7 @@
 import Poster from './Poster';
 import { useAllCommitsQuery } from '../store/api';
 import moment from 'moment';
-import { useTimer } from '../App';
+import { useTimer } from '../StateMachine';
 
 export default function Commits() {
   useTimer();

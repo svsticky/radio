@@ -1,6 +1,6 @@
 import Poster from './Poster';
 import { type Ad, useAdsQuery } from '../store/api';
-import { StateMachineSlideProps, useTimer } from '../App';
+import { StateMachineSlideProps, useTimer } from '../StateMachine';
 import { nextState, useAppDispatch } from '../store';
 import { useCallback } from 'react';
 
@@ -50,7 +50,6 @@ function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
       }}
       autoPlay
       muted
-      controls={false}
     >
       <source
         src={currentAd.poster.fields.file.url}
@@ -61,7 +60,11 @@ function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
 }
 
 function ImageAd({ currentAd }: { currentAd: Ad['fields'] }) {
-  useTimer(currentAd.duration || undefined);
+  useTimer(
+    currentAd.duration
+      ? { duration: currentAd.duration, dependencies: [currentAd] }
+      : { dependencies: [currentAd] },
+  );
 
   if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 

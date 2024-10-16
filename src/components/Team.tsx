@@ -1,4 +1,4 @@
-import { useTimer } from '../App';
+import { useTimer } from '../StateMachine';
 import { useMembersQuery } from '../store/api';
 import Poster from './Poster';
 

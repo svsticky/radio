@@ -1,7 +1,7 @@
 import Activity from './Activity';
 import Poster from './Poster';
 import { useActivitiesQuery } from '../store/api';
-import { StateMachineSlideProps, useTimer } from '../App';
+import { StateMachineSlideProps, useTimer } from '../StateMachine';
 
 export default function Activities({ current }: StateMachineSlideProps) {
   useTimer({ interval: true });
