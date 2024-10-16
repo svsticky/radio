@@ -17,7 +17,10 @@ type TimerOptions = {
 
 /**
  * Set a (repeated) timer that ticks the state machine with a given configuration. When the component unmounts the timer is cleared.
- * @param [options] the options for the timer: duration in seconds and whether the timer should repeat
+ * @param [options] the options for the timer:
+ *  - duration: duration in seconds
+ *  - interval: whether the timer should repeat
+ *  - dependencies: extra dependencies to trigger new timeouts
  */
 export function useTimer(args: Partial<TimerOptions> = {}) {
   const options = {

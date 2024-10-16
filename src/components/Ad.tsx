@@ -60,10 +60,11 @@ function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
 }
 
 function ImageAd({ currentAd }: { currentAd: Ad['fields'] }) {
+  const dependencies = [currentAd];
   useTimer(
     currentAd.duration
-      ? { duration: currentAd.duration, dependencies: [currentAd] }
-      : { dependencies: [currentAd] },
+      ? { duration: currentAd.duration * 1000, dependencies }
+      : { dependencies },
   );
 
   if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
