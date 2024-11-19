@@ -1,0 +1,12 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+  "name": "Radio - SV Sticky",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/corepack:1": {}
+  }
+}
