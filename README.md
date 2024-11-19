@@ -16,8 +16,8 @@ We recommend installing the [Docker engine](https://docs.docker.com/engine/), as
 
 1. Clone this repository to a location you prefer.
 2. Then, open the clone repository in Visual Studio Code or some other IDE
-   in there, as long as the IDE has support for the Devcontainers extention
-3. open the project in a dev containter. The default shortcut for this (in VS Code) is: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, and then typing open folder in container. You may have to select the project folder. If this takes longer than expected, please read the warning below.
+   out there, as long as the IDE has support for the Devcontainers extention
+3. open the project in a dev containter. The default shortcut for this (in VS Code) is: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, and then typing `open folder` in container. You may have to select the project folder. If this takes longer than expected, please read the warning below.
 4. Open a terminal in the dev container. You can do this by pressing `Terminal` (in the hotbar), then `New terminal`. Alternatively, you can use the default keybinds: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>`</kbd>.
 5. Run the comments below
 
