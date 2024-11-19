@@ -7,6 +7,7 @@ import {
   Quotes,
   Ad,
   Commits,
+  SnowHeight,
 } from './components';
 
 import { nextState, useAppDispatch, useAppSelector } from './store';
@@ -75,6 +76,8 @@ function StateMachine() {
       return <Quotes current={quotes.quoteIndex} />;
     case StateMachineState.Commits:
       return <Commits />;
+    case StateMachineState.SnowHeight:
+      return <SnowHeight />;
     default:
       return <></>;
   }

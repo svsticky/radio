@@ -58,7 +58,6 @@ async function contentfulBaseQuery(
     const res = await client.withoutUnresolvableLinks.getEntries({
       content_type,
     });
-    console.log(res);
     return { data: res.items.map((entry) => entry.fields) };
   } catch (error) {
     return { error };

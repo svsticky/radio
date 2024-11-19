@@ -82,8 +82,18 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           }
         }
 
-        dispatch(setCurrent(StateMachineState.Quotes));
+        dispatch(
+          setCurrent(
+            import.meta.env.VITE_SNOW_HEIGHT_URL
+              ? StateMachineState.SnowHeight
+              : StateMachineState.Quotes,
+          ),
+        );
       }
+      break;
+
+    case StateMachineState.SnowHeight:
+      dispatch(setCurrent(StateMachineState.Quotes));
       break;
 
     case StateMachineState.Quotes:
