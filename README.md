@@ -18,14 +18,7 @@ We recommend installing the [Docker engine](https://docs.docker.com/engine/), as
 2. Then, open the clone repository in Visual Studio Code or some other IDE out there, as long as the IDE has support for the Devcontainers extention
 3. open the project in a dev containter. The default shortcut for this (in VS Code) is: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, and then typing `open folder` in container. You may have to select the project folder. If this takes longer than expected, please read the warning below.
 4. Open a terminal in the dev container. You can do this by pressing `Terminal` (in the hotbar), then `New terminal`. Alternatively, you can use the default keybinds: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>`</kbd>.
-5. Run the comments below
-
-```bash
-corepack enable # Install the package manager
-npm i           # Install the dependencies
-```
-
-6.  Finally, you need to provide your local installation of radio with some secrets.
+5.  Finally, you need to provide your local installation of radio with some secrets.
 
     1.  Copy `sample.env` to `.env`.
     2.  Fill in all the missing secrets in `.env`.
