@@ -10,31 +10,27 @@ and contains things like upcoming activities and peculiar quotes.
 
 ### Prerequisites
 
-We recommend installing the LTS version of [node.js](https://nodejs.org/), which includes [corepack](https://github.com/nodejs/corepack) which can install the correct package manager for this project.
+We recommend installing the [Docker engine](https://docs.docker.com/engine/), as well as [Visual studio code](https://code.visualstudio.com/) with the [Devcontainers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extention.
 
 ### How to install
 
 1. Clone this repository to a location you prefer.
-2. Then, enter the cloned repository with your terminal, or open visual studio code or some other IDE
-   in there, as long as you have a command-line open in the folder of your clone of radio.
-3. In the terminal, run the following commands:
+2. Then, open the clone repository in Visual Studio Code or some other IDE out there, as long as the IDE has support for the Devcontainers extention
+3. open the project in a dev containter. The default shortcut for this (in VS Code) is: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, and then typing `open folder` in container. You may have to select the project folder. If this takes longer than expected, please read the warning below.
+4. Open a terminal in the dev container. You can do this by pressing `Terminal` (in the hotbar), then `New terminal`. Alternatively, you can use the default keybinds: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>`</kbd>.
+5.  Finally, you need to provide your local installation of radio with some secrets.
 
-```bash
-corepack enable # Install the package manager
-npm i           # Install the dependencies
-```
+    1.  Copy `sample.env` to `.env`.
+    2.  Fill in all the missing secrets in `.env`.
 
-4. Finally, you need to provide your local installation of radio with some secrets.
+              If you do not have access to them, feel free to ask for them! However, you might not need them.
+              The secrets are only required to fetch content for the 'internal' pages, meant only for inside
+              the Sticky room: those visible only when you add `?internal=true` to the URL.
 
-   1. Copy `sample.env` to `.env`.
-   2. Fill in all the missing secrets in `.env`.
+              If, at the moment, you are not interested in those pages, you can just provide gibberish
+              secrets everywhere, and radio will work!
 
-      If you do not have access to them, feel free to ask for them! However, you might not need them.
-      The secrets are only required to fetch content for the 'internal' pages, meant only for inside
-      the Sticky room: those visible only when you add `?internal=true` to the URL.
-
-      If, at the moment, you are not interested in those pages, you can just provide gibberish
-      secrets everywhere, and radio will work!
+        > :warning: **If you open the project in a dev container for the first time**: Initial installation may take a while. Docker is essentially creating a mini pc inside your pc, which can be up to 2gb of files to download. Please do not close your editor, but wait untill the left bottom part of your editor states `Dev Container: Radio - SV Sticky`. It is then you can proceed on to step 4.
 
 ## Usage
 
