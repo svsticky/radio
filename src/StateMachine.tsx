@@ -1,5 +1,12 @@
 import { useEffect } from 'react';
-import { Activities, Ad, BoardText, Quotes, Commits } from './components';
+import {
+  SnowHeight,
+  Activities,
+  Ad,
+  BoardText,
+  Quotes,
+  Commits,
+} from './components';
 import { useAppDispatch, nextState, useAppSelector } from './store';
 import { contentful } from './store/api';
 import { resetQuotes } from './store/quotes';
@@ -72,6 +79,8 @@ export function StateMachine() {
       return <Quotes current={quotes.quoteIndex} />;
     case StateMachineState.Commits:
       return <Commits />;
+    case StateMachineState.SnowHeight:
+      return <SnowHeight />;
     default:
       return <></>;
   }

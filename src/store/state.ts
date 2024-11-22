@@ -6,6 +6,7 @@ export enum StateMachineState {
   BoardText,
   Quotes,
   Commits,
+  SnowHeight,
 }
 
 export type StateMachine = {
