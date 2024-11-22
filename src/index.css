@@ -7,6 +7,7 @@ html {
   width: 100%;
   position: fixed;
   color: white;
+  height: 100vh;
 }
 
 body {
@@ -184,4 +185,14 @@ body {
   height: 75px;
   border-radius: 100%;
   margin-bottom: 3px;
+}
+
+/* SNOW HEIGHT */
+
+#snowHeight {
+  position: absolute;
+  height: 50vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
