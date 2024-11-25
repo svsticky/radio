@@ -1,0 +1,42 @@
+@use 'sass:math';
+
+.snowflake {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+@function random-between($lo, $hi) {
+  @return math.random() * ($hi - $lo) + $lo;
+}
+
+@for $i from 1 through 200 {
+  @keyframes fall-#{$i} {
+    $horizontal-position: random-between(0vw, 100vw);
+    $frames: 20;
+    $scale: random-between(0.3, 1);
+    @for $progress from 0 through $frames {
+      #{math.div($progress * 100, $frames)}% {
+        transform: translate(
+            math.sin($progress) * 2vw + $horizontal-position,
+            math.div($progress * 105vh, $frames) - 5vh
+          )
+          scale($scale);
+      }
+    }
+  }
+
+  .snowflake:nth-child(#{$i}) {
+    opacity: random-between(0.25, 0.75);
+    animation: fall-#{$i}
+      random-between(10s, 30s)
+      random-between(0s, -30s)
+      linear
+      infinite;
+  }
+}
