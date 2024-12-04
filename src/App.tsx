@@ -1,4 +1,4 @@
-import { Clock } from './components';
+import { Clock, Weather } from './components';
 import { StateMachine } from './StateMachine';
 
 const LOGO = import.meta.env.VITE_LOGO;
@@ -11,6 +11,7 @@ export default function App() {
           <img src={LOGO} alt="sticky logo" />
         </div>
         <Clock />
+        <Weather />
       </div>
       <StateMachine />
     </div>
