@@ -38,19 +38,7 @@ function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
   if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 
   return (
-    <video
-      onEnded={onEnded}
-      style={{
-        width: '100vw',
-        height: '100vh',
-        objectFit: 'cover',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-      }}
-      autoPlay
-      muted
-    >
+    <video className="video-ad" onEnded={onEnded} autoPlay muted>
       <source
         src={currentAd.poster.fields.file.url}
         type={currentAd.poster.fields.file.contentType}
@@ -77,7 +65,7 @@ function ImageAd({ currentAd }: { currentAd: Ad['fields'] }) {
     );
 
   return (
-    <div>
+    <div className="poster-right-ad">
       <ul className="advertisement">
         <h1>{currentAd.title}</h1>
         <p>{currentAd.description}</p>
