@@ -17,8 +17,7 @@ We recommend installing the [Docker engine](https://docs.docker.com/engine/), as
 1.  Clone this repository to a location you prefer.
 2.  Then, open the clone repository in Visual Studio Code or some other IDE out there, as long as the IDE has support for the Devcontainers extension
 3.  Open the project in a dev containter. The default shortcut for this in VS Code is: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, and then typing `open folder in container`. You may have to select the project folder.
-> [!NOTE]
-> **If you open the project in a dev container for the first time**, note that the initial installation may take a while. Docker is essentially creating a mini pc inside your pc, which can be up to 2gb of files to download. Please do not close your editor, but wait untill the left bottom part of your editor states `Dev Container: Radio - SV Sticky`. It is then you can proceed on to step 4.
+    > [!NOTE] > **If you open the project in a dev container for the first time**, note that the initial installation may take a while. Docker is essentially creating a mini pc inside your pc, which can be up to 2gb of files to download. Please do not close your editor, but wait untill the left bottom part of your editor states `Dev Container: Radio - SV Sticky`. It is then you can proceed on to step 4.
 4.  Open a terminal in the dev container. You can do this by pressing `Terminal` (in the hotbar), then `New terminal`. Alternatively, you can use the default keybinds: <kbd>CTRL</kbd>+(<kbd>Shift</kbd>)+<kbd>\`</kbd>.
 5.  Finally, you need to provide your local installation of radio with some secrets.
 
