@@ -20,6 +20,7 @@ body {
   right: 0;
   height: 100vh;
   max-width: 40%;
+  z-index: 1000;
 }
 
 .topbar {
@@ -50,8 +51,7 @@ body {
   font-size: 80px;
 }
 
-.activities,
-.advertisement {
+.activities {
   margin-left: 50px;
   margin-top: 50px;
   padding: 0;
@@ -89,13 +89,41 @@ body {
   margin: 1rem 1rem 1rem 2rem;
 }
 
-.full-advertisement,
 .full-advertisement > .poster {
   position: absolute;
   left: 0;
   top: 0;
   max-width: 100vw;
   max-height: 100vh;
+  z-index: 1000;
+  height: 100vh;
+}
+
+.poster-right-ad {
+  top: 0;
+  position: absolute;
+  left: 0;
+  display: grid;
+  grid-template-columns: 60vw 40vw;
+  background: #262626;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.poster-right-ad .advertisement {
+  margin: auto 0;
+  display: block;
+}
+
+video.video-ad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1000;
 }
 
 .advertisement h1 {
