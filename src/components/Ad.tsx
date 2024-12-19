@@ -2,7 +2,7 @@ import Poster from './Poster';
 import { type Ad, useAdsQuery } from '../store/api';
 import { StateMachineSlideProps, useTimer } from '../StateMachine';
 import { nextState, useAppDispatch } from '../store';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 export default function Ad({ current }: StateMachineSlideProps) {
   const { data: ads, isSuccess } = useAdsQuery();
@@ -37,8 +37,14 @@ function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
 
   if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
 
+  // If the video ad swaps out for another video ad, then reset the player.
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  useEffect(() => {
+    videoRef?.current?.load();
+  }, [currentAd, videoRef]);
+
   return (
-    <video className="video-ad" onEnded={onEnded} autoPlay muted>
+    <video className="video-ad" onEnded={onEnded} autoPlay muted ref={videoRef}>
       <source
         src={currentAd.poster.fields.file.url}
         type={currentAd.poster.fields.file.contentType}
