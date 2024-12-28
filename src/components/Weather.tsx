@@ -9,27 +9,34 @@ function fetchWeather(
   fetch(
     `https://weerlive.nl/api/weerlive_api_v2.php?key=${VITE_WEATHER_API_KEY}&locatie=52.08718206955104,5.165697854286648`,
     { signal },
-  ).then((response) =>
-    response.json().then((data) => {
-      setWeather(data);
-    }),
-  );
+  )
+    .then((response) =>
+      response.json().then((data) => {
+        setWeather(data);
+      }),
+    )
+    .catch((error) => {
+      if (error.name === 'AbortError') {
+        setWeather(
+          JSON.parse('{"liveweer": [{ "temp": 0, "image": "bewolt"}]}'),
+        );
+      }
+    });
 }
 
 export default function Weather() {
   const [weather, setWeather] = useState(
-    JSON.parse('{"liveweer": [{"temp": 0, "image": "bewolt"}]}'),
+    JSON.parse('{"liveweer": [{ "temp": 0, "image": "bewolt"}]}'),
   );
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
 
-    fetchWeather(signal, setWeather);
+    fetchWeather(controller.signal, setWeather);
 
     const timerId = setInterval(
       () => {
-        fetchWeather(signal, setWeather);
+        fetchWeather(controller.signal, setWeather);
         if (weather == undefined) {
           return <div className="weather-wrapper"></div>;
         }
@@ -40,7 +47,7 @@ export default function Weather() {
 
     return () => {
       clearInterval(timerId);
-      //controller.abort();
+      controller.abort();
     };
   }, []);
 
