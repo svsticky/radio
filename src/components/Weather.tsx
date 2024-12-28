@@ -79,7 +79,8 @@ export default function Weather() {
       case 'wolkennacht':
         return 'bedtime';
       default:
-        return 'AAAAAAA';
+        console.error(weather);
+        return 'block';
     }
   }
 
