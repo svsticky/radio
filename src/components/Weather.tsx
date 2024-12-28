@@ -53,40 +53,39 @@ export default function Weather() {
 
   function getImageSource(img: string) {
     switch (img) {
-      case 'onbewolkt':
-        return 'sunny';
-      case 'bliksem':
-        return 'thunderstorm';
-      case 'regen':
-        return 'rainy';
+      case 'mist':
+        return 'mist';
       case 'buien':
+        return 'rainy';
+      case 'regen':
         return 'rainy';
       case 'hagel':
         return 'weather_hail';
-      case 'mist':
-        return 'mist';
       case 'sneeuw':
         return 'rainy';
       case 'bewolkt':
         return 'rainy';
-      case 'lichtbewolkt':
-        return 'partly_cloudy_day';
-      case 'halfbewolkt':
-        return 'partly_cloudy_day';
-      case 'halfbewolkt_regen':
-        return 'rainy';
-      case 'zwaarbewolkt':
-        return 'filter_drama';
+      case 'bliksem':
+        return 'thunderstorm';
+      case 'onbewolkt':
+        return 'sunny';
       case 'nachtmist':
         return 'bedtime';
+      case 'wolkennacht':
+        return 'bedtime';
+      case 'halfbewolkt':
+        return 'partly_cloudy_day';
       case 'helderenacht':
         return 'bedtime';
       case 'nachtbewolkt':
         return 'bedtime';
-      case 'wolkennacht':
-        return 'bedtime';
+      case 'zwaarbewolkt':
+        return 'filter_drama';
+      case 'lichtbewolkt':
+        return 'partly_cloudy_day';
+      case 'halfbewolkt_regen':
+        return 'rainy';
       default:
-        console.error(weather);
         return 'block';
     }
   }
