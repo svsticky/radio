@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const WEATHER_API_KEY = import.meta.env.WEATHER_API_KEY;
-console.log(WEATHER_API_KEY);
+const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 function fetchWeather(
   signal: AbortSignal,
   setWeather: React.Dispatch<unknown>,
 ) {
   fetch(
-    `https://weerlive.nl/api/weerlive_api_v2.php?key=demo&locatie=Amsterdam`,
+    `https://weerlive.nl/api/weerlive_api_v2.php?key=${VITE_WEATHER_API_KEY}&locatie=52.08718206955104,5.165697854286648`,
     { signal },
   ).then((response) =>
     response.json().then((data) => {
