@@ -8,7 +8,7 @@ function fetchWeather(
   setWeather: React.Dispatch<unknown>,
 ) {
   fetch(
-    `https://weerlive.nl/api/weerlive_api_v2.php?key=demo&locatie=Amsterdam`, // TODO Add lat,lon coords of sticky
+    `https://weerlive.nl/api/weerlive_api_v2.php?key=demo&locatie=Amsterdam`,
     { signal },
   ).then((response) =>
     response.json().then((data) => {
@@ -19,7 +19,7 @@ function fetchWeather(
 
 export default function Weather() {
   const [weather, setWeather] = useState(
-    JSON.parse('{"liveweer": [{"temp": 0, "image": "bewolkt"}]}'),
+    JSON.parse('{"liveweer": [{"temp": 0, "image": "bewolt"}]}'),
   );
 
   useEffect(() => {
@@ -41,56 +41,55 @@ export default function Weather() {
 
     return () => {
       clearInterval(timerId);
-      controller.abort();
+      //controller.abort();
     };
   }, []);
 
-  function getImageSource() {
-    switch (weather.liveweer[0].image) {
+  function getImageSource(img: string) {
+    switch (img) {
       case 'onbewolkt':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/sun.svg';
+        return 'sunny';
       case 'bliksem':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/lightning.svg';
+        return 'thunderstorm';
       case 'regen':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/cloud-rain-single.svg';
+        return 'rainy';
       case 'buien':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/cloud-rain.svg';
+        return 'rainy';
       case 'hagel':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/hail.svg';
+        return 'weather_hail';
       case 'mist':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/fog.svg';
+        return 'mist';
       case 'sneeuw':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/cloud-snow.svg';
+        return 'rainy';
       case 'bewolkt':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/cloud.svg';
+        return 'rainy';
       case 'lichtbewolkt':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/sun-cloud.svg';
+        return 'partly_cloudy_day';
       case 'halfbewolkt':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/sun-cloud.svg';
+        return 'partly_cloudy_day';
       case 'halfbewolkt_regen':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/sun-cloud-rain.svg';
+        return 'rainy';
       case 'zwaarbewolkt':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/clouds.svg';
+        return 'filter_drama';
       case 'nachtmist':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/moon-fog.svg';
+        return 'bedtime';
       case 'helderenacht':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/moon.svg';
+        return 'bedtime';
       case 'nachtbewolkt':
-        return 'https://raw.githubusercontent.com/jackd248/weather-iconic/refs/heads/master/sources/SVG/moon-cloud.svg';
+        return 'bedtime';
+      case 'wolkennacht':
+        return 'bedtime';
       default:
-        return '';
+        return 'AAAAAAA';
     }
   }
 
   return (
     <div className="weather-wrapper">
-      <img
-        src={getImageSource()}
-        height={'47px'}
-        alt={'Weather Icon'}
-        className="weather-icon"
-      ></img>
-      <span className="weather-text">{weather.liveweer[0].temp + '°C'}</span>
+      <span className="material-symbols-outlined weather-icon">
+        {getImageSource(weather.liveweer[0].image)}
+      </span>
+      <span className="weather-text">{weather.liveweer[0].temp + ' °C'}</span>
     </div>
   );
 }

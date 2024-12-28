@@ -52,8 +52,8 @@ body {
 }
 
 .weather-wrapper {
-  height: 60px;
-  grid-column: 4;
+  height: 135px;
+  grid-column: 3;
   grid-row: 1;
   display: flex;
   justify-content: center;
@@ -61,13 +61,14 @@ body {
 }
 
 .weather-icon {
-  filter: invert(73%) sepia(0%) saturate(7460%) hue-rotate(44deg)
-    brightness(94%) contrast(93%);
+  font-size: 72px;
+  color: #808080;
 }
 
 .weather-text {
   color: white;
-  font-size: 40px;
+  width: 300px;
+  font-size: 80px;
 }
 
 .activities,
