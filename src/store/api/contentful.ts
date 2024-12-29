@@ -6,10 +6,19 @@ import {
 } from 'contentful';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
+let contentfulSpaceID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
+if (contentfulSpaceID == '') contentfulSpaceID = 'WRONG-VALUE';
+
+let contentfulAccessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
+if (contentfulAccessToken == '') contentfulAccessToken = 'WRONG-VALUE';
+
+let contentfulEnvironment = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
+if (contentfulEnvironment == '') contentfulEnvironment = 'WRONG-VALUE';
+
 const client = createClient({
-  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
-  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
-  environment: import.meta.env.VITE_CONTENTFUL_ENVIRONMENT,
+  space: contentfulSpaceID,
+  accessToken: contentfulAccessToken,
+  environment: contentfulEnvironment,
 });
 
 // Type aliases because the contentful types are quite verbose
