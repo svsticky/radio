@@ -15,18 +15,14 @@ function fetchWeather(
         setWeather(data);
       }),
     )
-    .catch((error) => {
-      if (error.name === 'AbortError') {
-        setWeather(
-          JSON.parse('{"liveweer": [{ "temp": 0, "image": "bewolt"}]}'),
-        );
-      }
+    .catch(() => {
+      setWeather(JSON.parse('{"liveweer": [{ "temp": 0, "image": "block"}]}'));
     });
 }
 
 export default function Weather() {
   const [weather, setWeather] = useState(
-    JSON.parse('{"liveweer": [{ "temp": 0, "image": "bewolt"}]}'),
+    JSON.parse('{"liveweer": [{ "temp": 0, "image": "block"}]}'),
   );
 
   useEffect(() => {
