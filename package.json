@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "lint": "eslint . --report-unused-disable-directives --fix",
-    "preview": "vite preview",
+    "preview": "vite preview --host 127.0.0.1",
     "check": "tsc --noEmit",
     "format": "prettier . --write",
     "prepare": "husky"
