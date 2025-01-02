@@ -24,7 +24,7 @@ type TimerOptions = {
 
 /**
  * Set a (repeated) timer that ticks the state machine with a given configuration. When the component unmounts the timer is cleared.
- * @param [options] the options for the timer:
+ * @param [args] the options for the timer:
  *  - duration: duration in seconds
  *  - interval: whether the timer should repeat
  *  - dependencies: extra dependencies to trigger new timeouts
@@ -55,6 +55,12 @@ export function StateMachine() {
 
   // Preload the quotes and initialise the store with the quote indices
   useEffect(() => {
+    document.body.onkeydown = function (e) {
+      if ([' ', 'Enter', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
+        dispatch(nextState);
+      }
+    };
+
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
     result.then(({ data: quotes, isSuccess }) => {
