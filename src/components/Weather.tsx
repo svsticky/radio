@@ -1,36 +1,34 @@
 import { useWeatherQuery } from '../store/api';
 
+const iconMap = new Map([
+  ['mist', 'mist'],
+  ['buien', 'rainy'],
+  ['regen', 'rainy'],
+  ['sneeuw', 'rainy'],
+  ['bewolkt', 'rainy'],
+  ['onbewolkt', 'sunny'],
+  ['nachtmist', 'bedtime'],
+  ['hagel', 'weather_hail'],
+  ['wolkennacht', 'bedtime'],
+  ['bliksem', 'thunderstorm'],
+  ['helderenacht', 'bedtime'],
+  ['nachtbewolkt', 'bedtime'],
+  ['halfbewolkt_regen', 'rainy'],
+  ['zwaarbewolkt', 'filter_drama'],
+  ['halfbewolkt', 'partly_cloudy_day'],
+  ['lichtbewolkt', 'partly_cloudy_day'],
+]);
+
+function getIconName(image: string) {
+  return iconMap.get(image) || 'block';
+}
+
 export default function Weather() {
   const { data: weather, isSuccess } = useWeatherQuery(undefined, {
     pollingInterval: 600000, // 10 * 60 * 1000, 10 minutes
   });
 
   if (!isSuccess) return <></>;
-
-  const iconMap = new Map([
-    ['mist', 'mist'],
-    ['buien', 'rainy'],
-    ['regen', 'rainy'],
-    ['sneeuw', 'rainy'],
-    ['bewolkt', 'rainy'],
-    ['onbewolkt', 'sunny'],
-    ['nachtmist', 'bedtime'],
-    ['hagel', 'weather_hail'],
-    ['wolkennacht', 'bedtime'],
-    ['bliksem', 'thunderstorm'],
-    ['helderenacht', 'bedtime'],
-    ['nachtbewolkt', 'bedtime'],
-    ['halfbewolkt_regen', 'rainy'],
-    ['zwaarbewolkt', 'filter_drama'],
-    ['halfbewolkt', 'partly_cloudy_day'],
-    ['lichtbewolkt', 'partly_cloudy_day'],
-  ]);
-
-  function getIconName(image: string) {
-    const res = iconMap.get(image);
-    if (res == undefined) return 'block';
-    else return res;
-  }
 
   return (
     <div className="weather-wrapper">
