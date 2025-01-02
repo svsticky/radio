@@ -26,7 +26,7 @@ body {
 .topbar {
   padding-top: 20px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, 1fr);
 }
 
 .logo {
@@ -40,7 +40,8 @@ body {
 
 .clock-wrapper {
   height: 135px;
-  grid-column: 2 / 3;
+  grid-column: 5;
+  grid-row: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +49,26 @@ body {
 
 .clock {
   color: white;
+  font-size: 80px;
+}
+
+.weather-wrapper {
+  height: 135px;
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-icon {
+  font-size: 72px;
+  color: #808080;
+}
+
+.weather-text {
+  color: white;
+  width: 300px;
   font-size: 80px;
 }
 

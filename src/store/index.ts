@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { koala, contentful, github } from './api';
+import { koala, contentful, github, weather } from './api';
 import screen, {
   StateMachineState,
   resetCurrentIndex,
@@ -122,7 +122,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 };
 
 /**
- * The store consists of 4 slices: one for every api source we use
+ * The store consists of 5 slices: one for every api source we use
  * and one for the state machine variables.
  */
 const store = configureStore({
@@ -130,6 +130,7 @@ const store = configureStore({
     [koala.reducerPath]: koala.reducer,
     [contentful.reducerPath]: contentful.reducer,
     [github.reducerPath]: github.reducer,
+    [weather.reducerPath]: weather.reducer,
     screen,
     quotes,
   },
@@ -137,7 +138,8 @@ const store = configureStore({
     return getDefaultMiddleware()
       .concat(koala.middleware)
       .concat(contentful.middleware)
-      .concat(github.middleware);
+      .concat(github.middleware)
+      .concat(weather.middleware);
   },
 });
 
