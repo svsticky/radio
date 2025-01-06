@@ -17,7 +17,7 @@ interface ImportMetaEnv {
 
   readonly VITE_SNOW_HEIGHT_URL?: string;
 
-  readonly VITE_WEATHER_API_KEY: string;
+  readonly VITE_WEATHER_API_TOKEN: string;
 }
 
 interface ImportMeta {
