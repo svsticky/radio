@@ -15,7 +15,7 @@ import {
 } from './store';
 import { contentful } from './store/api';
 import { resetQuotes } from './store/quotes';
-import { StateMachineState } from './store/state';
+import { StateMachineState, togglePaused } from './store/state';
 
 export interface StateMachineSlideProps {
   current: number;
@@ -43,8 +43,9 @@ export function useTimer(args: Partial<TimerOptions> = {}) {
   } as TimerOptions;
 
   const dispatch = useAppDispatch();
+  const state = useAppSelector((state) => state.screen);
   useEffect(() => {
-    const handler = () => dispatch(nextState);
+    const handler = () => (!state.paused ? dispatch(nextState) : undefined);
     if (options.interval) {
       const interval = setInterval(handler, options.duration);
       return () => clearInterval(interval);
@@ -52,7 +53,7 @@ export function useTimer(args: Partial<TimerOptions> = {}) {
       const timeout = setTimeout(handler, options.duration);
       return () => clearTimeout(timeout);
     }
-  }, [dispatch, ...options.dependencies]);
+  }, [dispatch, state, ...options.dependencies]);
 }
 
 export function StateMachine() {
@@ -65,6 +66,8 @@ export function StateMachine() {
         dispatch(nextState);
       } else if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
         dispatch(previousState);
+      } else if (e.key == ' ') {
+        dispatch(togglePaused());
       }
     };
 
