@@ -7,13 +7,16 @@ import {
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 let contentfulSpaceID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
-if (contentfulSpaceID == '') contentfulSpaceID = 'WRONG-VALUE';
+if (contentfulSpaceID == '' || contentfulSpaceID == undefined)
+  contentfulSpaceID = 'WRONG-VALUE';
 
 let contentfulAccessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
-if (contentfulAccessToken == '') contentfulAccessToken = 'WRONG-VALUE';
+if (contentfulAccessToken == '' || contentfulAccessToken == undefined)
+  contentfulAccessToken = 'WRONG-VALUE';
 
 let contentfulEnvironment = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
-if (contentfulEnvironment == '') contentfulEnvironment = 'WRONG-VALUE';
+if (contentfulEnvironment == '' || contentfulEnvironment == undefined)
+  contentfulEnvironment = 'WRONG-VALUE';
 
 const client = createClient({
   space: contentfulSpaceID,
