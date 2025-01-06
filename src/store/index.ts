@@ -142,7 +142,7 @@ export const previousState: ThunkAction<
 
   const state = getState();
   switch (state.screen.current) {
-    case StateMachineState.Activities: // TODO
+    case StateMachineState.Activities:
       {
         dispatch(decrementCurrentIndex());
 
