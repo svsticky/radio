@@ -28,7 +28,7 @@ export const weather = createApi({
   endpoints: (build) => ({
     weather: build.query<WeatherResponse, void>({
       query: () =>
-        `weerlive_api_v2.php?key=${import.meta.env.VITE_WEATHER_API_KEY}&locatie=52.08718206955104,5.165697854286648`,
+        `weerlive_api_v2.php?key=${import.meta.env.VITE_WEATHER_API_TOKEN}&locatie=52.08718206955104,5.165697854286648`,
     }),
   }),
 });
