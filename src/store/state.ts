@@ -26,6 +26,9 @@ const screen = createSlice({
     incrementCurrentIndex(state) {
       state.screenCurrentIndex++;
     },
+    decrementCurrentIndex(state) {
+      state.screenCurrentIndex--;
+    },
     resetCurrentIndex(state) {
       state.screenCurrentIndex = 0;
     },
@@ -45,6 +48,7 @@ const screen = createSlice({
 
 export const {
   incrementCurrentIndex,
+  decrementCurrentIndex,
   resetCurrentIndex,
   incrementBoardMessageIndex,
   resetBoardMessageIndex,

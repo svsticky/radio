@@ -7,7 +7,12 @@ import {
   Quotes,
   Commits,
 } from './components';
-import { useAppDispatch, nextState, useAppSelector } from './store';
+import {
+  useAppDispatch,
+  nextState,
+  useAppSelector,
+  previousState,
+} from './store';
 import { contentful } from './store/api';
 import { resetQuotes } from './store/quotes';
 import { StateMachineState } from './store/state';
@@ -56,8 +61,10 @@ export function StateMachine() {
   // Preload the quotes and initialise the store with the quote indices
   useEffect(() => {
     document.body.onkeydown = function (e) {
-      if ([' ', 'Enter', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
+      if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
         dispatch(nextState);
+      } else if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
+        dispatch(previousState);
       }
     };
 

@@ -1,20 +1,21 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { koala, contentful, github, weather } from './api';
+import { contentful, github, koala, weather } from './api';
 import screen, {
-  StateMachineState,
-  resetCurrentIndex,
+  decrementCurrentIndex,
+  incrementBoardMessageIndex,
   incrementCurrentIndex,
   resetBoardMessageIndex,
-  incrementBoardMessageIndex,
+  resetCurrentIndex,
   setCurrent,
+  StateMachineState,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
 import quotes, { nextQuote, resetQuotes } from './quotes';
 
 /**
  * nextState is the transition function for the state machine. It
- * updates the the state slice with new values based on the loaded
+ * updates the state slice with new values based on the loaded
  * activities, ads, etc.
  *
  * This function is implemented as a
@@ -117,6 +118,70 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
     case StateMachineState.Commits:
       dispatch(setCurrent(StateMachineState.Activities));
+      break;
+  }
+};
+
+/**
+ * previousState is the transition function for the state machine. It
+ * updates the state slice with new values based on the loaded
+ * activities, ads, etc.
+ *
+ * This function is implemented as a
+ * [synchronous thunk]{@link https://redux.js.org/usage/writing-logic-thunks#what-is-a-thunk}
+ * that is invoked from a keybind to go back
+ */
+export const previousState: ThunkAction<
+  void,
+  RootState,
+  void,
+  UnknownAction
+> = (dispatch, getState) => {
+  const params = new URLSearchParams(window.location.search);
+  const displayInternal = params.get('internal') === 'true';
+
+  const state = getState();
+  switch (state.screen.current) {
+    case StateMachineState.Activities: // TODO
+      {
+        dispatch(decrementCurrentIndex());
+
+        if (state.screen.screenCurrentIndex <= 0) {
+          dispatch(resetCurrentIndex());
+          dispatch(
+            setCurrent(
+              displayInternal
+                ? StateMachineState.Commits
+                : StateMachineState.Advertisement,
+            ),
+          );
+        }
+      }
+      break;
+
+    case StateMachineState.Advertisement:
+      dispatch(decrementCurrentIndex());
+
+      if (state.screen.screenCurrentIndex <= 0) {
+        dispatch(resetCurrentIndex());
+        dispatch(setCurrent(StateMachineState.Activities));
+      }
+      break;
+
+    case StateMachineState.BoardText:
+      dispatch(setCurrent(StateMachineState.Advertisement));
+      break;
+
+    case StateMachineState.SnowHeight:
+      dispatch(setCurrent(StateMachineState.BoardText));
+      break;
+
+    case StateMachineState.Quotes:
+      dispatch(setCurrent(StateMachineState.SnowHeight));
+      break;
+
+    case StateMachineState.Commits:
+      dispatch(setCurrent(StateMachineState.Quotes));
       break;
   }
 };
