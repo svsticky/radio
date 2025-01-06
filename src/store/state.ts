@@ -21,7 +21,7 @@ const screen = createSlice({
   initialState: {
     screenCurrentIndex: 0,
     boardMessageIndex: 0,
-    paused: true,
+    paused: false,
     current: StateMachineState.Activities,
   } as StateMachine,
   reducers: {
