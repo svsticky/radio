@@ -52,6 +52,4 @@ interprets your code in real time with hot-reloading; Vite will automatically re
 
 Press <kbd>ArrowRight</kbd> or <kbd>ArrowDown</kbd> to increment by one state.
 
-Press <kbd>ArrowLeft</kbd> or <kbd>ArrowUp</kbd> to decrement by one state.
-
 That's it. Happy hacking!

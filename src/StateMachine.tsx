@@ -7,12 +7,7 @@ import {
   Quotes,
   Commits,
 } from './components';
-import {
-  useAppDispatch,
-  nextState,
-  useAppSelector,
-  previousState,
-} from './store';
+import { useAppDispatch, nextState, useAppSelector } from './store';
 import { contentful } from './store/api';
 import { resetQuotes } from './store/quotes';
 import { StateMachineState, togglePaused } from './store/state';
@@ -64,8 +59,6 @@ export function StateMachine() {
     document.body.onkeydown = function (e) {
       if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
         dispatch(nextState);
-      } else if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
-        dispatch(previousState);
       } else if (e.key == ' ') {
         dispatch(togglePaused());
       }

@@ -2,7 +2,6 @@ import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
 import { contentful, github, koala, weather } from './api';
 import screen, {
-  decrementCurrentIndex,
   incrementBoardMessageIndex,
   incrementCurrentIndex,
   resetBoardMessageIndex,
@@ -118,70 +117,6 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
     case StateMachineState.Commits:
       dispatch(setCurrent(StateMachineState.Activities));
-      break;
-  }
-};
-
-/**
- * previousState is the transition function for the state machine. It
- * updates the state slice with new values based on the loaded
- * activities, ads, etc.
- *
- * This function is implemented as a
- * [synchronous thunk]{@link https://redux.js.org/usage/writing-logic-thunks#what-is-a-thunk}
- * that is invoked from a keybind to go back
- */
-export const previousState: ThunkAction<
-  void,
-  RootState,
-  void,
-  UnknownAction
-> = (dispatch, getState) => {
-  const params = new URLSearchParams(window.location.search);
-  const displayInternal = params.get('internal') === 'true';
-
-  const state = getState();
-  switch (state.screen.current) {
-    case StateMachineState.Activities:
-      {
-        dispatch(decrementCurrentIndex());
-
-        if (state.screen.screenCurrentIndex <= 0) {
-          dispatch(resetCurrentIndex());
-          dispatch(
-            setCurrent(
-              displayInternal
-                ? StateMachineState.Commits
-                : StateMachineState.Advertisement,
-            ),
-          );
-        }
-      }
-      break;
-
-    case StateMachineState.Advertisement:
-      dispatch(decrementCurrentIndex());
-
-      if (state.screen.screenCurrentIndex <= 0) {
-        dispatch(resetCurrentIndex());
-        dispatch(setCurrent(StateMachineState.Activities));
-      }
-      break;
-
-    case StateMachineState.BoardText:
-      dispatch(setCurrent(StateMachineState.Advertisement));
-      break;
-
-    case StateMachineState.SnowHeight:
-      dispatch(setCurrent(StateMachineState.BoardText));
-      break;
-
-    case StateMachineState.Quotes:
-      dispatch(setCurrent(StateMachineState.SnowHeight));
-      break;
-
-    case StateMachineState.Commits:
-      dispatch(setCurrent(StateMachineState.Quotes));
       break;
   }
 };
