@@ -10,7 +10,7 @@ import {
 import { useAppDispatch, nextState, useAppSelector } from './store';
 import { contentful } from './store/api';
 import { resetQuotes } from './store/quotes';
-import { StateMachineState } from './store/state';
+import { StateMachineState, togglePaused } from './store/state';
 
 export interface StateMachineSlideProps {
   current: number;
@@ -24,7 +24,7 @@ type TimerOptions = {
 
 /**
  * Set a (repeated) timer that ticks the state machine with a given configuration. When the component unmounts the timer is cleared.
- * @param [options] the options for the timer:
+ * @param [args] the options for the timer:
  *  - duration: duration in seconds
  *  - interval: whether the timer should repeat
  *  - dependencies: extra dependencies to trigger new timeouts
@@ -38,8 +38,9 @@ export function useTimer(args: Partial<TimerOptions> = {}) {
   } as TimerOptions;
 
   const dispatch = useAppDispatch();
+  const state = useAppSelector((state) => state.screen);
   useEffect(() => {
-    const handler = () => dispatch(nextState);
+    const handler = () => (!state.paused ? dispatch(nextState) : undefined);
     if (options.interval) {
       const interval = setInterval(handler, options.duration);
       return () => clearInterval(interval);
@@ -47,7 +48,7 @@ export function useTimer(args: Partial<TimerOptions> = {}) {
       const timeout = setTimeout(handler, options.duration);
       return () => clearTimeout(timeout);
     }
-  }, [dispatch, ...options.dependencies]);
+  }, [dispatch, state, ...options.dependencies]);
 }
 
 export function StateMachine() {
@@ -55,6 +56,14 @@ export function StateMachine() {
 
   // Preload the quotes and initialise the store with the quote indices
   useEffect(() => {
+    document.body.onkeydown = function (e) {
+      if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
+        dispatch(nextState);
+      } else if (e.key == ' ') {
+        dispatch(togglePaused());
+      }
+    };
+
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
     result.then(({ data: quotes, isSuccess }) => {

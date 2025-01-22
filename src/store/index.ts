@@ -1,20 +1,20 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { koala, contentful, github, weather } from './api';
+import { contentful, github, koala, weather } from './api';
 import screen, {
-  StateMachineState,
-  resetCurrentIndex,
+  incrementBoardMessageIndex,
   incrementCurrentIndex,
   resetBoardMessageIndex,
-  incrementBoardMessageIndex,
+  resetCurrentIndex,
   setCurrent,
+  StateMachineState,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
 import quotes, { nextQuote, resetQuotes } from './quotes';
 
 /**
  * nextState is the transition function for the state machine. It
- * updates the the state slice with new values based on the loaded
+ * updates the state slice with new values based on the loaded
  * activities, ads, etc.
  *
  * This function is implemented as a
