@@ -84,6 +84,23 @@ body {
   position: fixed;
 }
 
+.participant-icon {
+  top: 7px;
+  position: relative;
+  padding-left: 10px;
+  font-size: 40px;
+}
+
+.participant-div {
+  font-size: 36px;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.activity-bottom-line {
+  display: flex;
+}
+
 .commits-title,
 .commits-list {
   margin-left: 50px;

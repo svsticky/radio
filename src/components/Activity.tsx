@@ -55,17 +55,26 @@ export default function Activity({
 
   return (
     <li className={`activity ${active ? ' active' : ''}`} ref={activityRef}>
-      <h1>
-        {name}
-        {participant_counter ? ` (${participant_counter})` : ''}
-      </h1>
-      <time>{startDate}</time>
-      {endDate && (
-        <>
-          {' '}
-          - <time>{endDate}</time>
-        </>
-      )}
+      <h1>{name}</h1>
+      <div className="activity-bottom-line">
+        <div>
+          <time>{startDate}</time>
+          {endDate && (
+            <>
+              {' '}
+              - <time>{endDate}</time>
+            </>
+          )}
+        </div>
+        <div className="participant-div">
+          {participant_counter ? ` ${participant_counter}` : ''}
+          <span className="material-symbols-outlined participant-icon">
+            {participant_counter && participant_counter != 'VOL!'
+              ? 'group'
+              : ''}
+          </span>
+        </div>
+      </div>
     </li>
   );
 }
