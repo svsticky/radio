@@ -6,7 +6,7 @@ type ResponseActivity = {
   start_date: string;
   end_date: string | null;
   poster: string;
-  participant_counter: number;
+  participant_counter: string;
 };
 
 export type Activity = ResponseActivity & {
