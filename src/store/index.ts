@@ -1,20 +1,20 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { koala, contentful, github } from './api';
+import { contentful, github, koala } from './api';
 import screen, {
-  StateMachineState,
-  resetCurrentIndex,
+  incrementBoardMessageIndex,
   incrementCurrentIndex,
   resetBoardMessageIndex,
-  incrementBoardMessageIndex,
+  resetCurrentIndex,
   setCurrent,
+  StateMachineState,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
 import quotes, { nextQuote, resetQuotes } from './quotes';
 
 /**
  * nextState is the transition function for the state machine. It
- * updates the the state slice with new values based on the loaded
+ * updates the state slice with new values based on the loaded
  * activities, ads, etc.
  *
  * This function is implemented as a
@@ -29,17 +29,35 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   const displayInternal = params.get('internal') === 'true';
 
   const state = getState();
+
+  const contentfulValid =
+    import.meta.env.VITE_CONTENTFUL_SPACE_ID != undefined &&
+    import.meta.env.VITE_CONTENTFUL_SPACE_ID != '' &&
+    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT != undefined &&
+    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT != '' &&
+    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN != undefined &&
+    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN != '';
+
   switch (state.screen.current) {
     case StateMachineState.Activities:
       {
         const { data: activities, isSuccess } =
           koala.endpoints.activities.select()(state);
 
-        if (!isSuccess) throw new Error('');
-
-        if (state.screen.screenCurrentIndex >= activities.length - 1) {
+        if (
+          !isSuccess ||
+          state.screen.screenCurrentIndex >= activities.length - 1
+        ) {
           dispatch(resetCurrentIndex());
-          dispatch(setCurrent(StateMachineState.Advertisement));
+
+          let state = StateMachineState.Advertisement;
+          if (!contentfulValid && displayInternal) {
+            state = StateMachineState.Commits;
+          } else if (!contentfulValid && !displayInternal) {
+            state = StateMachineState.Activities;
+          }
+
+          dispatch(setCurrent(state));
         } else {
           dispatch(incrementCurrentIndex());
         }
@@ -48,23 +66,34 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
     case StateMachineState.Advertisement:
       {
+        if (!contentfulValid) {
+          dispatch(resetCurrentIndex());
+          dispatch(
+            setCurrent(
+              displayInternal
+                ? StateMachineState.BoardText
+                : StateMachineState.Activities,
+            ),
+          );
+        }
+
         const { data: ads, isSuccess } =
           contentful.endpoints.ads.select()(state);
 
-        if (isSuccess) {
-          if (state.screen.screenCurrentIndex >= ads.length - 1) {
-            dispatch(resetCurrentIndex());
+        if (!isSuccess) break;
 
-            dispatch(
-              setCurrent(
-                displayInternal
-                  ? StateMachineState.BoardText
-                  : StateMachineState.Activities,
-              ),
-            );
-          } else {
-            dispatch(incrementCurrentIndex());
-          }
+        if (state.screen.screenCurrentIndex >= ads.length - 1) {
+          dispatch(resetCurrentIndex());
+
+          dispatch(
+            setCurrent(
+              displayInternal
+                ? StateMachineState.BoardText
+                : StateMachineState.Activities,
+            ),
+          );
+        } else {
+          dispatch(incrementCurrentIndex());
         }
       }
       break;
