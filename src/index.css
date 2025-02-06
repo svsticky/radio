@@ -9,6 +9,7 @@ html {
   color: white;
   height: 100vh;
 }
+
 * {
   --topbar-height: 120px;
   --topbar-font-size: 80px;
@@ -38,10 +39,9 @@ body {
 
 .logo {
   grid-column: 1 / 2;
-}
-
-.logo > img {
-  width: 250px;
+  img {
+    width: 250px;
+  }
 }
 
 .clock-wrapper {
@@ -49,10 +49,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.clock {
-  color: white;
+  .clock {
+    color: white;
+  }
 }
 
 .weather-wrapper {
@@ -60,16 +59,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.weather-icon {
-  font-size: 0.8em;
-  margin-right: 20px;
-  color: #808080;
-}
-
-.weather-text {
-  color: white;
+  .weather-icon {
+    font-size: 0.8em;
+    margin-right: 20px;
+    color: #808080;
+  }
+  .weather-text {
+    color: white;
+  }
 }
 
 .commits-wrapper,
@@ -80,10 +78,16 @@ body {
   html {} or body {} to be flex, which breaks a bunch of other stuff.
   */
   height: 100vh;
+  width: 100%;
 
   .poster {
     position: inherit;
     height: auto;
+    /*
+      force posters to same aspect ratio
+      number based on source image size
+    */
+    aspect-ratio: 764 / 1080;
   }
 }
 .commits-list-wrapper,
@@ -91,7 +95,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: var(--spacing-1);
+  margin: var(--spacing-2);
   margin-top: 0;
 }
 
