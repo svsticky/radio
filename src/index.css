@@ -13,6 +13,7 @@ html {
 * {
   --topbar-height: 120px;
   --topbar-font-size: 80px;
+  --spacing-0: 10px;
   --spacing-1: 25px;
   --spacing-2: 50px;
 }
@@ -31,38 +32,48 @@ body {
 
 .topbar {
   font-size: var(--topbar-font-size);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+
   margin: var(--spacing-1);
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(3, calc(100% / 3));
+}
+.topbar-left {
+  grid-column: 1 / 2;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.topbar-center {
+  grid-column: 2 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.topbar-right {
+  grid-column: 3 / 4;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
 .logo {
-  grid-column: 1 / 2;
   img {
     width: 250px;
   }
 }
 
-.clock-wrapper {
-  height: 135px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .clock {
-    color: white;
-  }
+.clock {
+  color: white;
 }
 
-.weather-wrapper {
-  height: 135px;
+.weather {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
 
   .weather-icon {
     font-size: 0.8em;
-    margin-right: 20px;
+    margin-right: var(--spacing-0);
     color: #808080;
   }
   .weather-text {

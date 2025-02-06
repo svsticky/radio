@@ -18,9 +18,5 @@ export default function Clock() {
     minute: '2-digit',
   });
 
-  return (
-    <div className="clock-wrapper">
-      <span className="clock">{formattedDate}</span>
-    </div>
-  );
+  return <span className="clock">{formattedDate}</span>;
 }

@@ -31,7 +31,7 @@ export default function Weather() {
   if (!isSuccess) return <></>;
 
   return (
-    <div className="weather-wrapper">
+    <div className="weather">
       <span className="material-symbols-outlined weather-icon">
         {getIconName(weather.liveweer[0].image)}
       </span>
