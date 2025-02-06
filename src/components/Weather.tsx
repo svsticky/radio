@@ -28,7 +28,14 @@ export default function Weather() {
     pollingInterval: 600000, // 10 * 60 * 1000, 10 minutes
   });
 
-  if (!isSuccess) return <></>;
+  if (!isSuccess || weather.liveweer[0].temp === undefined)
+    return (
+      <div className="weather-wrapper">
+        <span className="material-symbols-outlined weather-icon weather-fetch-fail">
+          cloud_alert
+        </span>
+      </div>
+    );
 
   return (
     <div className="weather-wrapper">

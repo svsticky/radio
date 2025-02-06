@@ -65,6 +65,10 @@ body {
   font-size: 72px;
   color: #808080;
 }
+.weather-fetch-fail {
+  color: #b35d5d;
+  font-size: 72px;
+}
 
 .weather-text {
   color: white;
