@@ -2,6 +2,7 @@ import Activity from './Activity';
 import Poster from './Poster';
 import { useActivitiesQuery } from '../store/api';
 import { StateMachineSlideProps, useTimer } from '../StateMachine';
+import TopBar from './Topbar';
 
 export default function Activities({ current }: StateMachineSlideProps) {
   useTimer({ interval: true });
@@ -21,16 +22,19 @@ export default function Activities({ current }: StateMachineSlideProps) {
 
   const currentActivity = activities[current];
   return (
-    <div>
-      <ul className="activities">
-        {activities.map((activity) => (
-          <Activity
-            key={activity.id}
-            {...activity}
-            active={activity === currentActivity}
-          />
-        ))}
-      </ul>
+    <div className="activities-wrapper">
+      <div className="activities-list-wrapper">
+        <TopBar />
+        <ul className="activities-list">
+          {activities.map((activity) => (
+            <Activity
+              key={activity.id}
+              {...activity}
+              active={activity === currentActivity}
+            />
+          ))}
+        </ul>
+      </div>
       <Poster src={currentActivity.poster} />
     </div>
   );

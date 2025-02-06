@@ -9,6 +9,12 @@ html {
   color: white;
   height: 100vh;
 }
+* {
+  --topbar-height: 120px;
+  --topbar-font-size: 80px;
+  --spacing-1: 25px;
+  --spacing-2: 50px;
+}
 
 body {
   margin: 0;
@@ -19,13 +25,14 @@ body {
   top: 0;
   right: 0;
   height: 100vh;
-  max-width: 40%;
   z-index: 1000;
 }
 
 .topbar {
-  padding-top: 20px;
-  display: grid;
+  font-size: var(--topbar-font-size);
+  display: flex;
+  justify-content: space-between;
+  margin: var(--spacing-1);
   grid-template-columns: repeat(12, 1fr);
 }
 
@@ -35,13 +42,10 @@ body {
 
 .logo > img {
   width: 250px;
-  padding-left: 50px;
 }
 
 .clock-wrapper {
   height: 135px;
-  grid-column: 5;
-  grid-row: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,39 +53,56 @@ body {
 
 .clock {
   color: white;
-  font-size: 80px;
 }
 
 .weather-wrapper {
   height: 135px;
-  grid-column: 3;
-  grid-row: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .weather-icon {
-  font-size: 72px;
+  font-size: 0.8em;
+  margin-right: 20px;
   color: #808080;
 }
 
 .weather-text {
   color: white;
-  width: 300px;
-  font-size: 80px;
 }
 
-.activities {
-  margin-left: 50px;
-  margin-top: 50px;
+.commits-wrapper,
+.activities-wrapper {
+  display: flex;
+  /*
+  This is an ugly solution, but the correct way requires
+  html {} or body {} to be flex, which breaks a bunch of other stuff.
+  */
+  height: 100vh;
+
+  .poster {
+    position: inherit;
+    height: auto;
+  }
+}
+.commits-list-wrapper,
+.activities-list-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: var(--spacing-1);
+  margin-top: 0;
+}
+
+.commits-list,
+.activities-list {
+  margin: 0;
   padding: 0;
   color: #dae1e3;
   list-style: none;
-  overflow-y: hidden;
-  max-height: 70%;
-  width: 50%;
-  position: fixed;
+  overflow: hidden;
+  position: relative;
 }
 
 .participant-icon {
@@ -103,12 +124,13 @@ body {
 
 .commits-title,
 .commits-list {
-  margin-left: 50px;
-  margin-top: 50px;
+  margin-left: var(--spacing-1);
   padding: 0;
   color: #dae1e3;
-  max-height: 70%;
-  width: 50%;
+}
+.commits-title {
+  margin-top: 0;
+  font-size: 3em;
 }
 
 .commits-list > li {
@@ -116,13 +138,13 @@ body {
 }
 
 .commits-list__item__message {
-  font-size: 45px;
+  font-size: 2.5em;
   padding: 0;
   margin: 0;
 }
 
 .commits-list__item__meta {
-  font-size: 25px;
+  font-size: 1.75em;
   padding: 0;
   margin: 1rem 1rem 1rem 2rem;
 }
@@ -174,7 +196,7 @@ video.video-ad {
 
 .activity {
   padding: 40px;
-  max-width: 90%;
+  max-width: 100%;
   transition: background 0.5s;
 }
 .activity h1 {
