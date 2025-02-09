@@ -11,14 +11,14 @@ export default function Quotes({ current }: StateMachineSlideProps) {
   const quote = quotes[current];
 
   return (
-    <>
-      <TopBar />
-      <article className="quoteSection">
-        <section className="quoteBackground">
-          <h1 id="quoteText">&quot;{quote.text}&quot;</h1>
-          <h2 id="quotePerson">-{quote.person}</h2>
-        </section>
-      </article>
-    </>
+    <div className="basic-page">
+      <div className="content-wrapper">
+        <TopBar />
+        <div className="quote">
+          <div id="text">&quot;{quote.text}&quot;</div>
+          <div id="person">-{quote.person}</div>
+        </div>
+      </div>
+    </div>
   );
 }

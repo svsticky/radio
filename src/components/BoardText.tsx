@@ -11,11 +11,13 @@ export default function BoardText({ current }: StateMachineSlideProps) {
   const { message } = boardMessages[current];
 
   return (
-    <>
-      <TopBar />
-      <section className="boardTextSection">
-        <h1 id="boardText">{message}</h1>
-      </section>
-    </>
+    <div className="basic-page">
+      <div className="content-wrapper">
+        <TopBar />
+        <div className="boardtext">
+          <div id="text">&quot;{message}&quot;</div>
+        </div>
+      </div>
+    </div>
   );
 }

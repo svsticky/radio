@@ -1,8 +1,8 @@
-import Poster from './Poster';
 import { useAllCommitsQuery } from '../store/api';
 import moment from 'moment';
 import { useTimer } from '../StateMachine';
 import TopBar from './Topbar';
+import ContentWithPoster from './ContentWithPoster';
 
 export default function Commits() {
   useTimer();
@@ -11,17 +11,15 @@ export default function Commits() {
   if (!isSuccess) return <></>;
 
   return (
-    <div className="commits-wrapper">
-      <div className="commits-list-wrapper">
-        <TopBar />
+    <ContentWithPoster posterSrc={'/commitcrowd.jpeg'}>
+      <TopBar />
+      <div>
         <h1 className="commits-title">Recent commits</h1>
-        <ul className="commits-list">
+        <ul className="scrollable-list">
           {commits.map((commit, index) => (
-            <li key={index} className="commits-list__item">
-              <p className="commits-list__item__message">
-                {commit.message.split('\n')[0]}
-              </p>
-              <p className="commits-list__item__meta">
+            <li key={index} className="commit-list-item">
+              <p id="message">{commit.message.split('\n')[0]}</p>
+              <p id="details">
                 On{' '}
                 <em>
                   {commit.owner}/{commit.repo}
@@ -33,7 +31,6 @@ export default function Commits() {
           ))}
         </ul>
       </div>
-      <Poster src="/commitcrowd.png" />
-    </div>
+    </ContentWithPoster>
   );
 }

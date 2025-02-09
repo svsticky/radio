@@ -28,21 +28,13 @@ body {
   margin: 0;
 }
 
-.poster {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  z-index: 1000;
-}
-
+/* -------------------- TOPBAR -------------------- */
 .topbar {
   font-size: 4rem;
   display: grid;
-
-  margin: var(--spacing-1);
   grid-template-columns: repeat(3, calc(100% / 3));
 }
+
 .topbar-left {
   grid-column: 1 / 2;
   display: flex;
@@ -65,7 +57,8 @@ body {
 .logo {
   img {
     width: 250px;
-    margin-top: -17px; /* align logo text baseline with topbar text */
+    margin-top: -25px; /* align logo text baseline with topbar text */
+    margin-bottom: -15px;
   }
 }
 
@@ -88,111 +81,106 @@ body {
   }
 }
 
-.commits-wrapper,
-.activities-wrapper {
-  display: flex;
-  /*
-  This is an ugly solution, but the correct way requires
-  html {} or body {} to be flex, which breaks a bunch of other stuff.
-  */
-  height: 100vh;
-  width: 100%;
+/* -------------------- LAYOUTS -------------------- */
 
-  .poster {
-    position: inherit;
-    height: auto;
-    /*
-      force posters to same aspect ratio
-      number based on source image size
-    */
-    aspect-ratio: 764 / 1080;
-  }
-}
-.commits-list-wrapper,
-.activities-list-wrapper {
-  width: 100%;
+.content-wrapper {
   display: flex;
   flex-direction: column;
+  width: 100%;
   margin: var(--spacing-2);
-  margin-top: 0;
+  gap: var(--spacing-2);
 }
 
-.commits-list,
-.activities-list {
+.basic-page {
+  height: 100vh;
+  display: flex;
+}
+
+.content-with-poster {
+  height: 100vh;
+  display: flex;
+
+  & > .poster {
+    height: auto;
+    aspect-ratio: 764 / 1080; /* based on most common poster resolution */
+    z-index: 1000;
+  }
+}
+
+.scrollable-list {
+  position: relative;
+  overflow: hidden;
+  list-style: none;
   margin: 0;
   padding: 0;
   color: var(--color-fg);
-  list-style: none;
-  overflow: hidden;
-  position: relative;
 }
+
+/* -------------------- ACTIVITY -------------------- */
 
 .activity {
-  padding: var(--spacing-2);
   max-width: 100%;
+  padding: var(--spacing-2);
   transition: background 0.5s;
-}
-.activity h1 {
-  font-size: 2.75rem;
-  margin-bottom: 0.1em;
-  margin-top: 0;
-}
 
-.activity.active {
-  background: var(--color-bg-dim);
-}
+  & > h1 {
+    font-size: 2.75rem;
+    margin-top: 0;
+    margin-bottom: 0.1em;
+  }
 
-.activity-bottom-line {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-}
+  & > #info {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
 
-.activity time {
-  display: inline-block;
-}
+    & > #participants {
+      margin-left: auto;
 
-.participant-counter {
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  margin-right: 0;
-  gap: var(--spacing-0);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-0);
 
-  span {
-    font-size: 1em;
+      & > span {
+        /* icon */
+        font-size: 1em;
+      }
+    }
+  }
+
+  &.active {
+    background: var(--color-bg-dim);
   }
 }
 
-.commits-title,
-.commits-list {
-  margin-left: var(--spacing-1);
+/* -------------------- COMMITS -------------------- */
+
+.commits-title {
   padding: 0;
   color: var(--color-fg);
-}
-.commits-title {
   margin-top: 0;
   font-size: 3rem;
 }
 
-.commits-list > li {
+.commit-list-item {
   padding: 0;
+
+  & > #message {
+    font-size: 2.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  & > #details {
+    font-size: 1.75rem;
+    padding: 0;
+    margin: 1rem 1rem 1rem 2rem;
+  }
 }
 
-.commits-list__item__message {
-  font-size: 2.5rem;
-  padding: 0;
-  margin: 0;
-}
+/* -------------------- ADS -------------------- */
 
-.commits-list__item__meta {
-  font-size: 1.75rem;
-  padding: 0;
-  margin: 1rem 1rem 1rem 2rem;
-}
-
-.full-advertisement > .poster {
+.fullscreen-ad {
   position: absolute;
   left: 0;
   top: 0;
@@ -202,21 +190,17 @@ body {
   height: 100vh;
 }
 
-.poster-right-ad {
-  top: 0;
-  position: absolute;
-  left: 0;
-  display: grid;
-  grid-template-columns: 60vw 40vw;
-  background: var(--color-bg);
-  height: 100vh;
-  width: 100vw;
-  z-index: 1000;
-}
-
-.poster-right-ad .advertisement {
+.advertisement {
   margin: auto 0;
+  padding: 0;
   display: block;
+
+  & h1 {
+    font-size: 3rem;
+  }
+  & p {
+    font-size: 2rem;
+  }
 }
 
 video.video-ad {
@@ -229,52 +213,22 @@ video.video-ad {
   z-index: 1000;
 }
 
-.advertisement h1 {
-  font-size: 2.5rem;
-}
+/* ---------------- QUOTE & BOARDTEXT ----------------- */
 
-.advertisement p {
-  font-size: 2rem;
-}
-
-.boardTextSection,
-.quoteSection {
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  height: calc(100% - 300px);
-}
-
-#boardText,
-#quoteText,
-#quotePerson {
+.quote,
+.boardtext {
+  margin: auto auto;
   color: var(--color-fg);
   font-size: 3rem;
-  font-weight: 400;
-  margin: 0 auto;
-  width: 80%;
+
   text-align: center;
 }
 
-#quoteText {
-  font-size: 3.75rem;
-  margin: 0;
-  font-weight: 400;
-  width: 100%;
+.quote #person {
+  font-size: 2rem;
 }
 
-#quotePerson {
-  margin-top: var(--spacing-2);
-}
-
-.quoteBackground {
-  padding: var(--spacing-2);
-}
-
-/* TEAM PAGE  */
+/* -------------------- TEAM PAGE -------------------- */
 
 .member-wrapper {
   padding-left: 50px;
@@ -300,7 +254,7 @@ video.video-ad {
   margin-bottom: 3px;
 }
 
-/* SNOW HEIGHT */
+/* ------------------ SNOW HEIGHT ------------------- */
 
 #snowHeight {
   position: absolute;

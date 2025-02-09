@@ -1,6 +1,5 @@
 import { useTimer } from '../StateMachine';
 import { useMembersQuery } from '../store/api';
-import Poster from './Poster';
 import TopBar from './Topbar';
 
 export default function Team() {
@@ -29,7 +28,7 @@ export default function Team() {
             );
           })}
         </div>
-        <Poster src="/commitcrowd.jpeg" />
+        <img src="/commitcrowd.jpeg" className="poster" />
       </section>
     </>
   );
