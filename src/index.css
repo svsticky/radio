@@ -1,21 +1,25 @@
 @import url(https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900);
 
+* {
+  --color-fg: #ffffff;
+  --color-fg-dim: #808080;
+
+  --color-bg: #262626;
+  --color-bg-dim: #1a1a1a;
+
+  --spacing-0: 10px;
+  --spacing-1: 25px;
+  --spacing-2: 50px;
+}
+
 html {
-  background: #262626;
+  background: var(--color-bg);
   font-family: 'Work Sans', sans-serif;
   max-height: 100%;
   width: 100%;
   position: fixed;
-  color: white;
+  color: var(--color-fg);
   height: 100vh;
-}
-
-* {
-  --topbar-height: 120px;
-  --topbar-font-size: 80px;
-  --spacing-0: 10px;
-  --spacing-1: 25px;
-  --spacing-2: 50px;
 }
 
 body {
@@ -31,7 +35,7 @@ body {
 }
 
 .topbar {
-  font-size: var(--topbar-font-size);
+  font-size: 80px;
   display: grid;
 
   margin: var(--spacing-1);
@@ -63,7 +67,7 @@ body {
 }
 
 .clock {
-  color: white;
+  color: var(--color-fg);
 }
 
 .weather {
@@ -74,10 +78,10 @@ body {
   .weather-icon {
     font-size: 0.8em;
     margin-right: var(--spacing-0);
-    color: #808080;
+    color: var(--color-fg-dim);
   }
   .weather-text {
-    color: white;
+    color: var(--color-fg);
   }
 }
 
@@ -114,12 +118,17 @@ body {
 .activities-list {
   margin: 0;
   padding: 0;
-  color: #dae1e3;
+  color: var(--color-fg);
   list-style: none;
   overflow: hidden;
   position: relative;
 }
 
+.participant-counter {
+  font-size: 36px;
+  margin-left: auto;
+  margin-right: 0;
+}
 .participant-icon {
   top: 7px;
   position: relative;
@@ -127,21 +136,16 @@ body {
   font-size: 40px;
 }
 
-.participant-div {
-  font-size: 36px;
-  margin-left: auto;
-  margin-right: 0;
-}
-
 .activity-bottom-line {
   display: flex;
+  align-items: start;
 }
 
 .commits-title,
 .commits-list {
   margin-left: var(--spacing-1);
   padding: 0;
-  color: #dae1e3;
+  color: var(--color-fg);
 }
 .commits-title {
   margin-top: 0;
@@ -180,7 +184,7 @@ body {
   left: 0;
   display: grid;
   grid-template-columns: 60vw 40vw;
-  background: #262626;
+  background: var(--color-bg);
   height: 100vh;
   width: 100vw;
   z-index: 1000;
@@ -224,7 +228,7 @@ video.video-ad {
   font-size: 1.4em;
 }
 .activity.active {
-  background: #161616;
+  background: var(--color-bg-dim);
 }
 
 .boardTextSection,
@@ -241,7 +245,7 @@ video.video-ad {
 #boardText,
 #quoteText,
 #quotePerson {
-  color: #dae1e3;
+  color: var(--color-fg);
   font-size: 50px;
   font-weight: 400;
   margin: 0 auto;
