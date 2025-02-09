@@ -68,7 +68,7 @@ export default function Activity({
         </div>
         <div className="participant-counter">
           {participant_counter ? ` ${participant_counter}` : ''}
-          <span className="material-symbols-outlined participant-icon">
+          <span className="material-symbols-outlined">
             {participant_counter ? 'group' : ''}
           </span>
         </div>

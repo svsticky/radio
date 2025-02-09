@@ -7,19 +7,21 @@
   --color-bg: #262626;
   --color-bg-dim: #1a1a1a;
 
-  --spacing-0: 10px;
-  --spacing-1: 25px;
-  --spacing-2: 50px;
+  --spacing-0: 0.75rem;
+  --spacing-1: 1.5rem;
+  --spacing-2: 3rem;
 }
 
 html {
   background: var(--color-bg);
+  color: var(--color-fg);
+
+  font-size: 16px;
   font-family: 'Work Sans', sans-serif;
+  height: 100vh;
   max-height: 100%;
   width: 100%;
   position: fixed;
-  color: var(--color-fg);
-  height: 100vh;
 }
 
 body {
@@ -35,7 +37,7 @@ body {
 }
 
 .topbar {
-  font-size: 80px;
+  font-size: 4rem;
   display: grid;
 
   margin: var(--spacing-1);
@@ -63,6 +65,7 @@ body {
 .logo {
   img {
     width: 250px;
+    margin-top: -17px; /* align logo text baseline with topbar text */
   }
 }
 
@@ -124,21 +127,42 @@ body {
   position: relative;
 }
 
-.participant-counter {
-  font-size: 36px;
-  margin-left: auto;
-  margin-right: 0;
+.activity {
+  padding: var(--spacing-2);
+  max-width: 100%;
+  transition: background 0.5s;
 }
-.participant-icon {
-  top: 7px;
-  position: relative;
-  padding-left: 10px;
-  font-size: 40px;
+.activity h1 {
+  font-size: 2.75rem;
+  margin-bottom: 0.1em;
+  margin-top: 0;
+}
+
+.activity.active {
+  background: var(--color-bg-dim);
 }
 
 .activity-bottom-line {
   display: flex;
-  align-items: start;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.activity time {
+  display: inline-block;
+}
+
+.participant-counter {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 0;
+  gap: var(--spacing-0);
+
+  span {
+    font-size: 1em;
+  }
 }
 
 .commits-title,
@@ -149,7 +173,7 @@ body {
 }
 .commits-title {
   margin-top: 0;
-  font-size: 3em;
+  font-size: 3rem;
 }
 
 .commits-list > li {
@@ -157,13 +181,13 @@ body {
 }
 
 .commits-list__item__message {
-  font-size: 2.5em;
+  font-size: 2.5rem;
   padding: 0;
   margin: 0;
 }
 
 .commits-list__item__meta {
-  font-size: 1.75em;
+  font-size: 1.75rem;
   padding: 0;
   margin: 1rem 1rem 1rem 2rem;
 }
@@ -206,29 +230,11 @@ video.video-ad {
 }
 
 .advertisement h1 {
-  font-size: 40px;
+  font-size: 2.5rem;
 }
 
 .advertisement p {
-  font-size: 30px;
-}
-
-.activity {
-  padding: 40px;
-  max-width: 100%;
-  transition: background 0.5s;
-}
-.activity h1 {
-  font-size: 2.5em;
-  margin-bottom: 0.2em;
-  margin-top: 0;
-}
-.activity time {
-  display: inline-block;
-  font-size: 1.4em;
-}
-.activity.active {
-  background: var(--color-bg-dim);
+  font-size: 2rem;
 }
 
 .boardTextSection,
@@ -246,7 +252,7 @@ video.video-ad {
 #quoteText,
 #quotePerson {
   color: var(--color-fg);
-  font-size: 50px;
+  font-size: 3rem;
   font-weight: 400;
   margin: 0 auto;
   width: 80%;
@@ -254,18 +260,18 @@ video.video-ad {
 }
 
 #quoteText {
-  font-size: 70px;
+  font-size: 3.75rem;
   margin: 0;
   font-weight: 400;
   width: 100%;
 }
 
 #quotePerson {
-  margin-top: 50px;
+  margin-top: var(--spacing-2);
 }
 
 .quoteBackground {
-  padding: 50px;
+  padding: var(--spacing-2);
 }
 
 /* TEAM PAGE  */
@@ -283,7 +289,7 @@ video.video-ad {
 
 .member-list__item {
   text-align: center;
-  font-size: 9pt;
+  font-size: 0.75rem;
   padding: 10px;
 }
 
