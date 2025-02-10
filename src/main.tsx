@@ -5,7 +5,7 @@ import App from './App.jsx';
 import { Provider } from 'react-redux';
 import store from './store/index.js';
 
-import './index.css';
+import './index.scss';
 import './snow.scss';
 
 const root = document.getElementById('root');

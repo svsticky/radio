@@ -56,12 +56,12 @@ export default function Activity({
   return (
     <li className={`activity ${active ? ' active' : ''}`} ref={activityRef}>
       <h1>{name}</h1>
-      <div id="info">
+      <div className="details">
         <div>
           {startDate}
           {endDate ? ` - ${endDate}` : ''}
         </div>
-        <div id="participants">
+        <div className="participants">
           {participant_counter ?? ''}
           <span className="material-symbols-outlined">
             {participant_counter ? 'group' : ''}

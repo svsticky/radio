@@ -18,8 +18,8 @@ export default function Commits() {
         <ul className="scrollable-list">
           {commits.map((commit, index) => (
             <li key={index} className="commit-list-item">
-              <p id="message">{commit.message.split('\n')[0]}</p>
-              <p id="details">
+              <p className="message">{commit.message.split('\n')[0]}</p>
+              <p className="details">
                 On{' '}
                 <em>
                   {commit.owner}/{commit.repo}

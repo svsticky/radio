@@ -29,29 +29,30 @@ body {
 }
 
 /* -------------------- TOPBAR -------------------- */
+
 .topbar {
-  font-size: 4rem;
   display: grid;
   grid-template-columns: repeat(3, calc(100% / 3));
-}
+  font-size: 4rem;
 
-.topbar-left {
-  grid-column: 1 / 2;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-}
-.topbar-center {
-  grid-column: 2 / 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.topbar-right {
-  grid-column: 3 / 4;
-  display: flex;
-  justify-content: right;
-  align-items: center;
+  .topbar-left {
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+  .topbar-center {
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .topbar-right {
+    grid-column: 3 / 4;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
 }
 
 .logo {
@@ -123,26 +124,26 @@ body {
   padding: var(--spacing-2);
   transition: background 0.5s;
 
-  & > h1 {
+  & h1 {
     font-size: 2.75rem;
     margin-top: 0;
     margin-bottom: 0.1em;
   }
 
-  & > #info {
+  & .details {
     display: flex;
     align-items: center;
     font-size: 2rem;
 
-    & > #participants {
+    & .participants {
       margin-left: auto;
 
       display: flex;
       align-items: center;
       gap: var(--spacing-0);
 
+      /* icon */
       & > span {
-        /* icon */
         font-size: 1em;
       }
     }
@@ -165,13 +166,13 @@ body {
 .commit-list-item {
   padding: 0;
 
-  & > #message {
+  & .message {
     font-size: 2.5rem;
     padding: 0;
     margin: 0;
   }
 
-  & > #details {
+  & .details {
     font-size: 1.75rem;
     padding: 0;
     margin: 1rem 1rem 1rem 2rem;
@@ -224,7 +225,7 @@ video.video-ad {
   text-align: center;
 }
 
-.quote #person {
+.quote .person {
   font-size: 2rem;
 }
 
@@ -256,7 +257,7 @@ video.video-ad {
 
 /* ------------------ SNOW HEIGHT ------------------- */
 
-#snowHeight {
+.snowHeight {
   position: absolute;
   height: 50vh;
   top: 50%;
@@ -264,7 +265,7 @@ video.video-ad {
   transform: translate(-50%, -50%);
 }
 
-#snowHeightBg {
+.snowHeightBg {
   position: absolute;
   top: 0;
   left: 0;
