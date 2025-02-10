@@ -56,19 +56,14 @@ export default function Activity({
   return (
     <li className={`activity ${active ? ' active' : ''}`} ref={activityRef}>
       <h1>{name}</h1>
-      <div className="activity-bottom-line">
+      <div className="details">
         <div>
-          <time>{startDate}</time>
-          {endDate && (
-            <>
-              {' '}
-              - <time>{endDate}</time>
-            </>
-          )}
+          {startDate}
+          {endDate ? ` - ${endDate}` : ''}
         </div>
-        <div className="participant-div">
-          {participant_counter ? ` ${participant_counter}` : ''}
-          <span className="material-symbols-outlined participant-icon">
+        <div className="participants">
+          {participant_counter ?? ''}
+          <span className="material-symbols-outlined">
             {participant_counter ? 'group' : ''}
           </span>
         </div>

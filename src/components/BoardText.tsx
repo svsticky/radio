@@ -1,5 +1,6 @@
 import { StateMachineSlideProps, useTimer } from '../StateMachine';
 import { useBoardMessagesQuery } from '../store/api';
+import TopBar from './Topbar';
 
 export default function BoardText({ current }: StateMachineSlideProps) {
   useTimer();
@@ -10,8 +11,13 @@ export default function BoardText({ current }: StateMachineSlideProps) {
   const { message } = boardMessages[current];
 
   return (
-    <section className="boardTextSection">
-      <h1 id="boardText">{message}</h1>
-    </section>
+    <div className="basic-page">
+      <div className="content-wrapper">
+        <TopBar />
+        <div className="boardtext">
+          <div id="text">{message}</div>
+        </div>
+      </div>
+    </div>
   );
 }

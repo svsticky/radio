@@ -31,6 +31,7 @@ export const weather = createApi({
         `weerlive_api_v2.php?key=${import.meta.env.VITE_WEATHER_API_TOKEN}&locatie=52.08718206955104,5.165697854286648`,
     }),
   }),
+  keepUnusedDataFor: 60 * 60,
 });
 
 export const { useWeatherQuery } = weather;

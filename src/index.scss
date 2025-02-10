@@ -1,0 +1,280 @@
+@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900);
+
+* {
+  --color-fg: #ffffff;
+  --color-fg-dim: #808080;
+
+  --color-bg: #262626;
+  --color-bg-dim: #1a1a1a;
+
+  --spacing-0: 0.75rem;
+  --spacing-1: 1.5rem;
+  --spacing-2: 3rem;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+
+  font-size: 16px;
+  font-family: 'Work Sans', sans-serif;
+  height: 100vh;
+  max-height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+body {
+  margin: 0;
+}
+
+/* -------------------- TOPBAR -------------------- */
+
+.topbar {
+  display: grid;
+  grid-template-columns: repeat(3, calc(100% / 3));
+  font-size: 4rem;
+
+  .topbar-left {
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+  .topbar-center {
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .topbar-right {
+    grid-column: 3 / 4;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+}
+
+.logo {
+  img {
+    width: 250px;
+    margin-top: -25px; /* align logo text baseline with topbar text */
+    margin-bottom: -15px;
+  }
+}
+
+.clock {
+  color: var(--color-fg);
+}
+
+.weather {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  & .icon {
+    font-size: 0.8em;
+    margin-right: var(--spacing-0);
+    color: var(--color-fg-dim);
+
+    &.fetch-fail {
+      margin: 0;
+      color: #b35d5d;
+    }
+  }
+  & .temperature {
+    color: var(--color-fg);
+  }
+}
+
+/* -------------------- LAYOUTS -------------------- */
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: var(--spacing-2);
+  gap: var(--spacing-2);
+}
+
+.basic-page {
+  height: 100vh;
+  display: flex;
+}
+
+.content-with-poster {
+  height: 100vh;
+  display: flex;
+
+  & > .poster {
+    height: auto;
+    aspect-ratio: 764 / 1080; /* based on most common poster resolution */
+    z-index: 1000;
+  }
+}
+
+.scrollable-list {
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--color-fg);
+}
+
+/* -------------------- ACTIVITY -------------------- */
+
+.activity {
+  max-width: 100%;
+  padding: var(--spacing-2);
+  transition: background 0.5s;
+
+  & h1 {
+    font-size: 2.75rem;
+    margin-top: 0;
+    margin-bottom: 0.1em;
+  }
+
+  & .details {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+
+    & .participants {
+      margin-left: auto;
+
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-0);
+
+      /* icon */
+      & > span {
+        font-size: 1em;
+      }
+    }
+  }
+
+  &.active {
+    background: var(--color-bg-dim);
+  }
+}
+
+/* -------------------- COMMITS -------------------- */
+
+.commits-title {
+  padding: 0;
+  color: var(--color-fg);
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+.commit-list-item {
+  padding: 0;
+
+  & .message {
+    font-size: 2.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  & .details {
+    font-size: 1.75rem;
+    padding: 0;
+    margin: 1rem 1rem 1rem 2rem;
+  }
+}
+
+/* -------------------- ADS -------------------- */
+
+.fullscreen-ad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  z-index: 1000;
+  height: 100vh;
+}
+
+.advertisement {
+  margin: auto 0;
+  padding: 0;
+  display: block;
+
+  & h1 {
+    font-size: 3rem;
+  }
+  & p {
+    font-size: 2rem;
+  }
+}
+
+video.video-ad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1000;
+}
+
+/* ---------------- QUOTE & BOARDTEXT ----------------- */
+
+.quote,
+.boardtext {
+  margin: auto auto;
+  color: var(--color-fg);
+  font-size: 3rem;
+
+  text-align: center;
+}
+
+.quote .person {
+  font-size: 2rem;
+}
+
+/* -------------------- TEAM PAGE -------------------- */
+
+.member-wrapper {
+  padding-left: 50px;
+}
+
+.member-list {
+  padding: 16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+}
+
+.member-list__item {
+  text-align: center;
+  font-size: 0.75rem;
+  padding: 10px;
+}
+
+.member-list__item__img {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  margin-bottom: 3px;
+}
+
+/* ------------------ SNOW HEIGHT ------------------- */
+
+.snowHeight {
+  position: absolute;
+  height: 50vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.snowHeightBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}

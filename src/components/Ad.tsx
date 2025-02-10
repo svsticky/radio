@@ -1,8 +1,8 @@
-import Poster from './Poster';
 import { type Ad, useAdsQuery } from '../store/api';
 import { StateMachineSlideProps, useTimer } from '../StateMachine';
 import { nextState, useAppDispatch } from '../store';
 import { useCallback, useEffect, useRef } from 'react';
+import ContentWithPoster from './ContentWithPoster';
 
 export default function Ad({ current }: StateMachineSlideProps) {
   const { data: ads, isSuccess } = useAdsQuery();
@@ -12,9 +12,12 @@ export default function Ad({ current }: StateMachineSlideProps) {
   //  TODO: Maybe this case isnt necessary anymore
   if (ads.length <= 0)
     return (
-      <div>
-        <ul className="advertisement"></ul>
-        <Poster src={'https://public.svsticky.nl/.hidden/Backup-Ad.png'} />
+      <div className="list-with-poster">
+        <div className="list-wrapper" />
+        <img
+          src={'https://public.svsticky.nl/.hidden/Backup-Ad.png'}
+          className="poster"
+        />
       </div>
     );
 
@@ -65,18 +68,18 @@ function ImageAd({ currentAd }: { currentAd: Ad['fields'] }) {
 
   if (currentAd.fullscreen)
     return (
-      <div className="full-advertisement">
-        <Poster src={`https:${currentAd.poster.fields.file.url}`}></Poster>
-      </div>
+      <img
+        src={`https:${currentAd.poster.fields.file.url}`}
+        className="fullscreen-ad"
+      />
     );
 
   return (
-    <div className="poster-right-ad">
+    <ContentWithPoster posterSrc={`https:${currentAd.poster.fields.file.url}`}>
       <ul className="advertisement">
         <h1>{currentAd.title}</h1>
         <p>{currentAd.description}</p>
       </ul>
-      <Poster src={`https:${currentAd.poster.fields.file.url}`}></Poster>
-    </div>
+    </ContentWithPoster>
   );
 }
