@@ -15,7 +15,7 @@ export default function BoardText({ current }: StateMachineSlideProps) {
       <div className="content-wrapper">
         <TopBar />
         <div className="boardtext">
-          <div id="text">&quot;{message}&quot;</div>
+          <div id="text">{message}</div>
         </div>
       </div>
     </div>
