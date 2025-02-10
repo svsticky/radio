@@ -72,12 +72,17 @@ body {
   justify-content: right;
   align-items: center;
 
-  .weather-icon {
+  & .icon {
     font-size: 0.8em;
     margin-right: var(--spacing-0);
     color: var(--color-fg-dim);
+
+    &.fetch-fail {
+      margin: 0;
+      color: #b35d5d;
+    }
   }
-  .weather-text {
+  & .temperature {
     color: var(--color-fg);
   }
 }

@@ -28,14 +28,21 @@ export default function Weather() {
     pollingInterval: 600000, // 10 * 60 * 1000, 10 minutes
   });
 
-  if (!isSuccess) return <></>;
+  if (!isSuccess || weather.liveweer[0].temp === undefined)
+    return (
+      <div className="weather">
+        <span className="icon fetch-fail material-symbols-outlined">
+          cloud_alert
+        </span>
+      </div>
+    );
 
   return (
     <div className="weather">
-      <span className="material-symbols-outlined weather-icon">
+      <span className="icon material-symbols-outlined">
         {getIconName(weather.liveweer[0].image)}
       </span>
-      <span className="weather-text">{weather.liveweer[0].temp + ' °C'}</span>
+      <span className="temperature">{weather.liveweer[0].temp + ' °C'}</span>
     </div>
   );
 }
