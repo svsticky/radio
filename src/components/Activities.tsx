@@ -12,13 +12,18 @@ export default function Activities({ current }: StateMachineSlideProps) {
   });
 
   if (!isSuccess) return <></>;
-
-  if (activities.length === 0)
+  if (activities.length === 0) {
     return (
-      <section className="boardTextSection">
-        <h1>There are no activities, wanbeleid!</h1>
-      </section>
+      <div className="basic-page">
+        <div className="content-wrapper">
+          <TopBar />
+          <div className="boardtext">
+            <div id="text">There are no activities, wanbeleid!</div>
+          </div>
+        </div>
+      </div>
     );
+  }
 
   const currentActivity = activities[current];
   return (
