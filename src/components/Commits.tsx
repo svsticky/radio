@@ -11,7 +11,7 @@ export default function Commits() {
   if (!isSuccess) return <></>;
 
   return (
-    <ContentWithPoster posterSrc={'/commitcrowd.jpeg'}>
+    <ContentWithPoster posterSrc={'./commitcrowd.png'}>
       <TopBar />
       <div>
         <h1 className="commits-title">Recent commits</h1>
