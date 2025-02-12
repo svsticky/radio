@@ -26,7 +26,6 @@ export default function Activities({ current }: StateMachineSlideProps) {
   }
 
   const currentActivity = activities[current];
-
   return (
     <ContentWithPoster posterSrc={currentActivity.poster}>
       <TopBar />
