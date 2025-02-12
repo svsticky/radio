@@ -113,6 +113,40 @@ body {
   }
 }
 
+.transition-image {
+  /* grid stacking */
+  display: grid;
+  grid-template-rows: auto;
+
+  & > .current {
+    grid-area: 1 / 1 / 2 / 2;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+
+    &.loaded {
+      animation: posterFade 500ms ease-out forwards;
+    }
+
+    @keyframes posterFade {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  & > .previous {
+    grid-area: 1 / 1 / 2 / 2;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
 .scrollable-list {
   position: relative;
   overflow: hidden;
