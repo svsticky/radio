@@ -27,13 +27,6 @@ export default function Activities({ current }: StateMachineSlideProps) {
 
   const currentActivity = activities[current];
 
-  /* preload next poster */
-  const nextActivity = activities[current + 1];
-  if (nextActivity) {
-    const img = new Image();
-    img.src = nextActivity.poster;
-  }
-
   return (
     <ContentWithPoster posterSrc={currentActivity.poster}>
       <TopBar />
