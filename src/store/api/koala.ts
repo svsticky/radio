@@ -47,6 +47,9 @@ export const koala = createApi({
           ),
     }),
   }),
+  keepUnusedDataFor: 60 * 60, // big number
+  refetchOnReconnect: true,
+  refetchOnMountOrArgChange: Number(import.meta.env.VITE_LOAD_INTERVAL),
 });
 
 export const { useActivitiesQuery } = koala;
