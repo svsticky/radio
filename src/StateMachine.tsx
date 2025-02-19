@@ -6,6 +6,7 @@ import {
   BoardText,
   Quotes,
   Commits,
+  CommitteeClash,
 } from './components';
 import { useAppDispatch, nextState, useAppSelector } from './store';
 import { contentful } from './store/api';
@@ -90,7 +91,9 @@ export function StateMachine() {
       return <Commits />;
     case StateMachineState.SnowHeight:
       return <SnowHeight />;
+    case StateMachineState.CommitteeClash:
+      return <CommitteeClash />;
     default:
-      return <></>;
+      return <CommitteeClash />;
   }
 }

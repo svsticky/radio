@@ -39,10 +39,20 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
         if (state.screen.screenCurrentIndex >= activities.length - 1) {
           dispatch(resetCurrentIndex());
-          dispatch(setCurrent(StateMachineState.Advertisement));
+          if (displayInternal) {
+            dispatch(setCurrent(StateMachineState.CommitteeClash));
+          } else {
+            dispatch(setCurrent(StateMachineState.Advertisement));
+          }
         } else {
           dispatch(incrementCurrentIndex());
         }
+      }
+      break;
+
+    case StateMachineState.CommitteeClash:
+      {
+        dispatch(setCurrent(StateMachineState.Advertisement));
       }
       break;
 

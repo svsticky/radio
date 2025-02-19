@@ -7,3 +7,4 @@ export { default as Quotes } from './Quotes';
 export { default as Team } from './Team';
 export { default as SnowHeight } from './SnowHeight';
 export { default as Weather } from './Weather';
+export { default as CommitteeClash } from './CommitteeClash';
