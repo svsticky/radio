@@ -94,6 +94,6 @@ export function StateMachine() {
     case StateMachineState.CommitteeClash:
       return <CommitteeClash />;
     default:
-      return <CommitteeClash />;
+      return <></>;
   }
 }
