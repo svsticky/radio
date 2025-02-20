@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum StateMachineState {
   Activities,
+  CommitteeClash,
   Advertisement,
   BoardText,
   Quotes,
