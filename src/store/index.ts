@@ -39,11 +39,13 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
         if (state.screen.screenCurrentIndex >= activities.length - 1) {
           dispatch(resetCurrentIndex());
-          if (displayInternal) {
-            dispatch(setCurrent(StateMachineState.CommitteeClash));
-          } else {
-            dispatch(setCurrent(StateMachineState.Advertisement));
-          }
+          dispatch(
+            setCurrent(
+              displayInternal && import.meta.env.VITE_COMMITTEECLASH_GRAPH
+                ? StateMachineState.CommitteeClash
+                : StateMachineState.Advertisement,
+            ),
+          );
         } else {
           dispatch(incrementCurrentIndex());
         }
