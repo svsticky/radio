@@ -55,15 +55,6 @@ export function StateMachine() {
 
   // Preload the quotes and initialise the store with the quote indices
   useEffect(() => {
-    if (
-      import.meta.env.VITE_CONTENTFUL_SPACE_ID == undefined ||
-      import.meta.env.VITE_CONTENTFUL_SPACE_ID == '' ||
-      import.meta.env.VITE_CONTENTFUL_ENVIRONMENT == undefined ||
-      import.meta.env.VITE_CONTENTFUL_ENVIRONMENT == '' ||
-      import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN == undefined ||
-      import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN == ''
-    )
-      return;
     const result = dispatch(contentful.endpoints.quotes.initiate());
 
     result.then(({ data: quotes, isSuccess }) => {

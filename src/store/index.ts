@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { contentful, github, koala } from './api';
+import { contentful, github, isContentfulValid, koala } from './api';
 import screen, {
   incrementBoardMessageIndex,
   incrementCurrentIndex,
@@ -30,14 +30,6 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
   const state = getState();
 
-  const contentfulValid =
-    import.meta.env.VITE_CONTENTFUL_SPACE_ID != undefined &&
-    import.meta.env.VITE_CONTENTFUL_SPACE_ID != '' &&
-    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT != undefined &&
-    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT != '' &&
-    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN != undefined &&
-    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN != '';
-
   switch (state.screen.current) {
     case StateMachineState.Activities:
       {
@@ -50,9 +42,9 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           dispatch(resetCurrentIndex());
 
           let state = StateMachineState.Advertisement;
-          if (!contentfulValid && displayInternal) {
+          if (!isContentfulValid() && displayInternal) {
             state = StateMachineState.Commits;
-          } else if (!contentfulValid && !displayInternal) {
+          } else if (!isContentfulValid() && !displayInternal) {
             state = StateMachineState.Activities;
           }
 
@@ -65,7 +57,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
     case StateMachineState.Advertisement:
       {
-        if (!contentfulValid) {
+        if (!isContentfulValid()) {
           dispatch(resetCurrentIndex());
           dispatch(
             setCurrent(
