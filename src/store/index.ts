@@ -41,11 +41,10 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   switch (state.screen.current) {
     case StateMachineState.Activities:
       {
-        const { data: activities, isSuccess } =
-          koala.endpoints.activities.select()(state);
+        const { data: activities } = koala.endpoints.activities.select()(state);
 
         if (
-          !isSuccess ||
+          activities == undefined ||
           state.screen.screenCurrentIndex >= activities.length - 1
         ) {
           dispatch(resetCurrentIndex());
