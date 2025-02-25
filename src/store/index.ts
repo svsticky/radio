@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { contentful, github, koala, weather } from './api';
+import { koala, contentful, github, weather, isContentfulValid } from './api';
 import screen, {
   incrementBoardMessageIndex,
   incrementCurrentIndex,
@@ -29,17 +29,26 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   const displayInternal = params.get('internal') === 'true';
 
   const state = getState();
+
   switch (state.screen.current) {
     case StateMachineState.Activities:
       {
-        const { data: activities, isSuccess } =
-          koala.endpoints.activities.select()(state);
+        const { data: activities } = koala.endpoints.activities.select()(state);
 
-        if (!isSuccess) throw new Error('');
-
-        if (state.screen.screenCurrentIndex >= activities.length - 1) {
+        if (
+          activities == undefined ||
+          state.screen.screenCurrentIndex >= activities.length - 1
+        ) {
           dispatch(resetCurrentIndex());
-          dispatch(setCurrent(StateMachineState.Advertisement));
+
+          let state = StateMachineState.Advertisement;
+          if (!isContentfulValid() && displayInternal) {
+            state = StateMachineState.Commits;
+          } else if (!isContentfulValid() && !displayInternal) {
+            state = StateMachineState.Activities;
+          }
+
+          dispatch(setCurrent(state));
         } else {
           dispatch(incrementCurrentIndex());
         }
@@ -48,23 +57,34 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
     case StateMachineState.Advertisement:
       {
+        if (!isContentfulValid()) {
+          dispatch(resetCurrentIndex());
+          dispatch(
+            setCurrent(
+              displayInternal
+                ? StateMachineState.BoardText
+                : StateMachineState.Activities,
+            ),
+          );
+        }
+
         const { data: ads, isSuccess } =
           contentful.endpoints.ads.select()(state);
 
-        if (isSuccess) {
-          if (state.screen.screenCurrentIndex >= ads.length - 1) {
-            dispatch(resetCurrentIndex());
+        if (!isSuccess) break;
 
-            dispatch(
-              setCurrent(
-                displayInternal
-                  ? StateMachineState.BoardText
-                  : StateMachineState.Activities,
-              ),
-            );
-          } else {
-            dispatch(incrementCurrentIndex());
-          }
+        if (state.screen.screenCurrentIndex >= ads.length - 1) {
+          dispatch(resetCurrentIndex());
+
+          dispatch(
+            setCurrent(
+              displayInternal
+                ? StateMachineState.BoardText
+                : StateMachineState.Activities,
+            ),
+          );
+        } else {
+          dispatch(incrementCurrentIndex());
         }
       }
       break;
