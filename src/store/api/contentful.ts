@@ -6,11 +6,16 @@ import {
 } from 'contentful';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-const client = createClient({
-  space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
-  accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
-  environment: import.meta.env.VITE_CONTENTFUL_ENVIRONMENT,
-});
+export function isContentfulValid() {
+  return (
+    import.meta.env.VITE_CONTENTFUL_SPACE_ID != undefined &&
+    import.meta.env.VITE_CONTENTFUL_SPACE_ID != '' &&
+    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT != undefined &&
+    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT != '' &&
+    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN != undefined &&
+    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN != ''
+  );
+}
 
 // Type aliases because the contentful types are quite verbose
 type ToEntity<T extends EntrySkeletonType> = Entry<
@@ -47,27 +52,39 @@ type Quote = ToEntity<{
 
 type ContentfulEntity = Ad | BoardMessage | Quote;
 
-/**
- * A base query function for contentful queries: each endpoint
- * specifies the content_type of the thing it requests and these
- * entries are searched via the contentful API.
- */
-async function contentfulBaseQuery(
-  content_type: ContentTypeIdOf<ContentfulEntity>,
-) {
-  try {
-    const res = await client.withoutUnresolvableLinks.getEntries({
-      content_type,
+function createBaseQuery() {
+  if (isContentfulValid()) {
+    const client = createClient({
+      space: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
+      accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
+      environment: import.meta.env.VITE_CONTENTFUL_ENVIRONMENT,
     });
-    return { data: res.items.map((entry) => entry.fields) };
-  } catch (error) {
-    return { error };
+
+    /**
+     * A base query function for contentful queries: each endpoint
+     * specifies the content_type of the thing it requests and these
+     * entries are searched via the contentful API.
+     */
+    return async function contentfulBaseQuery(
+      content_type: ContentTypeIdOf<ContentfulEntity>,
+    ) {
+      try {
+        const res = await client.withoutUnresolvableLinks.getEntries({
+          content_type,
+        });
+        return { data: res.items.map((entry) => entry.fields) };
+      } catch (error) {
+        return { error };
+      }
+    };
+  } else {
+    return async () => ({ data: [] });
   }
 }
 
 export const contentful = createApi({
   reducerPath: 'contentful',
-  baseQuery: contentfulBaseQuery,
+  baseQuery: createBaseQuery(),
   endpoints: (build) => ({
     ads: build.query<Ad['fields'][], void>({
       query: () => 'ads',
