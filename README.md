@@ -48,4 +48,8 @@ Please note that `npm run preview` does not recompile! It also fails if you have
 Running `npm run dev` starts a developer enviroment, which does not compile anything, and instead
 interprets your code in real time with hot-reloading; Vite will automatically reload your browser when you change any file.
 
+### Keybinds
+
+Press <kbd>ArrowRight</kbd> or <kbd>ArrowDown</kbd> to increment by one state.
+
 That's it. Happy hacking!
