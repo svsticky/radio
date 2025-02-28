@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import TransitionImage from './TransitionImage';
 
 type ContentWithPosterProps = {
   children: ReactNode;
@@ -12,7 +13,9 @@ export default function ContentWithPoster({
   return (
     <div className="content-with-poster">
       <div className="content-wrapper">{children}</div>
-      <img src={posterSrc} className="poster" />
+      <div className="poster">
+        <TransitionImage src={posterSrc} />
+      </div>
     </div>
   );
 }
