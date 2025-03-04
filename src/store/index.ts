@@ -40,7 +40,6 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           state.screen.screenCurrentIndex >= activities.length - 1
         ) {
           dispatch(resetCurrentIndex());
-
           let state = StateMachineState.Advertisement;
           if (!isContentfulValid() && displayInternal) {
             state = StateMachineState.Commits;
@@ -136,6 +135,10 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
       break;
 
     case StateMachineState.Commits:
+      dispatch(setCurrent(StateMachineState.CommitteeClash));
+      break;
+
+    case StateMachineState.CommitteeClash:
       dispatch(setCurrent(StateMachineState.Activities));
       break;
   }

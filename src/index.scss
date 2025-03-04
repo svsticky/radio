@@ -278,3 +278,22 @@ video.video-ad {
   height: 100vh;
   object-fit: cover;
 }
+
+/* ------------------ COMMITTEE CLASH ------------------- */
+
+.graph-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow-x: none;
+  overflow-y: none;
+}
+
+.graph-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
