@@ -283,16 +283,17 @@ video.video-ad {
 
 .graph-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 80vh; 
+  height: 100%;
+  overflow-x: none;
+  overflow-y: none;
 }
 
 .graph-frame {
-  width: 80vw; 
-  height: 60vh;
-  max-width: 800px;
-  max-height: 600px;
+  display: block;
+  width: 100%;
+  height: 100%;
   border: none;
 }
