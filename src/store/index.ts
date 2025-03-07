@@ -34,7 +34,6 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
     case StateMachineState.Activities:
       {
         const { data: activities } = koala.endpoints.activities.select()(state);
-
         if (
           activities == undefined ||
           state.screen.screenCurrentIndex >= activities.length - 1
