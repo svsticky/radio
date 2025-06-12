@@ -135,7 +135,13 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
       break;
 
     case StateMachineState.Commits:
-      dispatch(setCurrent(StateMachineState.CommitteeClash));
+      dispatch(
+        setCurrent(
+          import.meta.env.VITE_COMMITTEECLASH_GRAPH
+            ? StateMachineState.CommitteeClash
+            : StateMachineState.Activities,
+        ),
+      );
       break;
 
     case StateMachineState.CommitteeClash:
