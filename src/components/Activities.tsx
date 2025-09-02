@@ -7,9 +7,7 @@ import ContentWithPoster from './ContentWithPoster';
 export default function Activities({ current }: StateMachineSlideProps) {
   useTimer({ interval: true });
 
-  const { data: activities, isSuccess } = useActivitiesQuery(undefined, {
-    pollingInterval: Number(import.meta.env.VITE_LOAD_INTERVAL),
-  });
+  const { data: activities, isSuccess } = useActivitiesQuery(undefined);
 
   if (!isSuccess) return <></>;
   if (activities.length === 0) {
