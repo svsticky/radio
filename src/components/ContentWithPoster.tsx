@@ -13,9 +13,7 @@ export default function ContentWithPoster({
   return (
     <div className="content-with-poster">
       <div className="content-wrapper">{children}</div>
-      <div className="poster">
-        <TransitionImage src={posterSrc} />
-      </div>
+      <TransitionImage src={posterSrc} />
     </div>
   );
 }
