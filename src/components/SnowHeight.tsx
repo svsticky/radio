@@ -1,7 +1,7 @@
 import { useTimer } from '../StateMachine';
 
 export default function SnowHeight() {
-  useTimer();
+  useTimer({ duration: 15000 });
   return (
     <>
       <img src="/snow_mountain.jpeg" className="snowHeightBg" />
