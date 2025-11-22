@@ -100,6 +100,9 @@ export const github = createApi({
     allCommits: build.query<Commit[], void>({ queryFn: allCommits }),
     members: build.query<Member[], void>({ queryFn: allMembers }),
   }),
+  keepUnusedDataFor: 60 * 60, // big number
+  refetchOnReconnect: true,
+  refetchOnMountOrArgChange: Number(import.meta.env.VITE_LOAD_INTERVAL),
 });
 
 export const { useAllCommitsQuery, useMembersQuery } = github;
