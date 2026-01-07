@@ -12,6 +12,7 @@ import { useAppDispatch, nextState, useAppSelector } from './store';
 import { contentful } from './store/api';
 import { resetQuotes } from './store/quotes';
 import { StateMachineState, togglePaused } from './store/state';
+import GalaCountdown from './components/GalaCountdown';
 
 export interface StateMachineSlideProps {
   current: number;
@@ -91,6 +92,8 @@ export function StateMachine() {
       return <Commits />;
     case StateMachineState.SnowHeight:
       return <SnowHeight />;
+    case StateMachineState.GalaCountdown:
+      return <GalaCountdown />;
     case StateMachineState.CommitteeClash:
       return <CommitteeClash />;
     default:
