@@ -41,7 +41,7 @@ export default function GalaCountdown() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.title}>Lustrum Gala Ticket Countdown</div>
+      <div style={styles.title}>Lustrum Gala Ticket Deadline</div>
       {QR_URL && (
         <div style={styles.qrContainer}>
           <QRCodeSVG
