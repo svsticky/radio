@@ -27,6 +27,7 @@ function getTimeLeft(target: Date): TimeLeft {
 }
 
 export default function GalaCountdown() {
+  if (!TARGET_DATE) throw new Error('VITE_GALA_COUNTDOWN_DATE is not defined');
   const targetDate = new Date(TARGET_DATE);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(targetDate));
 
