@@ -40,7 +40,17 @@ export default function GalaCountdown() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Lustrum Gala Ticket Countdown</h1>
+      <div style={styles.title}>Lustrum Gala Ticket Countdown</div>
+      {QR_URL && (
+        <div style={styles.qrContainer}>
+          <QRCodeSVG
+            value={QR_URL}
+            size={375}
+            bgColor="#020036"
+            fgColor="#ffffff"
+          />
+        </div>
+      )}
 
       <div style={styles.timer}>
         <TimeBlock label="Days" value={timeLeft.days} />
@@ -48,17 +58,6 @@ export default function GalaCountdown() {
         <TimeBlock label="Minutes" value={timeLeft.minutes} />
         <TimeBlock label="Seconds" value={timeLeft.seconds} />
       </div>
-
-      {QR_URL && (
-        <div style={styles.qrContainer}>
-          <QRCodeSVG
-            value={QR_URL}
-            size={500}
-            bgColor="#020036"
-            fgColor="#ffffff"
-          />
-        </div>
-      )}
     </div>
   );
 }
@@ -80,14 +79,19 @@ const styles: Record<string, React.CSSProperties> = {
     color: 'white',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: '2rem 0',
     fontFamily: 'system-ui, sans-serif',
+    padding: '0',
+    gap: '2rem',
   },
   title: {
-    fontSize: 'clamp(5rem, 8vw, 8rem)',
+    fontSize: 'clamp(3rem, 6vw, 6rem)',
     textAlign: 'center',
+    background: '#020036',
+    borderRadius: '2rem',
+    padding: '1rem 2rem',
+    margin: '0',
   },
   timer: {
     background: '#020036',
@@ -100,7 +104,7 @@ const styles: Record<string, React.CSSProperties> = {
     textAlign: 'center',
   },
   value: {
-    fontSize: 'clamp(7rem, 11vw, 11rem)',
+    fontSize: 'clamp(5rem, 9vw, 9rem)',
     fontWeight: 700,
   },
   label: {
@@ -114,7 +118,5 @@ const styles: Record<string, React.CSSProperties> = {
     justifyContent: 'center',
     borderRadius: '2rem',
     background: '#020036',
-    marginTop: '2rem',
-    marginBottom: '5rem',
   },
 };

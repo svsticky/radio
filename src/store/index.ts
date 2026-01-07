@@ -33,6 +33,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   switch (state.screen.current) {
     case StateMachineState.Activities:
       {
+        dispatch(setCurrent(StateMachineState.GalaCountdown));
         const { data: activities } = koala.endpoints.activities.select()(state);
 
         if (
