@@ -106,7 +106,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           setCurrent(
             import.meta.env.VITE_SNOW_HEIGHT_URL
               ? StateMachineState.SnowHeight
-              : import.meta.env.VITE_GALA_COUNTDOWN_DATE
+              : import.meta.env.VITE_GALA_DATE
                 ? StateMachineState.GalaCountdown
                 : StateMachineState.Quotes,
           ),
@@ -117,7 +117,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
     case StateMachineState.SnowHeight:
       dispatch(
         setCurrent(
-          import.meta.env.VITE_GALA_COUNTDOWN_DATE
+          import.meta.env.VITE_GALA_DATE
             ? StateMachineState.GalaCountdown
             : StateMachineState.Quotes,
         ),

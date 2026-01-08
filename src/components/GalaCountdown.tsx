@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
-const TARGET_DATE = import.meta.env.VITE_GALA_COUNTDOWN_DATE;
+const TARGET_DATE = import.meta.env.VITE_GALA_DATE;
 const QR_URL = import.meta.env.VITE_GALA_QR_URL;
 
-if (!TARGET_DATE) console.warn('VITE_GALA_COUNTDOWN_DATE is not defined');
+if (!TARGET_DATE) console.warn('VITE_GALA_DATE is not defined');
 if (!QR_URL) console.warn('VITE_GALA_QR_URL is not defined');
 
 type TimeLeft = {
@@ -27,7 +27,7 @@ function getTimeLeft(target: Date): TimeLeft {
 }
 
 export default function GalaCountdown() {
-  if (!TARGET_DATE) throw new Error('VITE_GALA_COUNTDOWN_DATE is not defined');
+  if (!TARGET_DATE) throw new Error('VITE_GALA_DATE is not defined');
   const targetDate = new Date(TARGET_DATE);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(targetDate));
 
