@@ -8,6 +8,7 @@ export enum StateMachineState {
   Quotes,
   Commits,
   SnowHeight,
+  GalaCountdown,
 }
 
 export type StateMachine = {

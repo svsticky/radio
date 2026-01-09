@@ -105,13 +105,25 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           setCurrent(
             import.meta.env.VITE_SNOW_HEIGHT_URL
               ? StateMachineState.SnowHeight
-              : StateMachineState.Quotes,
+              : import.meta.env.VITE_GALA_DATE
+                ? StateMachineState.GalaCountdown
+                : StateMachineState.Quotes,
           ),
         );
       }
       break;
 
     case StateMachineState.SnowHeight:
+      dispatch(
+        setCurrent(
+          import.meta.env.VITE_GALA_DATE
+            ? StateMachineState.GalaCountdown
+            : StateMachineState.Quotes,
+        ),
+      );
+      break;
+
+    case StateMachineState.GalaCountdown:
       dispatch(setCurrent(StateMachineState.Quotes));
       break;
 

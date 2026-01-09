@@ -17,6 +17,7 @@
     "contentful": "^10.6.1",
     "moment": "^2.29.4",
     "octokit": "^4.1.1",
+    "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.2"

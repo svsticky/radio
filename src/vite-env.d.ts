@@ -18,6 +18,9 @@ interface ImportMetaEnv {
 
   readonly VITE_SNOW_HEIGHT_URL?: string;
 
+  readonly VITE_GALA_DATE?: string;
+  readonly VITE_GALA_QR_URL?: string;
+
   readonly VITE_WEATHER_API_TOKEN: string;
 }
 
