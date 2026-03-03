@@ -7,9 +7,11 @@ import store from './store/index.js';
 
 import './index.scss';
 import './snow.scss';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
 const root = document.getElementById('root');
 if (root) {
+  setupListeners(store.dispatch);
   createRoot(root).render(
     <Provider store={store}>
       <React.StrictMode>
