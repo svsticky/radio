@@ -8,6 +8,7 @@ import screen, {
   resetCurrentIndex,
   setCurrent,
   StateMachineState,
+  stateConfig,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
 import quotes, { nextQuote, resetQuotes } from './quotes';
@@ -40,50 +41,29 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
           state.screen.screenCurrentIndex >= activities.length - 1
         ) {
           dispatch(resetCurrentIndex());
-          let state = StateMachineState.Advertisement;
-          if (!isContentfulValid() && displayInternal) {
-            state = StateMachineState.Commits;
-          } else if (!isContentfulValid() && !displayInternal) {
-            state = StateMachineState.Activities;
-          }
-
-          dispatch(setCurrent(state));
+          break;
         } else {
           dispatch(incrementCurrentIndex());
+          return;
         }
       }
-      break;
 
     case StateMachineState.Advertisement:
       {
         if (!isContentfulValid()) {
           dispatch(resetCurrentIndex());
-          dispatch(
-            setCurrent(
-              displayInternal
-                ? StateMachineState.BoardText
-                : StateMachineState.Activities,
-            ),
-          );
-        }
-
-        const { data: ads, isSuccess } =
-          contentful.endpoints.ads.select()(state);
-
-        if (!isSuccess) break;
-
-        if (state.screen.screenCurrentIndex >= ads.length - 1) {
-          dispatch(resetCurrentIndex());
-
-          dispatch(
-            setCurrent(
-              displayInternal
-                ? StateMachineState.BoardText
-                : StateMachineState.Activities,
-            ),
-          );
         } else {
-          dispatch(incrementCurrentIndex());
+          const { data: ads, isSuccess } =
+            contentful.endpoints.ads.select()(state);
+          if (!isSuccess) break;
+
+          if (state.screen.screenCurrentIndex >= ads.length - 1) {
+            dispatch(resetCurrentIndex());
+            break;
+          } else {
+            dispatch(incrementCurrentIndex());
+            return;
+          }
         }
       }
       break;
@@ -96,23 +76,16 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
         if (isSuccess) {
           if (state.screen.boardMessageIndex >= messages.length - 1) {
             dispatch(resetBoardMessageIndex());
+            break;
           } else {
             dispatch(incrementBoardMessageIndex());
+            return;
           }
         }
-
-        dispatch(
-          setCurrent(
-            import.meta.env.VITE_SNOW_HEIGHT_URL
-              ? StateMachineState.SnowHeight
-              : StateMachineState.Quotes,
-          ),
-        );
       }
       break;
 
     case StateMachineState.SnowHeight:
-      dispatch(setCurrent(StateMachineState.Quotes));
       break;
 
     case StateMachineState.Quotes:
@@ -124,29 +97,33 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
       } else {
         dispatch(nextQuote());
       }
-
-      dispatch(
-        setCurrent(
-          import.meta.env.VITE_GITHUB_REPOS
-            ? StateMachineState.Commits
-            : StateMachineState.Activities,
-        ),
-      );
       break;
 
     case StateMachineState.Commits:
-      dispatch(
-        setCurrent(
-          import.meta.env.VITE_COMMITTEECLASH_GRAPH
-            ? StateMachineState.CommitteeClash
-            : StateMachineState.Activities,
-        ),
-      );
       break;
 
     case StateMachineState.CommitteeClash:
-      dispatch(setCurrent(StateMachineState.Activities));
       break;
+  }
+
+  // Get all numeric enum values in declaration order.
+  const allStates = Object.keys(StateMachineState)
+    .filter(k => !isNaN(Number(k)))
+    .map(k => Number(k) as StateMachineState);
+
+  const currentIndex = allStates.indexOf(state.screen.current);
+
+  // Walk forward (wrapping around) until we find a state that is allowed.
+  for (let i = 1; i <= allStates.length; i++) {
+    const candidate = allStates[(currentIndex + i) % allStates.length];
+    const config = stateConfig[candidate as StateMachineState];
+
+    if (!config.enabled) continue;               // skip disabled states
+    if (config.internal && !displayInternal) continue; // skip internal states on public displays
+    if (!isContentfulValid() && config.needsContentful) continue; // skip states requiring contentful
+
+    dispatch(setCurrent(candidate));
+    return;
   }
 };
 
