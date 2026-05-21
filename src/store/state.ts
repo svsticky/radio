@@ -12,8 +12,8 @@ export enum StateMachineState {
 }
 
 export type StateConfig = {
-  internal?: boolean;  // only shown when displayInternal=true
-  enabled?: boolean;  // always skipped
+  internal?: boolean; // only shown when displayInternal=true
+  enabled?: boolean; // always skipped
   needsContentful?: boolean;
 };
 
@@ -24,13 +24,48 @@ export type StateConfig = {
  */
 const enabled = (key: string) => import.meta.env[key] !== 'false';
 export const stateConfig = [
-  {state: StateMachineState.Activities,     enabled: enabled('VITE_SHOW_ACTIVITIES_PAGE') },
-  {state: StateMachineState.Advertisement,  enabled: enabled('VITE_SHOW_ADVERTISEMENT_PAGE'), needsContentful: true },
-  {state: StateMachineState.BoardText,      enabled: enabled('VITE_SHOW_BOARDTEXT_PAGE'), internal: true, needsContentful: true },
-  {state: StateMachineState.Commits,        enabled: enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_REPOS, internal: true },
-  {state: StateMachineState.CommitteeClash, enabled: enabled('VITE_SHOW_COMMITTEECLASH_PAGE') && !!import.meta.env.VITE_COMMITTEECLASH_GRAPH },
-  {state: StateMachineState.Quotes,         enabled: enabled('VITE_SHOW_QUOTES_PAGE'), needsContentful: true },
-  {state: StateMachineState.SnowHeight,     enabled: enabled('VITE_SHOW_SNOWHEIGHT_PAGE') && !!import.meta.env.VITE_SNOW_HEIGHT_URL, needsContentful: true },
+  {
+    state: StateMachineState.Activities,
+    enabled: enabled('VITE_SHOW_ACTIVITIES_PAGE'),
+  },
+  {
+    state: StateMachineState.Advertisement,
+    enabled: enabled('VITE_SHOW_ADVERTISEMENT_PAGE'),
+    needsContentful: true,
+  },
+  {
+    state: StateMachineState.BoardText,
+    enabled: enabled('VITE_SHOW_BOARDTEXT_PAGE'),
+    internal: true,
+    needsContentful: true,
+  },
+  {
+    state: StateMachineState.Commits,
+    enabled:
+      enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_REPOS,
+    internal: true,
+  },
+  {
+    state: StateMachineState.CommitteeClash,
+    enabled:
+      enabled('VITE_SHOW_COMMITTEECLASH_PAGE') &&
+      !!import.meta.env.VITE_COMMITTEECLASH_GRAPH,
+    internal: true,
+  },
+  {
+    state: StateMachineState.Quotes,
+    enabled: enabled('VITE_SHOW_QUOTES_PAGE'),
+    internal: true,
+    needsContentful: true,
+  },
+  {
+    state: StateMachineState.SnowHeight,
+    enabled:
+      enabled('VITE_SHOW_SNOWHEIGHT_PAGE') &&
+      !!import.meta.env.VITE_SNOW_HEIGHT_URL,
+    internal: true,
+    needsContentful: true,
+  },
 ];
 
 export type StateMachine = {
