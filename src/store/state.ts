@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getFirstState } from '.';
 
 export enum StateMachineState {
   Activities,
@@ -22,15 +23,15 @@ export type StateConfig = {
  * Set enabled:false to skip a state entirely.
  */
 const enabled = (key: string) => import.meta.env[key] !== 'false';
-export const stateConfig: Record<StateMachineState, StateConfig> = {
-  [StateMachineState.Activities]:     { enabled: enabled('VITE_SHOW_ACTIVITIES_PAGE') },
-  [StateMachineState.Advertisement]:  { enabled: enabled('VITE_SHOW_ADVERTISEMENT_PAGE'), needsContentful: true },
-  [StateMachineState.BoardText]:      { enabled: enabled('VITE_SHOW_BOARDTEXT_PAGE'), internal: true, needsContentful: true },
-  [StateMachineState.Commits]:        { enabled: enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_REPOS, internal: true },
-  [StateMachineState.CommitteeClash]: { enabled: enabled('VITE_SHOW_COMMITTEECLASH_PAGE') && !!import.meta.env.VITE_COMMITTEECLASH_GRAPH },
-  [StateMachineState.Quotes]:         { enabled: enabled('VITE_SHOW_QUOTES_PAGE'), needsContentful: true },
-  [StateMachineState.SnowHeight]:     { enabled: enabled('VITE_SHOW_SNOWHEIGHT_PAGE') && !!import.meta.env.VITE_SNOW_HEIGHT_URL, needsContentful: true },
-};
+export const stateConfig = [
+  {state: StateMachineState.Activities,     enabled: enabled('VITE_SHOW_ACTIVITIES_PAGE') },
+  {state: StateMachineState.Advertisement,  enabled: enabled('VITE_SHOW_ADVERTISEMENT_PAGE'), needsContentful: true },
+  {state: StateMachineState.BoardText,      enabled: enabled('VITE_SHOW_BOARDTEXT_PAGE'), internal: true, needsContentful: true },
+  {state: StateMachineState.Commits,        enabled: enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_REPOS, internal: true },
+  {state: StateMachineState.CommitteeClash, enabled: enabled('VITE_SHOW_COMMITTEECLASH_PAGE') && !!import.meta.env.VITE_COMMITTEECLASH_GRAPH },
+  {state: StateMachineState.Quotes,         enabled: enabled('VITE_SHOW_QUOTES_PAGE'), needsContentful: true },
+  {state: StateMachineState.SnowHeight,     enabled: enabled('VITE_SHOW_SNOWHEIGHT_PAGE') && !!import.meta.env.VITE_SNOW_HEIGHT_URL, needsContentful: true },
+];
 
 export type StateMachine = {
   screenCurrentIndex: number;
@@ -45,7 +46,7 @@ const screen = createSlice({
     screenCurrentIndex: 0,
     boardMessageIndex: 0,
     paused: false,
-    current: StateMachineState.Activities,
+    current: getFirstState((new URLSearchParams(window.location.search)).get('internal') === 'true'),
   } as StateMachine,
   reducers: {
     incrementCurrentIndex(state) {

@@ -106,25 +106,39 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
       break;
   }
 
-  // Get all numeric enum values in declaration order.
+  const newState = getNewState(state, displayInternal);
+  dispatch(setCurrent(newState));
+};
+
+export function getNewState(state: RootState, displayInternal: boolean): StateMachineState {
   const allStates = Object.keys(StateMachineState)
     .filter(k => !isNaN(Number(k)))
     .map(k => Number(k) as StateMachineState);
 
   const currentIndex = allStates.indexOf(state.screen.current);
 
-  // Walk forward (wrapping around) until we find a state that is allowed.
   for (let i = 1; i <= allStates.length; i++) {
     const candidate = allStates[(currentIndex + i) % allStates.length];
-    const config = stateConfig[candidate as StateMachineState];
+    const config = stateConfig[candidate];
 
-    if (!config.enabled) continue;               // skip disabled states
-    if (config.internal && !displayInternal) continue; // skip internal states on public displays
-    if (!isContentfulValid() && config.needsContentful) continue; // skip states requiring contentful
+    if (!config.enabled) continue;
+    if (config.internal && !displayInternal) continue;
+    if (!isContentfulValid() && config.needsContentful) continue;
 
-    dispatch(setCurrent(candidate));
-    return;
+    return candidate;
   }
+
+  return state.screen.current; // fallback
+}
+
+export function getFirstState(displayInternal: boolean): StateMachineState {
+  for (const { state, ...config } of stateConfig) {
+    if (!config.enabled) continue;
+    if (config.internal && !displayInternal) continue;
+    if (!isContentfulValid() && config.needsContentful) continue;
+    return state;
+  }
+  return StateMachineState.Activities; // fallback
 };
 
 /**
