@@ -3,15 +3,16 @@ import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 import { koala, contentful, github, weather, isContentfulValid } from './api';
 import screen, {
   incrementBoardMessageIndex,
+  incrementQuoteIndex,
   incrementCurrentIndex,
   resetBoardMessageIndex,
+  resetQuoteIndex,
   resetCurrentIndex,
   setCurrent,
   StateMachineState,
   stateConfig,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
-import quotes, { nextQuote, resetQuotes } from './quotes';
 
 /**
  * nextState is the transition function for the state machine. It
@@ -89,15 +90,20 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
       break;
 
     case StateMachineState.Quotes:
-      if (!state.quotes.availableQuotes.length) {
+      {
         const { data: quotes, isSuccess } =
           contentful.endpoints.quotes.select()(state);
 
-        if (isSuccess) dispatch(resetQuotes(quotes.length));
-      } else {
-        dispatch(nextQuote());
+        if (isSuccess) {
+          if (state.screen.quoteIndex >= quotes.length - 1) {
+            dispatch(resetQuoteIndex());
+            break;
+          } else {
+            dispatch(incrementQuoteIndex());
+            return;
+          }
+        }
       }
-      break;
 
     case StateMachineState.Commits:
       break;
@@ -152,7 +158,6 @@ const store = configureStore({
     [github.reducerPath]: github.reducer,
     [weather.reducerPath]: weather.reducer,
     screen,
-    quotes,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()

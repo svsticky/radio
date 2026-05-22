@@ -71,6 +71,7 @@ export const stateConfig = [
 export type StateMachine = {
   screenCurrentIndex: number;
   boardMessageIndex: number;
+  quoteIndex: number;
   paused: boolean;
   current: StateMachineState;
 };
@@ -80,6 +81,7 @@ const screen = createSlice({
   initialState: {
     screenCurrentIndex: 0,
     boardMessageIndex: 0,
+    quoteIndex: 0,
     paused: false,
     current: getFirstState((new URLSearchParams(window.location.search)).get('internal') === 'true'),
   } as StateMachine,
@@ -98,6 +100,13 @@ const screen = createSlice({
       state.boardMessageIndex = 0;
     },
 
+    incrementQuoteIndex(state) {
+      state.quoteIndex++;
+    },
+    resetQuoteIndex(state) {
+      state.quoteIndex = 0;
+    },
+
     setCurrent(state, action: PayloadAction<StateMachineState>) {
       state.current = action.payload;
     },
@@ -113,6 +122,8 @@ export const {
   resetCurrentIndex,
   incrementBoardMessageIndex,
   resetBoardMessageIndex,
+  incrementQuoteIndex,
+  resetQuoteIndex,
   setCurrent,
   togglePaused,
 } = screen.actions;
