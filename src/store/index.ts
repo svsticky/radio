@@ -33,21 +33,20 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   const state = getState();
 
   switch (state.screen.current) {
-    case StateMachineState.Activities:
-      {
-        const { data: activities } = koala.endpoints.activities.select()(state);
+    case StateMachineState.Activities: {
+      const { data: activities } = koala.endpoints.activities.select()(state);
 
-        if (
-          activities == undefined ||
-          state.screen.screenCurrentIndex >= activities.length - 1
-        ) {
-          dispatch(resetCurrentIndex());
-          break;
-        } else {
-          dispatch(incrementCurrentIndex());
-          return;
-        }
+      if (
+        activities == undefined ||
+        state.screen.screenCurrentIndex >= activities.length - 1
+      ) {
+        dispatch(resetCurrentIndex());
+        break;
+      } else {
+        dispatch(incrementCurrentIndex());
+        return;
       }
+    }
 
     case StateMachineState.Advertisement:
       {
@@ -77,10 +76,8 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
         if (isSuccess) {
           if (state.screen.boardMessageIndex >= messages.length - 1) {
             dispatch(resetBoardMessageIndex());
-            break;
           } else {
             dispatch(incrementBoardMessageIndex());
-            return;
           }
         }
       }
@@ -97,13 +94,12 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
         if (isSuccess) {
           if (state.screen.quoteIndex >= quotes.length - 1) {
             dispatch(resetQuoteIndex());
-            break;
           } else {
             dispatch(incrementQuoteIndex());
-            return;
           }
         }
       }
+      break;
 
     case StateMachineState.Commits:
       break;
@@ -116,22 +112,24 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   dispatch(setCurrent(newState));
 };
 
-export function getNewState(state: RootState, displayInternal: boolean): StateMachineState {
-  const allStates = Object.keys(StateMachineState)
-    .filter(k => !isNaN(Number(k)))
-    .map(k => Number(k) as StateMachineState);
+export function getNewState(
+  state: RootState,
+  displayInternal: boolean,
+): StateMachineState {
+  const currentIndex = stateConfig.findIndex(
+    (it) => it.state == state.screen.current,
+  );
 
-  const currentIndex = allStates.indexOf(state.screen.current);
+  for (let i = 1; i <= stateConfig.length; i++) {
+    const index = (currentIndex + i) % stateConfig.length;
 
-  for (let i = 1; i <= allStates.length; i++) {
-    const candidate = allStates[(currentIndex + i) % allStates.length];
-    const config = stateConfig[candidate];
+    const config = stateConfig[index];
 
     if (!config.enabled) continue;
     if (config.internal && !displayInternal) continue;
     if (!isContentfulValid() && config.needsContentful) continue;
 
-    return candidate;
+    return config.state;
   }
 
   return state.screen.current; // fallback
@@ -145,7 +143,7 @@ export function getFirstState(displayInternal: boolean): StateMachineState {
     return state;
   }
   return StateMachineState.Activities; // fallback
-};
+}
 
 /**
  * The store consists of 5 slices: one for every api source we use

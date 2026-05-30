@@ -40,6 +40,19 @@ export const stateConfig = [
     needsContentful: true,
   },
   {
+    state: StateMachineState.SnowHeight,
+    enabled:
+      enabled('VITE_SHOW_SNOWHEIGHT_PAGE') &&
+      !!import.meta.env.VITE_SNOW_HEIGHT_URL,
+    internal: true,
+  },
+  {
+    state: StateMachineState.Quotes,
+    enabled: enabled('VITE_SHOW_QUOTES_PAGE'),
+    internal: true,
+    needsContentful: true,
+  },
+  {
     state: StateMachineState.Commits,
     enabled:
       enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_REPOS,
@@ -51,20 +64,6 @@ export const stateConfig = [
       enabled('VITE_SHOW_COMMITTEECLASH_PAGE') &&
       !!import.meta.env.VITE_COMMITTEECLASH_GRAPH,
     internal: true,
-  },
-  {
-    state: StateMachineState.Quotes,
-    enabled: enabled('VITE_SHOW_QUOTES_PAGE'),
-    internal: true,
-    needsContentful: true,
-  },
-  {
-    state: StateMachineState.SnowHeight,
-    enabled:
-      enabled('VITE_SHOW_SNOWHEIGHT_PAGE') &&
-      !!import.meta.env.VITE_SNOW_HEIGHT_URL,
-    internal: true,
-    needsContentful: true,
   },
 ];
 
@@ -83,7 +82,9 @@ const screen = createSlice({
     boardMessageIndex: 0,
     quoteIndex: 0,
     paused: false,
-    current: getFirstState((new URLSearchParams(window.location.search)).get('internal') === 'true'),
+    current: getFirstState(
+      new URLSearchParams(window.location.search).get('internal') === 'true',
+    ),
   } as StateMachine,
   reducers: {
     incrementCurrentIndex(state) {

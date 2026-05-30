@@ -9,7 +9,6 @@ import {
   CommitteeClash,
 } from './components';
 import { useAppDispatch, nextState, useAppSelector } from './store';
-import { contentful } from './store/api';
 import { StateMachineState, togglePaused } from './store/state';
 
 export interface StateMachineSlideProps {
