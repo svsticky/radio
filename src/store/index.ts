@@ -3,14 +3,16 @@ import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 import { koala, contentful, github, weather, isContentfulValid } from './api';
 import screen, {
   incrementBoardMessageIndex,
+  incrementQuoteIndex,
   incrementCurrentIndex,
   resetBoardMessageIndex,
+  resetQuoteIndex,
   resetCurrentIndex,
   setCurrent,
   StateMachineState,
+  stateConfig,
 } from './state';
 import { useDispatch, useSelector } from 'react-redux';
-import quotes, { nextQuote, resetQuotes } from './quotes';
 
 /**
  * nextState is the transition function for the state machine. It
@@ -31,59 +33,37 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
   const state = getState();
 
   switch (state.screen.current) {
-    case StateMachineState.Activities:
-      {
-        const { data: activities } = koala.endpoints.activities.select()(state);
+    case StateMachineState.Activities: {
+      const { data: activities } = koala.endpoints.activities.select()(state);
 
-        if (
-          activities == undefined ||
-          state.screen.screenCurrentIndex >= activities.length - 1
-        ) {
-          dispatch(resetCurrentIndex());
-          let state = StateMachineState.Advertisement;
-          if (!isContentfulValid() && displayInternal) {
-            state = StateMachineState.Commits;
-          } else if (!isContentfulValid() && !displayInternal) {
-            state = StateMachineState.Activities;
-          }
-
-          dispatch(setCurrent(state));
-        } else {
-          dispatch(incrementCurrentIndex());
-        }
+      if (
+        activities == undefined ||
+        state.screen.screenCurrentIndex >= activities.length - 1
+      ) {
+        dispatch(resetCurrentIndex());
+        break;
+      } else {
+        dispatch(incrementCurrentIndex());
+        return;
       }
-      break;
+    }
 
     case StateMachineState.Advertisement:
       {
         if (!isContentfulValid()) {
           dispatch(resetCurrentIndex());
-          dispatch(
-            setCurrent(
-              displayInternal
-                ? StateMachineState.BoardText
-                : StateMachineState.Activities,
-            ),
-          );
-        }
-
-        const { data: ads, isSuccess } =
-          contentful.endpoints.ads.select()(state);
-
-        if (!isSuccess) break;
-
-        if (state.screen.screenCurrentIndex >= ads.length - 1) {
-          dispatch(resetCurrentIndex());
-
-          dispatch(
-            setCurrent(
-              displayInternal
-                ? StateMachineState.BoardText
-                : StateMachineState.Activities,
-            ),
-          );
         } else {
-          dispatch(incrementCurrentIndex());
+          const { data: ads, isSuccess } =
+            contentful.endpoints.ads.select()(state);
+          if (!isSuccess) break;
+
+          if (state.screen.screenCurrentIndex >= ads.length - 1) {
+            dispatch(resetCurrentIndex());
+            break;
+          } else {
+            dispatch(incrementCurrentIndex());
+            return;
+          }
         }
       }
       break;
@@ -100,55 +80,70 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
             dispatch(incrementBoardMessageIndex());
           }
         }
-
-        dispatch(
-          setCurrent(
-            import.meta.env.VITE_SNOW_HEIGHT_URL
-              ? StateMachineState.SnowHeight
-              : StateMachineState.Quotes,
-          ),
-        );
       }
       break;
 
     case StateMachineState.SnowHeight:
-      dispatch(setCurrent(StateMachineState.Quotes));
       break;
 
     case StateMachineState.Quotes:
-      if (!state.quotes.availableQuotes.length) {
+      {
         const { data: quotes, isSuccess } =
           contentful.endpoints.quotes.select()(state);
 
-        if (isSuccess) dispatch(resetQuotes(quotes.length));
-      } else {
-        dispatch(nextQuote());
+        if (isSuccess) {
+          if (state.screen.quoteIndex >= quotes.length - 1) {
+            dispatch(resetQuoteIndex());
+          } else {
+            dispatch(incrementQuoteIndex());
+          }
+        }
       }
-
-      dispatch(
-        setCurrent(
-          import.meta.env.VITE_GITHUB_REPOS
-            ? StateMachineState.Commits
-            : StateMachineState.Activities,
-        ),
-      );
       break;
 
     case StateMachineState.Commits:
-      dispatch(
-        setCurrent(
-          import.meta.env.VITE_COMMITTEECLASH_GRAPH
-            ? StateMachineState.CommitteeClash
-            : StateMachineState.Activities,
-        ),
-      );
       break;
 
     case StateMachineState.CommitteeClash:
-      dispatch(setCurrent(StateMachineState.Activities));
       break;
   }
+
+  const newState = getNewState(state, displayInternal);
+  dispatch(setCurrent(newState));
 };
+
+export function getNewState(
+  state: RootState,
+  displayInternal: boolean,
+): StateMachineState {
+  const currentIndex = stateConfig.findIndex(
+    (it) => it.state == state.screen.current,
+  );
+
+  for (let i = 1; i <= stateConfig.length; i++) {
+    const index = (currentIndex + i) % stateConfig.length;
+
+    const config = stateConfig[index];
+
+    if (!config.enabled) continue;
+    if (config.internal && !displayInternal) continue;
+    if (!isContentfulValid() && config.needsContentful) continue;
+
+    return config.state;
+  }
+
+  return state.screen.current; // fallback
+}
+
+export function getFirstState(displayInternal: boolean): StateMachineState {
+  for (const { state, ...config } of stateConfig) {
+    if (!config.enabled) continue;
+    if (config.internal && !displayInternal) continue;
+    if (!isContentfulValid() && config.needsContentful) continue;
+    return state;
+  }
+  return StateMachineState.Activities; // fallback
+}
 
 /**
  * The store consists of 5 slices: one for every api source we use
@@ -161,7 +156,6 @@ const store = configureStore({
     [github.reducerPath]: github.reducer,
     [weather.reducerPath]: weather.reducer,
     screen,
-    quotes,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()
