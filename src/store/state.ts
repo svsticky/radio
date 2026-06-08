@@ -22,7 +22,8 @@ export type StateConfig = {
  * Set internal:true to hide a state from public displays.
  * Set enabled:false to skip a state entirely.
  */
-const enabled = (key: string) => import.meta.env[key] !== 'false';
+const FLAGS = { ...import.meta.env };
+const enabled = (key: string) => FLAGS[key] !== 'false';
 export const stateConfig = [
   {
     state: StateMachineState.Activities,
