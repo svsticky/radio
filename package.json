@@ -23,6 +23,7 @@
     "react-redux": "^9.1.2"
   },
   "devDependencies": {
+    "@esbuild/linux-x64": "^0.28.1",
     "@eslint/js": "^9.9.1",
     "@types/eslint__js": "^8.42.3",
     "@types/react": "^18.2.15",
