@@ -6,7 +6,6 @@ interface ImportMetaEnv {
   readonly VITE_CONTENTFUL_ENVIRONMENT: string;
 
   readonly VITE_LOGO: string;
-  readonly VITE_KOALA_API_BASE: string;
   readonly VITE_TAVERN_API_BASE?: string;
 
   readonly VITE_LOAD_INTERVAL: string;
