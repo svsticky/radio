@@ -93,6 +93,8 @@ export const contentful = createApi({
       query: () => 'board-message',
     }),
     quotes: build.query<Quote['fields'][], void>({
+      // @ts-ignore
+      transformResponse: (response) => response.toSorted((_a, _b) => Math.random() - 0.5), 
       query: () => 'quotes',
     }),
   }),

@@ -9,10 +9,7 @@ import {
   CommitteeClash,
 } from './components';
 import { useAppDispatch, nextState, useAppSelector } from './store';
-import { contentful } from './store/api';
-import { resetQuotes } from './store/quotes';
 import { StateMachineState, togglePaused } from './store/state';
-import GalaCountdown from './components/GalaCountdown';
 
 export interface StateMachineSlideProps {
   current: number;
@@ -65,19 +62,10 @@ export function StateMachine() {
         dispatch(togglePaused());
       }
     };
-
-    const result = dispatch(contentful.endpoints.quotes.initiate());
-
-    result.then(({ data: quotes, isSuccess }) => {
-      if (isSuccess) dispatch(resetQuotes(quotes.length));
-    });
-
-    return result.unsubscribe;
   }, [dispatch]);
 
   // Display the correct component based on state machine's state
   const state = useAppSelector((state) => state.screen);
-  const quotes = useAppSelector((state) => state.quotes);
 
   switch (state.current) {
     case StateMachineState.Activities:
@@ -87,13 +75,11 @@ export function StateMachine() {
     case StateMachineState.BoardText:
       return <BoardText current={state.boardMessageIndex} />;
     case StateMachineState.Quotes:
-      return <Quotes current={quotes.quoteIndex} />;
+      return <Quotes current={state.quoteIndex} />;
     case StateMachineState.Commits:
       return <Commits />;
     case StateMachineState.SnowHeight:
       return <SnowHeight />;
-    case StateMachineState.GalaCountdown:
-      return <GalaCountdown />;
     case StateMachineState.CommitteeClash:
       return <CommitteeClash />;
     default:
