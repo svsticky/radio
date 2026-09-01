@@ -3,7 +3,7 @@
 Random Afkorting voor Digitale Informatie Overdracht.
 
 This is a [Vite](https://vite.dev/) + [React](https://react.dev/) project that is used to display information on the TV
-screen in the Sticky room. This information is read in from Koala (for activities), GitHub (for recent commits)
+screen in the Sticky room. This information is read in from Tavern (for activities), GitHub (for recent commits)
 and Contentful (for advertisements, board messages, etc.), and displays things like upcoming activities and peculiar quotes.
 
 ## Installation
