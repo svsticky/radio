@@ -42,15 +42,37 @@ async function listCommits(owner: string, repo: string): Promise<Commit[]> {
 }
 
 /**
- * Get all commits from all the configered repos in the environment
+ * Fetch all repos for the configured user/organisation.
+ * Tries the org endpoint first, falling back to the user endpoint. Should never use this, since svticky is an organisation.
+ */
+async function listRepos() {
+  const account = import.meta.env.VITE_GITHUB_USER;
+  const toRepoList = (data: { owner: { login: string }; name: string }[]) =>
+    data.map((r) => ({ owner: r.owner.login, repo: r.name }));
+
+  try {
+    const { data } = await octokit.rest.repos.listForOrg({
+      org: account,
+      per_page: 100,
+    });
+    return toRepoList(data);
+  } catch {
+    const { data } = await octokit.rest.repos.listForUser({
+      username: account,
+      per_page: 100,
+    });
+    return toRepoList(data);
+  }
+}
+
+/**
+ * Get all commits from all repos of the configured user/organisation
  */
 async function allCommits() {
   try {
+    const repos = await listRepos();
     const commitsPerRepo = await Promise.allSettled(
-      import.meta.env.VITE_GITHUB_REPOS.split(' ').map((name) => {
-        const [owner, repo] = name.split('/');
-        return listCommits(owner, repo);
-      }),
+      repos.map(({ owner, repo }) => listCommits(owner, repo)),
     );
 
     return {
@@ -72,7 +94,7 @@ async function allCommits() {
 async function allMembers() {
   try {
     const res = await octokit.rest.orgs.listMembers({
-      org: 'svsticky', //  TODO: Maybe move this to the env file
+      org: import.meta.env.VITE_GITHUB_USER,
       per_page: 100,
     });
 
