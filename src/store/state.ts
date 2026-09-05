@@ -56,7 +56,7 @@ export const stateConfig = [
   {
     state: StateMachineState.Commits,
     enabled:
-      enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_REPOS,
+      enabled('VITE_SHOW_COMMITS_PAGE') && !!import.meta.env.VITE_GITHUB_USER,
     internal: true,
   },
   {
