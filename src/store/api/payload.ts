@@ -1,24 +1,29 @@
 import { PayloadSDK } from '@payloadcms/sdk';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-export function isPayloadValid() {
+type PayloadEnsuredEnv = Exclude<ImportMetaEnv, 'VITE_PAYLOAD_API_URL'> & {
+  VITE_PAYLOAD_API_URL: string;
+};
+
+/**
+ * Check whether all variables for payload are configured.
+ * Payload does not require an API key, since this code is executed
+ * in the browser and, therefore, an API key would be publicly accessible
+ * and serves no use.
+ * @param env The `import.meta.env` whose type will be refined if the Payload
+ *            variables are correctly configured.
+ * @returns whether Payload can be used.
+ */
+export function isPayloadValid(env: ImportMetaEnv): env is PayloadEnsuredEnv {
   return (
-    import.meta.env.VITE_PAYLOAD_API_URL != undefined &&
-    import.meta.env.VITE_PAYLOAD_API_URL != '' &&
-    import.meta.env.VITE_PAYLOAD_API_KEY != undefined &&
-    import.meta.env.VITE_PAYLOAD_API_KEY != ''
+    env.VITE_PAYLOAD_API_URL !== undefined && env.VITE_PAYLOAD_API_URL !== ''
   );
 }
 
 function createBaseQuery() {
-  if (isPayloadValid()) {
+  if (isPayloadValid(import.meta.env)) {
     const payload = new PayloadSDK({
-      baseURL: import.meta.env.VITE_PAYLOAD_API_URL!,
-      baseInit: {
-        headers: {
-          Authorization: `users API-Key ${import.meta.env.VITE_PAYLOAD_API_KEY}`,
-        },
-      },
+      baseURL: import.meta.env.VITE_PAYLOAD_API_URL,
     });
 
     /**
@@ -36,7 +41,6 @@ function createBaseQuery() {
           draft: false,
           locale: 'en',
         });
-        console.log(docs);
         return { data: docs };
       } catch (error) {
         return { error };
