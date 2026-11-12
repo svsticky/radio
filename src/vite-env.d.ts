@@ -2,7 +2,6 @@
 
 interface ImportMetaEnv {
   readonly VITE_PAYLOAD_API_URL?: string;
-  readonly VITE_PAYLOAD_API_KEY?: string;
 
   readonly VITE_LOGO: string;
   readonly VITE_TAVERN_API_BASE?: string;
