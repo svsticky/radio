@@ -1,9 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_CONTENTFUL_SPACE_ID: string;
-  readonly VITE_CONTENTFUL_ACCESS_TOKEN: string;
-  readonly VITE_CONTENTFUL_ENVIRONMENT: string;
+  readonly VITE_PAYLOAD_API_URL?: string;
+  readonly VITE_PAYLOAD_API_KEY?: string;
 
   readonly VITE_LOGO: string;
   readonly VITE_TAVERN_API_BASE?: string;

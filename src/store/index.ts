@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 
-import { koala, contentful, github, weather, isContentfulValid } from './api';
+import { koala, payload, github, weather, isPayloadValid } from './api';
 import screen, {
   incrementBoardMessageIndex,
   incrementQuoteIndex,
@@ -50,11 +50,11 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
 
     case StateMachineState.Advertisement:
       {
-        if (!isContentfulValid()) {
+        if (!isPayloadValid()) {
           dispatch(resetCurrentIndex());
         } else {
           const { data: ads, isSuccess } =
-            contentful.endpoints.ads.select()(state);
+            payload.endpoints.ads.select()(state);
           if (!isSuccess) break;
 
           if (state.screen.screenCurrentIndex >= ads.length - 1) {
@@ -71,7 +71,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
     case StateMachineState.BoardText:
       {
         const { data: messages, isSuccess } =
-          contentful.endpoints.boardMessages.select()(state);
+          payload.endpoints.boardMessages.select()(state);
 
         if (isSuccess) {
           if (state.screen.boardMessageIndex >= messages.length - 1) {
@@ -89,7 +89,7 @@ export const nextState: ThunkAction<void, RootState, void, UnknownAction> = (
     case StateMachineState.Quotes:
       {
         const { data: quotes, isSuccess } =
-          contentful.endpoints.quotes.select()(state);
+          payload.endpoints.quotes.select()(state);
 
         if (isSuccess) {
           if (state.screen.quoteIndex >= quotes.length - 1) {
@@ -127,7 +127,7 @@ export function getNewState(
 
     if (!config.enabled) continue;
     if (config.internal && !displayInternal) continue;
-    if (!isContentfulValid() && config.needsContentful) continue;
+    if (!isPayloadValid() && config.needsPayload) continue;
 
     return config.state;
   }
@@ -139,7 +139,7 @@ export function getFirstState(displayInternal: boolean): StateMachineState {
   for (const { state, ...config } of stateConfig) {
     if (!config.enabled) continue;
     if (config.internal && !displayInternal) continue;
-    if (!isContentfulValid() && config.needsContentful) continue;
+    if (!isPayloadValid() && config.needsPayload) continue;
     return state;
   }
   return StateMachineState.Activities; // fallback
@@ -152,7 +152,7 @@ export function getFirstState(displayInternal: boolean): StateMachineState {
 const store = configureStore({
   reducer: {
     [koala.reducerPath]: koala.reducer,
-    [contentful.reducerPath]: contentful.reducer,
+    [payload.reducerPath]: payload.reducer,
     [github.reducerPath]: github.reducer,
     [weather.reducerPath]: weather.reducer,
     screen,
@@ -160,7 +160,7 @@ const store = configureStore({
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()
       .concat(koala.middleware)
-      .concat(contentful.middleware)
+      .concat(payload.middleware)
       .concat(github.middleware)
       .concat(weather.middleware);
   },

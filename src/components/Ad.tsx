@@ -23,9 +23,9 @@ export default function Ad({ current }: StateMachineSlideProps) {
 
   const currentAd = ads[current];
 
-  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
+  if (!currentAd.poster?.url) throw new Error('Ad without poster');
 
-  const contentType = currentAd.poster?.fields.file.contentType;
+  const contentType = currentAd.poster?.mimeType;
   if (contentType.startsWith('video')) {
     return <VideoAd currentAd={currentAd} />;
   } else {
@@ -33,12 +33,12 @@ export default function Ad({ current }: StateMachineSlideProps) {
   }
 }
 
-function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
+function VideoAd({ currentAd }: { currentAd: Ad }) {
   const dispatch = useAppDispatch();
 
   const onEnded = useCallback(() => dispatch(nextState), [dispatch]);
 
-  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
+  if (!currentAd.poster?.url) throw new Error('Ad without poster');
 
   // If the video ad swaps out for another video ad, then reset the player.
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -48,34 +48,26 @@ function VideoAd({ currentAd }: { currentAd: Ad['fields'] }) {
 
   return (
     <video className="video-ad" onEnded={onEnded} autoPlay muted ref={videoRef}>
-      <source
-        src={currentAd.poster.fields.file.url}
-        type={currentAd.poster.fields.file.contentType}
-      />
+      <source src={currentAd.poster.url} type={currentAd.poster.mimeType} />
     </video>
   );
 }
 
-function ImageAd({ currentAd }: { currentAd: Ad['fields'] }) {
+function ImageAd({ currentAd }: { currentAd: Ad }) {
   const dependencies = [currentAd];
   useTimer(
-    currentAd.duration
-      ? { duration: currentAd.duration * 1000, dependencies }
+    currentAd.durationSec
+      ? { duration: currentAd.durationSec * 1000, dependencies }
       : { dependencies },
   );
 
-  if (!currentAd.poster?.fields.file?.url) throw new Error('Ad without poster');
+  if (!currentAd.poster?.url) throw new Error('Ad without poster');
 
   if (currentAd.fullscreen)
-    return (
-      <img
-        src={`https:${currentAd.poster.fields.file.url}`}
-        className="fullscreen-ad"
-      />
-    );
+    return <img src={currentAd.poster.url} className="fullscreen-ad" />;
 
   return (
-    <ContentWithPoster posterSrc={`https:${currentAd.poster.fields.file.url}`}>
+    <ContentWithPoster posterSrc={currentAd.poster.url}>
       <ul className="advertisement">
         <h1>{currentAd.title}</h1>
         <p>{currentAd.description}</p>

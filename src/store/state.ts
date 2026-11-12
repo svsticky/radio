@@ -14,7 +14,7 @@ export enum StateMachineState {
 export type StateConfig = {
   internal?: boolean; // only shown when displayInternal=true
   enabled?: boolean; // always skipped
-  needsContentful?: boolean;
+  needsPayload?: boolean;
 };
 
 /**
@@ -32,13 +32,13 @@ export const stateConfig = [
   {
     state: StateMachineState.Advertisement,
     enabled: enabled('VITE_SHOW_ADVERTISEMENT_PAGE'),
-    needsContentful: true,
+    needsPayload: true,
   },
   {
     state: StateMachineState.BoardText,
     enabled: enabled('VITE_SHOW_BOARDTEXT_PAGE'),
     internal: true,
-    needsContentful: true,
+    needsPayload: true,
   },
   {
     state: StateMachineState.SnowHeight,
@@ -51,7 +51,7 @@ export const stateConfig = [
     state: StateMachineState.Quotes,
     enabled: enabled('VITE_SHOW_QUOTES_PAGE'),
     internal: true,
-    needsContentful: true,
+    needsPayload: true,
   },
   {
     state: StateMachineState.Commits,
