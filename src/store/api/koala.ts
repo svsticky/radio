@@ -26,6 +26,8 @@ export type Activity = {
   end_date: string | null;
   poster: string;
   participant_counter: string;
+  participant_max: string;
+  isEnrollable: boolean;
   has_start_time: boolean;
   has_end_time: boolean;
 };

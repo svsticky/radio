@@ -33,6 +33,8 @@ export default function Activity({
   has_start_time,
   has_end_time,
   participant_counter,
+  participant_max,
+  isEnrollable,
 }: ActivityProps) {
   const activityRef = useRef<HTMLLIElement | null>(null);
 
