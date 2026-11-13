@@ -11,7 +11,7 @@ type ResponseActivity = {
   posterPath?: string | null;
   posterFileName?: string | null;
   participant_counter?: string | number;
-  participant_max?: string | number;
+  participantLimit?: string | number;
   enrollments?: unknown[];
   isEnrollable: boolean;
   showInKoala?: boolean;
@@ -80,10 +80,10 @@ export const koala = createApi({
 
             let participantMax = '';
             if (
-              act.participant_max !== undefined &&
-              act.participant_max !== null
+              act.participantLimit !== undefined &&
+              act.participantLimit !== null
             ) {
-              participantMax = act.participant_max.toString();
+              participantMax = act.participantLimit.toString();
             }
 
             return {
