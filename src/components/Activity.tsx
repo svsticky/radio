@@ -58,7 +58,8 @@ export default function Activity({
     if (!isEnrollable) return '';
     if (participant_max && participant_counter >= participant_max)
       return 'vol!';
-    if (!participant_max) return `${participant_counter ?? ''}`;
+    if (!participant_max || participant_max === '')
+      return `${participant_counter ?? ''}`;
     return `${participant_counter ?? 0}/${participant_max}`;
   })();
 
