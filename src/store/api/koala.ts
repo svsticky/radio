@@ -69,7 +69,9 @@ export const koala = createApi({
             ) {
               participantCount = act.participant_counter.toString();
             } else if (Array.isArray(act.enrollments)) {
-              participantCount = act.enrollments.length.toString();
+              participantCount = act.enrollments
+                .filter((p) => !p.isOnWaitingList)
+                .length.toString();
             }
 
             return {
