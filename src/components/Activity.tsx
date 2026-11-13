@@ -52,6 +52,13 @@ export default function Activity({
         createFormat(has_end_time, new Date(end_date), new Date(start_date)),
       )
     : null;
+  const participantLabel = (() => {
+    if (!isEnrollable) return '';
+    if (participant_max && participant_counter >= participant_max)
+      return 'vol!';
+    if (!participant_max) return `${participant_counter ?? ''}`;
+    return `${participant_counter ?? 0}/${participant_max}`;
+  })();
 
   return (
     <li className={`activity ${active ? ' active' : ''}`} ref={activityRef}>
@@ -62,9 +69,9 @@ export default function Activity({
           {endDate ? ` - ${endDate}` : ''}
         </div>
         <div className="participants">
-          {participant_counter ?? ''}
+          {participantLabel}
           <span className="material-symbols-outlined">
-            {participant_counter ? 'group' : ''}
+            {isEnrollable && participant_counter ? 'group' : ''}
           </span>
         </div>
       </div>
