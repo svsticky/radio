@@ -56,11 +56,11 @@ export default function Activity({
     : null;
   const participantLabel = (() => {
     if (!isEnrollable) return '';
-    if (participant_max && participant_counter >= participant_max)
-      return 'vol!';
-    if (!participant_max || participant_max === '')
-      return `${participant_counter ?? ''}`;
-    return `${participant_counter ?? 0}/${participant_max}`;
+    const count = Number(participant_counter || 0);
+    const max = Number(participant_max || 0);
+    if (max > 0 && count >= max) return 'vol!';
+    if (!participant_max) return `${count}`;
+    return `${count}/${max}`;
   })();
 
   return (
