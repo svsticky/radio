@@ -11,7 +11,9 @@ type ResponseActivity = {
   posterPath?: string | null;
   posterFileName?: string | null;
   participant_counter?: string | number;
+  participant_max?: string | number;
   enrollments?: unknown[];
+  isEnrollable: boolean;
   showInKoala?: boolean;
   showOnWebsite?: boolean;
   show_on_website?: boolean;
@@ -74,6 +76,14 @@ export const koala = createApi({
                 .length.toString();
             }
 
+            let participantMax = '';
+            if (
+              act.participant_max !== undefined &&
+              act.participant_max !== null
+            ) {
+              participantMax = act.participant_max.toString();
+            }
+
             return {
               id: act.id.toString(),
               name: act.name,
@@ -81,6 +91,8 @@ export const koala = createApi({
               end_date: endDate,
               poster: posterUrl,
               participant_counter: participantCount,
+              participant_max: participantMax,
+              isEnrollable: act.isEnrollable,
               has_start_time: startDate.indexOf('T') > -1,
               has_end_time: endDate ? endDate.indexOf('T') > -1 : false,
             };
