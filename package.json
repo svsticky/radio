@@ -15,7 +15,6 @@
   "dependencies": {
     "@payloadcms/sdk": "^3.93.0",
     "@reduxjs/toolkit": "^2.2.6",
-    "contentful": "^10.6.1",
     "moment": "^2.29.4",
     "octokit": "^4.1.1",
     "react": "^18.2.0",

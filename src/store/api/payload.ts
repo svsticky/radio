@@ -27,9 +27,9 @@ function createBaseQuery() {
     });
 
     /**
-     * A base query function for contentful queries: each endpoint
-     * specifies the content_type of the thing it requests and these
-     * entries are searched via the contentful API.
+     * A base query function for payload queries: each endpoint
+     * specifies the collection of the thing it requests and these
+     * entries are searched via the payload API.
      */
     return async function payloadBaseQuery(
       collection: 'ads' | 'quotes' | 'board-messages',
