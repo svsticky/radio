@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "es2025",
     "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "bundler",
