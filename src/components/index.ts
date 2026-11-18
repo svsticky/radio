@@ -4,7 +4,6 @@ export { default as BoardText } from './BoardText';
 export { default as Clock } from './Clock';
 export { default as Commits } from './Commits';
 export { default as Quotes } from './Quotes';
-export { default as Team } from './Team';
 export { default as SnowHeight } from './SnowHeight';
 export { default as Weather } from './Weather';
 export { default as CommitteeClash } from './CommitteeClash';

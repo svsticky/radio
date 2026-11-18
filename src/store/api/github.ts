@@ -1,9 +1,7 @@
 import { Octokit } from 'octokit';
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const octokit = new Octokit({
-  auth: import.meta.env.VITE_GITHUB_API_TOKEN,
-});
+const octokit = new Octokit();
 
 type Commit = {
   message: string;
@@ -11,76 +9,37 @@ type Commit = {
   date: number | null;
   repo: string;
   owner: string;
-};
-
-type Member = {
-  avatar_url: string;
-  name: string;
+  avatar?: string;
 };
 
 /**
- * Return all commits from a Github repository
- * identified by owner and name.
- */
-async function listCommits(owner: string, repo: string): Promise<Commit[]> {
-  const { data: commits } = await octokit.rest.repos.listCommits({
-    owner,
-    repo,
-    per_page: 4,
-  });
-
-  return commits
-    .filter((commit) => !!commit.commit.committer?.date)
-    .map(({ commit, sha }) => ({
-      id: sha,
-      message: commit.message,
-      author: commit.author?.name ?? commit.author?.email ?? '',
-      date: new Date(commit.committer!.date!).getTime(),
-      repo,
-      owner,
-    }));
-}
-
-/**
- * Get all commits from all the configered repos in the environment
+ * Get all commits in the svsticky organisation from the last 2 weeks
+ * sorted on commit date descendingly.
  */
 async function allCommits() {
   try {
-    const commitsPerRepo = await Promise.allSettled(
-      import.meta.env.VITE_GITHUB_REPOS.split(' ').map((name) => {
-        const [owner, repo] = name.split('/');
-        return listCommits(owner, repo);
-      }),
-    );
-
-    return {
-      data: commitsPerRepo
-        .flatMap((commits) =>
-          commits.status === 'fulfilled' ? commits.value : [],
-        )
-        .filter((commit): commit is Commit & { date: number } => !!commit.date)
-        .sort((a, b) => b.date - a.date),
-    };
-  } catch (error) {
-    return { error };
-  }
-}
-
-/**
- * Get all members in the github organisation
- */
-async function allMembers() {
-  try {
-    const res = await octokit.rest.orgs.listMembers({
-      org: 'svsticky', //  TODO: Maybe move this to the env file
-      per_page: 100,
+    const week = 7 * 24 * 60 * 60 * 1000;
+    const twoWeeksAgo = new Date(new Date().getTime() - 2 * week);
+    const yearString = twoWeeksAgo.getUTCFullYear();
+    const monthString = String(twoWeeksAgo.getUTCMonth() + 1).padStart(2, '0');
+    const dayString = String(twoWeeksAgo.getUTCDate() + 1).padStart(2, '0');
+    const {
+      data: { items },
+    } = await octokit.rest.search.commits({
+      q: `org:svsticky+committer-date:>${yearString}-${monthString}-${dayString}`,
+      sort: 'committer-date',
     });
 
     return {
-      data: res.data.map((member) => ({
-        name: member.name || member.login,
-        avatar_url: member.avatar_url,
-      })) as Member[],
+      data: items.map((item) => ({
+        id: item.sha,
+        message: item.commit.message,
+        author: item.commit.author.name,
+        date: new Date(item.commit.author.date).getTime(),
+        repo: item.repository.name,
+        owner: 'svsticky',
+        avatar: item.author?.avatar_url,
+      })),
     };
   } catch (error) {
     return { error };
@@ -98,8 +57,7 @@ export const github = createApi({
   baseQuery: fakeBaseQuery(),
   endpoints: (build) => ({
     allCommits: build.query<Commit[], void>({ queryFn: allCommits }),
-    members: build.query<Member[], void>({ queryFn: allMembers }),
   }),
 });
 
-export const { useAllCommitsQuery, useMembersQuery } = github;
+export const { useAllCommitsQuery } = github;
