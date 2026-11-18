@@ -51,8 +51,8 @@ jobs:
     environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
 
     steps:
-      - name: Trigger deploy on server  # Triggers a webhook on our server, handled by Aas (svsticky/aas)
+      - name: Trigger deploy on server # Triggers a webhook on our server, handled by Aas (svsticky/aas)
         uses: distributhor/workflow-webhook@v3
         env:
-          webhook_url:    ${{ vars.AAS_URL }}
+          webhook_url: ${{ vars.AAS_URL }}
           webhook_secret: ${{ secrets.AAS_PRE_SHARED_KEY }}

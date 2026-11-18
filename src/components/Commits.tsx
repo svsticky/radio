@@ -19,7 +19,7 @@ export default function Commits() {
           {commits.map((commit, index) => (
             <li key={index} className="commit-list-item">
               <p className="message">{commit.message.split('\n')[0]}</p>
-              <p className="details">
+              <div className="details">
                 {commit.avatar && <img src={commit.avatar} />}
                 <div>
                   On{' '}
@@ -29,7 +29,7 @@ export default function Commits() {
                   {' by'} <strong>{commit.author}</strong>
                   {commit.date ? ` (${moment(commit.date).format('LLL')})` : ''}
                 </div>
-              </p>
+              </div>
             </li>
           ))}
         </ul>
