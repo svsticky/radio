@@ -33,6 +33,8 @@ export default function Activity({
   has_start_time,
   has_end_time,
   participant_counter,
+  participant_max,
+  isEnrollable,
 }: ActivityProps) {
   const activityRef = useRef<HTMLLIElement | null>(null);
 
@@ -52,6 +54,14 @@ export default function Activity({
         createFormat(has_end_time, new Date(end_date), new Date(start_date)),
       )
     : null;
+  const participantLabel = (() => {
+    if (!isEnrollable) return '';
+    const count = Number(participant_counter || 0);
+    const max = Number(participant_max || 0);
+    if (max > 0 && count >= max) return 'vol!';
+    if (!participant_max) return `${count}`;
+    return `${count}/${max}`;
+  })();
 
   return (
     <li className={`activity ${active ? ' active' : ''}`} ref={activityRef}>
@@ -62,9 +72,9 @@ export default function Activity({
           {endDate ? ` - ${endDate}` : ''}
         </div>
         <div className="participants">
-          {participant_counter ?? ''}
+          {participantLabel}
           <span className="material-symbols-outlined">
-            {participant_counter ? 'group' : ''}
+            {isEnrollable && participant_counter ? 'group' : ''}
           </span>
         </div>
       </div>

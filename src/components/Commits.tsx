@@ -19,14 +19,17 @@ export default function Commits() {
           {commits.map((commit, index) => (
             <li key={index} className="commit-list-item">
               <p className="message">{commit.message.split('\n')[0]}</p>
-              <p className="details">
-                On{' '}
-                <em>
-                  {commit.owner}/{commit.repo}
-                </em>
-                {' by'} <strong>{commit.author}</strong>
-                {commit.date ? ` (${moment(commit.date).format('LLL')})` : ''}
-              </p>
+              <div className="details">
+                {commit.avatar && <img src={commit.avatar} />}
+                <div>
+                  On{' '}
+                  <em>
+                    {commit.owner}/{commit.repo}
+                  </em>
+                  {' by'} <strong>{commit.author}</strong>
+                  {commit.date ? ` (${moment(commit.date).format('LLL')})` : ''}
+                </div>
+              </div>
             </li>
           ))}
         </ul>

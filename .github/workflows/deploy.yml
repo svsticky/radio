@@ -1,0 +1,72 @@
+name: Build and deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'development'
+      - 'master'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} # Does not distinguish PRs, for this workflow won't run on PR branches
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build artifact
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate a production build
+        run: npm run build
+        env:
+          VITE_CONTENTFUL_SPACE_ID: ${{ secrets.VITE_CONTENTFUL_SPACE_ID }}
+          VITE_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.VITE_CONTENTFUL_ACCESS_TOKEN }}
+          VITE_CONTENTFUL_ENVIRONMENT: master
+
+          VITE_LOGO: https://public.svsticky.nl/logos/logo_compact_outline_wit.svg
+          VITE_TAVERN_API_BASE: ${{ vars.VITE_TAVERN_API_BASE }}
+
+          VITE_LOAD_INTERVAL: 900000
+          VITE_NEXT_INTERVAL: 8000
+
+          VITE_WEATHER_API_TOKEN: ${{ secrets.VITE_WEATHER_API_TOKEN }}
+
+          VITE_COMMITTEECLASH_GRAPH: ${{ vars.VITE_COMMITTEECLASH_GRAPH }}
+
+      # Astro will produce a build in `dist/`
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-build-static-files
+          path: ./dist/
+          retention-days: 45 # Default value is 90, and cannot be higher than that. Because of this we have the cron job above to prevent the latest artifact from being deleted without being replaced. Since we do that monthly anyway, we remove it earlier for we use less storage that way.
+
+  deploy:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development'
+    name: Notify server of new artifact
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+
+    steps:
+      - name: Trigger deploy on server # Triggers a webhook on our server, handled by Aas (svsticky/aas)
+        uses: distributhor/workflow-webhook@v3
+        env:
+          webhook_url: ${{ vars.AAS_URL }}
+          webhook_secret: ${{ secrets.AAS_PRE_SHARED_KEY }}

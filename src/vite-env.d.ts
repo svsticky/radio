@@ -9,9 +9,6 @@ interface ImportMetaEnv {
   readonly VITE_LOAD_INTERVAL: string;
   readonly VITE_NEXT_INTERVAL: string;
 
-  readonly VITE_GITHUB_REPOS: string;
-  readonly VITE_GITHUB_API_TOKEN: string;
-
   readonly VITE_COMMITTEECLASH_GRAPH?: string;
 
   readonly VITE_SNOW_HEIGHT_URL?: string;
