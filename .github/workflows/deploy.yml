@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - 'development'
-      - 'master'
+      - 'main'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }} # Does not distinguish PRs, for this workflow won't run on PR branches
