@@ -210,7 +210,21 @@ body {
   & .details {
     font-size: 1.75rem;
     padding: 0;
-    margin: 1rem 1rem 1rem 2rem;
+    margin: 1rem 1rem 1rem 0rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    div {
+      margin: auto 0;
+    }
+
+    img {
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      margin: auto 0;
+    }
   }
 }
 
